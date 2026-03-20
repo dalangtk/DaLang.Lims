@@ -10,7 +10,7 @@
 
 ![Database](https://img.shields.io/badge/database-MySQL-orange)
 
-**现代化、可扩展的实验室信息管理系统**
+**现代化、可扩展的医学检验实验室信息管理系统**
 
 </div>
 
