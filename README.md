@@ -6,7 +6,7 @@
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-blue.svg)
 
-![License](https://img.shields.io/badge/license-MIT-green)
+![License](https://img.shields.io/badge/license-GPL-green)
 
 ![Database](https://img.shields.io/badge/database-MySQL-orange)
 
@@ -141,8 +141,6 @@ ModuleName
   - [ ] 报告合并打印
   - [ ] 工作量统计
 
-![登录]( https://gitee.com/shabigou/dalang-lims/blob/master/images/01login.png )
-
 ---
 
 ## 🚀 核心特性
@@ -256,8 +254,25 @@ dotnet run
   "DaLang.Lims.ReportTemplate.Domain"
 ]
 ```
+
+## 效果图
+![login]( https://gitee.com/shabigou/dalang-lims/raw/master/images/01login.png )
+![homepage]( https://gitee.com/shabigou/dalang-lims/raw/master/images/02homepage.png )
+![user]( https://gitee.com/shabigou/dalang-lims/raw/master/images/03user.png )
+![role]( https://gitee.com/shabigou/dalang-lims/raw/master/images/04role.png )
+![dict]( https://gitee.com/shabigou/dalang-lims/raw/master/images/05dict.png )
+![operlog]( https://gitee.com/shabigou/dalang-lims/raw/master/images/06operlog.png )
+![item]( https://gitee.com/shabigou/dalang-lims/raw/master/images/07item.png )
+![sampleinput]( https://gitee.com/shabigou/dalang-lims/raw/master/images/08sampleinput.png )
+![import]( https://gitee.com/shabigou/dalang-lims/raw/master/images/09import.png )
+![sorting]( https://gitee.com/shabigou/dalang-lims/raw/master/images/10sorting.png )
+![handover]( https://gitee.com/shabigou/dalang-lims/raw/master/images/11handover.png )
+![exam]( https://gitee.com/shabigou/dalang-lims/raw/master/images/12exam.png )
+![reportdesigner]( https://gitee.com/shabigou/dalang-lims/raw/master/images/13reportdesigner.png )
+![report]( https://gitee.com/shabigou/dalang-lims/raw/master/images/14report.png )
+
 ## 📄 许可证
-本项目采用 GPL2.0 许可证，详见 LICENSE 文件。
+本项目采用GPL许可证，详见 LICENSE 文件。
 
 ## 🤝 贡献指南
 欢迎提交 Issue 和 Pull Request！
