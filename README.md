@@ -141,6 +141,8 @@ ModuleName
   - [ ] 报告合并打印
   - [ ] 工作量统计
 
+![登录]( https://gitee.com/shabigou/dalang-lims/blob/master/images/01login.png )
+
 ---
 
 ## 🚀 核心特性
