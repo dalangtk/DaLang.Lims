@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description></Description>
+		<PackageTags></PackageTags>
+		<SignAssembly>False</SignAssembly>
+		<PackageProjectUrl />
+		<Company />
+		<Version />
+		<Authors />
+		<PackageIcon />
+		<RepositoryUrl />
+		<RepositoryType />
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+</Project>

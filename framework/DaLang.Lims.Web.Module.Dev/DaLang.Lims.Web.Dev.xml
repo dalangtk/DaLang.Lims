@@ -1,0 +1,1929 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DaLang.Lims.Web.Dev</name>
+    </assembly>
+    <members>
+        <member name="P:DaLang.Lims.Web.Dev.Configs.DefaultCodegenOption.DbMigrateSqlOut">
+            <summary>
+            迁移sql
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Configs.DefaultCodegenOption.MenuAfterText">
+            <summary>
+            菜单后缀
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Configs.TemplateItemOption.IsExistSkip">
+            <summary>
+            存在则跳过
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Core.Consts.DbKeys">
+            <summary>
+            数据库键名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Core.Consts.DbKeys.AppDb">
+            <summary>
+            数据库注册键
+            </summary>
+        </member>
+        <member name="F:DaLang.Lims.Web.Dev.Core.Consts.DevConsts.AreaName">
+            <summary>
+            默认域
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.AuthorName">
+            <summary>
+            作者姓名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.TablePrefix">
+            <summary>
+            是否移除表前缀
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenerateType">
+            <summary>
+            生成方式 1 CodeFirst 2 DbFirst
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.DbKey">
+            <summary>
+            库定位器名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.DbName">
+            <summary>
+            数据库名(保留字段)
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.DbType">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.TableName">
+            <summary>
+            数据库表名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.Namespace">
+            <summary>
+            命名空间
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.EntityName">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.BusName">
+            <summary>
+            业务名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.ApiAreaName">
+            <summary>
+            Api分区名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.AreaGrouping">
+            <summary>
+            API区域二级分组名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.BaseEntity">
+            <summary>
+            基类名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.MenuPid">
+            <summary>
+            菜单编码
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.MenuAfterText">
+            <summary>
+            菜单后缀
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.BackendOut">
+            <summary>
+            后端输出目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.FrontendOut">
+            <summary>
+            前端输出目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.DbMigrateSqlOut">
+            <summary>
+            数据迁移输出目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.Comment">
+            <summary>
+            备注说明
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.Usings">
+            <summary>
+            实体导入的命令空间
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenEntity">
+            <summary>
+            生成Entity实体类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenRepository">
+            <summary>
+            生成Repository仓储类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenService">
+            <summary>
+            生成Service服务类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenAdd">
+            <summary>
+            生成新增服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenUpdate">
+            <summary>
+            生成更新服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenDelete">
+            <summary>
+            新增删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenGetList">
+            <summary>
+            生成列表查询服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenSoftDelete">
+            <summary>
+            生成软删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenBatchDelete">
+            <summary>
+            生成批量删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenBatchSoftDelete">
+            <summary>
+            生成批量软删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenEntity.GenViewType">
+            <summary>
+            生成界面类型，单表/主子表
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.DbKey">
+            <summary>
+            库定位器名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.ColumnName">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.ColumnRawName">
+            <summary>
+            数据库列名(物理字段名)
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.NetType">
+            <summary>
+            .NET数据类型
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.DbType">
+            <summary>
+            数据库中类型（物理类型）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.Comment">
+            <summary>
+            字段描述
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.DefaultValue">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.Title">
+            <summary>
+            字段标题
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IsPrimary">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IsNullable">
+            <summary>
+            可空
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.Length">
+            <summary>
+            长度
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.Editor">
+            <summary>
+            编辑器
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.Position">
+            <summary>
+            同步表结构时的列排序
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherCommon">
+            <summary>
+            是否通用字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherRetract">
+            <summary>
+            列表是否缩进（字典）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherQuery">
+            <summary>
+            是否是查询条件
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherAdd">
+            <summary>
+            增
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherUpdate">
+            <summary>
+            改
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherTable">
+            <summary>
+            分布显示
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.WhetherList">
+            <summary>
+            列表
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IndexMode">
+            <summary>
+            索引方式
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IsUnique">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.QueryType">
+            <summary>
+            查询方式
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.DictTypeCode">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IncludeEntity">
+            <summary>
+            外联实体名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IncludeMode">
+            <summary>
+            外联对应关系 0 1对1 1 1对多
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.IncludeEntityKey">
+            <summary>
+            外联实体关联键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.DisplayColumn">
+            <summary>
+            显示文本字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.ValueColumn">
+            <summary>
+            选中值字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.PidColumn">
+            <summary>
+            父级字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.EffectType">
+            <summary>
+            作用类型（字典）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity.FrontendRuleTrigger">
+            <summary>
+            前端规则检测触发时机
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity">
+            <summary>
+            模板演示 实体类
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputText">
+            <summary>
+            文本框
+            </summary>
+            <remarks>请输入</remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputNumber">
+            <summary>
+            数字框
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputTextArea">
+            <summary>
+            文本域
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputDate">
+            <summary>
+            日期
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputSwitch">
+            <summary>
+            开关
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputSelectCustom">
+            <summary>
+            下拉框
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputCheckbox">
+            <summary>
+            复选框
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputSelectDict">
+            <summary>
+            字典
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputBussinessSingle">
+            <summary>
+            模块业务单选
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputBussinessMultiple">
+            <summary>
+            模块业务多选
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputImage">
+            <summary>
+            图片上传
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDemo.CodeGroupDemoEntity.InputEditor">
+            <summary>
+            编辑器
+            </summary>
+            <remarks>请输入内容</remarks>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity">
+            <summary>
+            模板明细 实体类
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity.Name">
+            <summary>
+            模板名称
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity.GroupId">
+            <summary>
+            模板分组
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity.Path">
+            <summary>
+            生成路径
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity.GroupIds">
+            <summary>
+            模板分组
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroupDetail.CodeGroupDetailEntity.Content">
+            <summary>
+            模板内容
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Domain.CodeGroup.CodeGroupEntity">
+            <summary>
+            模板组 实体类
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroup.CodeGroupEntity.Name">
+            <summary>
+            模板组名称
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Domain.CodeGroup.CodeGroupEntity.Remark">
+            <summary>
+            备注
+            </summary>
+            <remarks></remarks>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.CodeGenService">
+            <summary>
+            代码生成服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GetBaseDataAsync">
+            <summary>
+            获取数据库列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GetTablesAsync(System.String)">
+            <summary>
+            获取表列表
+            </summary>
+            <param name="dbkey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.RefreshColumns(System.Int64)">
+            <summary>
+            刷新表结构
+            </summary>
+            <param name="configId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GetListAsync(System.String,System.String)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="dbkey"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.UpdateAsync(DaLang.Lims.Web.Dev.Dto.CodeGenUpdateInput)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.BatchGenerateAsync(System.Int64[])">
+            <summary>
+            批量生成
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GenerateAsync(System.Int64)">
+            <summary>
+            生成
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.CompileAsync(System.Int64)">
+            <summary>
+            生成迁移代码
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GenCompileAsync(System.Int64)">
+            <summary>
+            执行迁移到数据库
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.CodeGenService.GenMenu(System.Int64)">
+            <summary>
+            生成菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Compiler.Reflect">
+            <summary>
+            内部反射静态类
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetEntryAssembly">
+            <summary>
+            获取入口程序集
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetAssembly(System.String)">
+            <summary>
+            根据程序集名称获取运行时程序集
+            </summary>
+            <param name="assemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.LoadAssembly(System.String)">
+            <summary>
+            根据路径加载程序集
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.LoadAssembly(System.IO.MemoryStream)">
+            <summary>
+            通过流加载程序集
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetType(System.String,System.String)">
+            <summary>
+            根据程序集名称、类型完整限定名获取运行时类型
+            </summary>
+            <param name="assemblyName"></param>
+            <param name="typeFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetType(System.Reflection.Assembly,System.String)">
+            <summary>
+            根据程序集和类型完全限定名获取运行时类型
+            </summary>
+            <param name="assembly"></param>
+            <param name="typeFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetType(System.IO.MemoryStream,System.String)">
+            <summary>
+            根据程序集和类型完全限定名获取运行时类型
+            </summary>
+            <param name="assembly"></param>
+            <param name="typeFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetAssemblyName(System.Reflection.Assembly)">
+            <summary>
+            获取程序集名称
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetAssemblyName(System.Type)">
+            <summary>
+            获取程序集名称
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetAssemblyName(System.Reflection.TypeInfo)">
+            <summary>
+            获取程序集名称
+            </summary>
+            <param name="typeInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Compiler.Reflect.GetStringType(System.String)">
+            <summary>
+            加载程序集类型，支持格式：程序集;网站类型命名空间
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.DbKey">
+            <summary>
+            库定位器名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.ColumnName">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.ColumnRawName">
+            <summary>
+            数据库列名(物理字段名)
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.NetType">
+            <summary>
+            .NET数据类型
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.DbType">
+            <summary>
+            数据库中类型（物理类型）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Comment">
+            <summary>
+            字段描述
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.DefaultValue">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Title">
+            <summary>
+            字段标题
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IsPrimary">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IsNullable">
+            <summary>
+            可空
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Length">
+            <summary>
+            长度
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Editor">
+            <summary>
+            编辑器
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Position">
+            <summary>
+            同步表结构时的列排序
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherCommon">
+            <summary>
+            是否通用字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherRetract">
+            <summary>
+            列表是否缩进（字典）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherQuery">
+            <summary>
+            是否是查询条件
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherAdd">
+            <summary>
+            增
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherUpdate">
+            <summary>
+            改
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherTable">
+            <summary>
+            分布显示
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.WhetherList">
+            <summary>
+            列表
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IndexMode">
+            <summary>
+            索引方式
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IsUnique">
+            <summary>
+            唯一键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.QueryType">
+            <summary>
+            查询方式
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.DictTypeCode">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IncludeEntity">
+            <summary>
+            外联实体名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IncludeMode">
+            <summary>
+            外联对应关系 0 1对1 1 1对多
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.IncludeEntityKey">
+            <summary>
+            外联实体关联键
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.DisplayColumn">
+            <summary>
+            显示文本字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.ValueColumn">
+            <summary>
+            选中值字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.PidColumn">
+            <summary>
+            父级字段
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.EffectType">
+            <summary>
+            作用类型（字典）
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.FrontendRuleTrigger">
+            <summary>
+            前端规则检测触发时机
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenFieldGetOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.AuthorName">
+            <summary>
+            作者姓名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.TablePrefix">
+            <summary>
+            是否移除表前缀
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenerateType">
+            <summary>
+            生成方式
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.DbKey">
+            <summary>
+            库定位器名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.DbType">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.TableName">
+            <summary>
+            数据库表名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.Namespace">
+            <summary>
+            命名空间
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.EntityName">
+            <summary>
+            实体名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.BusName">
+            <summary>
+            业务名
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.ApiAreaName">
+            <summary>
+            Api分区名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.AreaGrouping">
+            <summary>
+            API区域二级分组名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.BaseEntity">
+            <summary>
+            基类名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.MenuPid">
+            <summary>
+            父菜单
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.MenuAfterText">
+            <summary>
+            菜单后缀
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.BackendOut">
+            <summary>
+            后端输出目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.FrontendOut">
+            <summary>
+            前端输出目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.DbMigrateSqlOut">
+            <summary>
+            数据库迁移目录
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.Comment">
+            <summary>
+            备注说明
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.Usings">
+            <summary>
+            实体导入的命令空间
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenEntity">
+            <summary>
+            生成Entity实体类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenRepository">
+            <summary>
+            生成Repository仓储类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenService">
+            <summary>
+            生成Service服务类
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenAdd">
+            <summary>
+            生成新增服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenUpdate">
+            <summary>
+            生成更新服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenDelete">
+            <summary>
+            新增删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenGetList">
+            <summary>
+            生成列表查询服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenSoftDelete">
+            <summary>
+            生成软删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenBatchDelete">
+            <summary>
+            生成批量删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenBatchSoftDelete">
+            <summary>
+            生成批量软删除服务
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Dto.CodeGenGetOutput.GenViewType">
+            <summary>
+            生成界面类型，单表/主子表
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.ICodeGenService">
+            <summary>
+            代码生成接口
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService">
+            <summary>
+            模板演示服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.CodeGroupDemoService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量软删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService">
+            <summary>
+            模板演示服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput)">
+            <summary>
+            新增
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput)">
+            <summary>
+            编辑
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.ICodeGroupDemoService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量软删除
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput">
+            <summary>模板演示列表查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputText">
+            <summary>文本框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputNumber">
+            <summary>数字框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputTextArea">
+            <summary>文本域</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputDate">
+            <summary>日期</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputSwitch">
+            <summary>开关</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputSelectCustom">
+            <summary>下拉框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputCheckbox">
+            <summary>复选框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputSelectDict">
+            <summary>字典</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputSelectDictDictName">
+            <summary>字典名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputBussinessSingle">
+            <summary>模块业务单选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputBussinessSingle_Text">
+            <summary>模块业务单选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputBussinessMultiple">
+            <summary>模块业务多选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputBussinessMultiple_Texts">
+            <summary>模块业务多选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputBussinessMultiple_Values">
+            <summary>页面使用的模块业务多选数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputImage">
+            <summary>图片上传</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListOutput.InputEditor">
+            <summary>编辑器</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetListInput">
+            <summary>模板演示列表查询条件输入</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput">
+            <summary>模板演示查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputText">
+            <summary>文本框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputNumber">
+            <summary>数字框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputTextArea">
+            <summary>文本域</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputDate">
+            <summary>日期</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputSwitch">
+            <summary>开关</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputSelectCustom">
+            <summary>下拉框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputCheckbox">
+            <summary>复选框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputSelectDict">
+            <summary>字典</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputBussinessSingle">
+            <summary>模块业务单选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputBussinessSingle_Text">
+            <summary>模块业务单选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputBussinessMultiple">
+            <summary>模块业务多选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputBussinessMultiple_Texts">
+            <summary>模块业务多选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputBussinessMultiple_Values">
+            <summary>页面使用的模块业务多选数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputImage">
+            <summary>图片上传</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetOutput.InputEditor">
+            <summary>编辑器</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput">
+            <summary>模板演示分页查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputText">
+            <summary>文本框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputNumber">
+            <summary>数字框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputTextArea">
+            <summary>文本域</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputDate">
+            <summary>日期</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputSwitch">
+            <summary>开关</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputSelectCustom">
+            <summary>下拉框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputCheckbox">
+            <summary>复选框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputSelectDict">
+            <summary>字典</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputSelectDictDictName">
+            <summary>字典名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputBussinessSingle">
+            <summary>模块业务单选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputBussinessSingle_Text">
+            <summary>模块业务单选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputBussinessMultiple">
+            <summary>模块业务多选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputBussinessMultiple_Texts">
+            <summary>模块业务多选显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputBussinessMultiple_Values">
+            <summary>页面使用的模块业务多选数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputImage">
+            <summary>图片上传</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageOutput.InputEditor">
+            <summary>编辑器</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput">
+            <summary>模板演示分页查询条件输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputText">
+            <summary>文本框</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputNumber">
+            <summary>数字框</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputDate">
+            <summary>日期</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputSwitch">
+            <summary>开关</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputSelectCustom">
+            <summary>下拉框</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputSelectDict">
+            <summary>字典</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoGetPageInput.InputBussinessSingle">
+            <summary>模块业务单选</summary>       
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput">
+            <summary>模板演示新增输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputText">
+            <summary>文本框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputNumber">
+            <summary>数字框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputTextArea">
+            <summary>文本域</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputDate">
+            <summary>日期</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputSwitch">
+            <summary>开关</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputSelectCustom">
+            <summary>下拉框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputCheckbox">
+            <summary>复选框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputSelectDict">
+            <summary>字典</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputBussinessSingle">
+            <summary>模块业务单选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputBussinessMultiple">
+            <summary>模块业务多选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputBussinessMultiple_Values">
+            <summary>页面提交的模块业务多选数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputImage">
+            <summary>图片上传</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoAddInput.InputEditor">
+            <summary>编辑器</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput">
+            <summary>模板演示更新数据输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputText">
+            <summary>文本框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputNumber">
+            <summary>数字框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputTextArea">
+            <summary>文本域</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputDate">
+            <summary>日期</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputSwitch">
+            <summary>开关</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputSelectCustom">
+            <summary>下拉框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputCheckbox">
+            <summary>复选框</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputSelectDict">
+            <summary>字典</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputBussinessSingle">
+            <summary>模块业务单选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputBussinessMultiple">
+            <summary>模块业务多选</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputBussinessMultiple_Values">
+            <summary>页面提交的模块业务多选数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputImage">
+            <summary>图片上传</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDemo.Dto.CodeGroupDemoUpdateInput.InputEditor">
+            <summary>编辑器</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService">
+            <summary>
+            模板明细服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.CodeGroupDetailService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量软删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService">
+            <summary>
+            模板明细服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput)">
+            <summary>
+            新增
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput)">
+            <summary>
+            编辑
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.ICodeGroupDetailService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量软删除
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput">
+            <summary>模板明细列表查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.Name">
+            <summary>模板名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.GroupId">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.GroupId_Text">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.Path">
+            <summary>生成路径</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.GroupIds">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.GroupIds_Texts">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.GroupIds_Values">
+            <summary>页面使用的模板分组数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListOutput.Content">
+            <summary>模板内容</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetListInput">
+            <summary>模板明细列表查询条件输入</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput">
+            <summary>模板明细查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.Name">
+            <summary>模板名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.GroupId">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.GroupId_Text">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.Path">
+            <summary>生成路径</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.GroupIds">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.GroupIds_Texts">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.GroupIds_Values">
+            <summary>页面使用的模板分组数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetOutput.Content">
+            <summary>模板内容</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput">
+            <summary>模板明细分页查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.Name">
+            <summary>模板名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.GroupId">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.GroupId_Text">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.Path">
+            <summary>生成路径</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.GroupIds">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.GroupIds_Texts">
+            <summary>模板分组显示文本</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.GroupIds_Values">
+            <summary>页面使用的模板分组数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageOutput.Content">
+            <summary>模板内容</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageInput">
+            <summary>模板明细分页查询条件输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageInput.Name">
+            <summary>模板名称</summary>       
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailGetPageInput.GroupId">
+            <summary>模板分组</summary>       
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput">
+            <summary>模板明细新增输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.Name">
+            <summary>模板名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.GroupId">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.Path">
+            <summary>生成路径</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.GroupIds">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.GroupIds_Values">
+            <summary>页面提交的模板分组数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailAddInput.Content">
+            <summary>模板内容</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput">
+            <summary>模板明细更新数据输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.Name">
+            <summary>模板名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.GroupId">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.Path">
+            <summary>生成路径</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.GroupIds">
+            <summary>模板分组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.GroupIds_Values">
+            <summary>页面提交的模板分组数组</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroupDetail.Dto.CodeGroupDetailUpdateInput.Content">
+            <summary>模板内容</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService">
+            <summary>
+            模板组服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupUpdateInput)">
+            <summary>
+            更新
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.CodeGroupService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService">
+            <summary>
+            模板组服务
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.GetPageAsync(DaLang.Lims.Web.Framework.Core.Dto.PageInput{DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageInput})">
+            <summary>
+            分页查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.GetListAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListInput)">
+            <summary>
+            列表查询
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.AddAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupAddInput)">
+            <summary>
+            新增
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.UpdateAsync(DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupUpdateInput)">
+            <summary>
+            编辑
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Services.CodeGroup.ICodeGroupService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListOutput">
+            <summary>模板组列表查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListOutput.Name">
+            <summary>模板组名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListOutput.Remark">
+            <summary>备注</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetListInput">
+            <summary>模板组列表查询条件输入</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetOutput">
+            <summary>模板组查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetOutput.Name">
+            <summary>模板组名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetOutput.Remark">
+            <summary>备注</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageOutput">
+            <summary>模板组分页查询结果输出</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageOutput.Name">
+            <summary>模板组名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageOutput.Remark">
+            <summary>备注</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageInput">
+            <summary>模板组分页查询条件输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupGetPageInput.Name">
+            <summary>模板组名称</summary>       
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupAddInput">
+            <summary>模板组新增输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupAddInput.Name">
+            <summary>模板组名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupAddInput.Remark">
+            <summary>备注</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupUpdateInput">
+            <summary>模板组更新数据输入</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupUpdateInput.Name">
+            <summary>模板组名称</summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Dev.Services.CodeGroup.Dto.CodeGroupUpdateInput.Remark">
+            <summary>备注</summary>
+        </member>
+        <member name="T:DaLang.Lims.Web.Dev.Util.CodeGenUtil">
+            <summary>
+            代码生成帮助类
+            </summary>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Util.CodeGenUtil.CamelColumnName(System.String,System.String[])">
+            <summary>
+            转换大驼峰法命名
+            </summary>
+            <param name="columnName">字段名</param>
+            <param name="dbColumnNames">EntityBase 实体属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:DaLang.Lims.Web.Dev.Util.CodeGenUtil.DataTypeToEff(System.String)">
+            <summary>
+            数据类型转显示类型
+            </summary>
+            <param name="dataType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.IsTextColumn(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            是否文本列
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.IsTextQueryContains(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            是否包含
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.IsNumColumn(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            是否数字列
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.IsIgnoreColumn(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            返回是否在实现中忽略的字段
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+            <remarks>当列名(ColumnName)为 "- _ >" 的任意一个字符时返回 true </remarks>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.IsIncludeColumn(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            返回是否为引入字符
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+            <remarks>当 IncludeEntity 不为空时返回 true</remarks>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.GetDefautlValuestringCS(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            按列的类型获取CSharp对应的默认值字符串表示形式
+            </summary>
+            <param name="col"></param>
+            <remarks>
+            数字型：返回原始值
+            布尔型：1-true true-true false-false 其它值-false
+            日期型：new DateTime(Year, Month, Day, Hour, Minute, Second)
+            字符型：'默认值第一个字符'
+            字符串："默认值"
+            </remarks>
+            <returns> 默认值按字段类型的表示形式 </returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.SqlSugarColumnAttribute(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            获取SqlSugar列定义Attribute
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.SqlSugarNavigaetAttribute(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            获取SqlSugar导航Attribute
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.PropCs(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            获取列属性定义字符串 C#
+            </summary>
+            <param name="col"></param>
+            <param name="isNullable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.PropCsByInput(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity,System.Boolean)">
+            <summary>
+            获取列属性定义字符串 C# 输入模型
+            </summary>
+            <param name="col"></param>
+            <param name="isNullable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.PropCsByOutput(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity,System.Boolean)">
+            <summary>
+            获取列属性定义字符串 C# 输出模型
+            </summary>
+            <param name="col"></param>
+            <param name="isNullable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeGenFieldEntityExtension.PropIncludeCs(DaLang.Lims.Web.Dev.Domain.CodeGen.CodeGenFieldEntity)">
+            <summary>
+            获取引用类型属性定义字符串 c#
+            </summary>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StringExtension.PadEndIfNot(System.String,System.String)">
+            <summary>
+            如果不是以指定的字符串结尾，则加入
+            </summary>
+            <param name="str"></param>
+            <param name="endWith"></param>
+            <returns></returns>
+            <remarks>区分大小写</remarks>
+        </member>
+        <member name="M:StringExtension.PadEndIfNotEmpty(System.String,System.String)">
+            <summary>
+            如果指定字符串不为空，则所加到目标结尾
+            </summary>
+            <param name="str"></param>
+            <param name="toConcat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StringExtension.PadEndIfNotEmpty(System.String,System.String,System.String)">
+            <summary>
+            如果指定字符串不为空，则所加另一个字符串到目标结尾
+            </summary>
+            <param name="str"></param>
+            <param name="checking"></param>
+            <param name="toConcat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StringExtension.Replace(System.String,System.String,System.Char)">
+            <summary>
+            用 新字符 替换指定指定内容中的每一个字符
+            </summary>
+            <param name="str"></param>
+            <param name="oldChars"></param>
+            <param name="newChar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StringExtension.Replace(System.String,System.Char[],System.Char)">
+            <summary>
+            用 新字符 替换字符列表中的每个字符
+            </summary>
+            <param name="str"></param>
+            <param name="oldChars"></param>
+            <param name="newChar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NamingConvention.NamingCamelCase(System.String)">
+            <summary>
+            camelCase
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NamingConvention.NamingPascalCase(System.String)">
+            <summary>
+            PascalCase
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NamingConvention.NamingKebabCase(System.String)">
+            <summary>
+            kebab-case
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NamingConvention.NamingSnakeCase(System.String)">
+            <summary>
+            snake_case
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NamingConvention.NamingExtensionCase(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.BaseData.Contracts\DaLang.Lims.BaseData.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.BaseData.Core\DaLang.Lims.BaseData.Core.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.BaseData.Sqlsugar.Mysql\DaLang.Lims.BaseData.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>

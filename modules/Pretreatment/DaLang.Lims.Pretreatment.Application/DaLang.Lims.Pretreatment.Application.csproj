@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Application\DaLang.Lims.BaseData.Application.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pretreatment.Contracts\DaLang.Lims.Pretreatment.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pretreatment.Core\DaLang.Lims.Pretreatment.Core.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pretreatment.Domain\DaLang.Lims.Pretreatment.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pretreatment.Sqlsugar.Mysql\DaLang.Lims.Pretreatment.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>

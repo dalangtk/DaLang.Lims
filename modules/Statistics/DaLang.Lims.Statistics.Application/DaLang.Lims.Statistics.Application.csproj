@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Exam\DaLang.Lims.Exam.Domain\DaLang.Lims.Exam.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Statistics.Contracts\DaLang.Lims.Statistics.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Statistics.Core\DaLang.Lims.Statistics.Core.csproj" />
+  </ItemGroup>
+
+</Project>

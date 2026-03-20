@@ -1,0 +1,107 @@
+﻿using DotNetCore.CAP;
+using Lazy.SlideCaptcha.Core;
+using Lazy.SlideCaptcha.Core.Validator;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using DaLang.Lims.Web.Framework.Core.Attributes;
+using DaLang.Lims.Web.Framework.Core.Captcha;
+using DaLang.Lims.Web.Framework.Core.Consts;
+using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Services.Captcha.Dto;
+using DaLang.Lims.Web.Common.Helpers;
+using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
+using static Lazy.SlideCaptcha.Core.ValidateResult;
+
+namespace DaLang.Lims.Web.Framework.Services.Cache;
+
+/// <summary>
+/// 验证码服务
+/// </summary>
+[Order(210)]
+[DynamicApi(Area = AdminConsts.AreaName)]
+public class CaptchaService : BaseService, IDynamicApi
+{
+    private readonly ICaptcha _captcha;
+    private readonly ISlideCaptcha _slideCaptcha;
+    private readonly ICapPublisher _capPublisher;
+
+    public CaptchaService(ICaptcha captcha, ISlideCaptcha slideCaptcha, ICapPublisher capPublisher)
+    {
+        _captcha = captcha;
+        _slideCaptcha = slideCaptcha;
+        _capPublisher = capPublisher;
+    }
+
+    /// <summary>
+    /// 生成
+    /// </summary>
+    /// <param name="captchaId">验证码id</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [NoOprationLog]
+    public CaptchaData Generate(string captchaId = null)
+    {
+        return _captcha.Generate(captchaId);
+    }
+
+    /// <summary>
+    /// 验证
+    /// </summary>
+    /// <param name="captchaId">验证码Id</param>
+    /// <param name="track">滑动轨迹</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [NoOprationLog]
+    public ValidateResult CheckAsync([FromQuery] string captchaId, SlideTrack track)
+    {
+        if (captchaId.IsNull() || track == null)
+        {
+            throw ResultOutput.Exception("请完成安全验证");
+        }
+
+        return _slideCaptcha.Validate(captchaId, track, false);
+    }
+
+    /// <summary>
+    /// 发送短信验证码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<string> SendSmsCodeAsync(SendSmsCodeInput input)
+    {
+        if (input.Mobile.IsNull())
+        {
+            throw ResultOutput.Exception("请输入手机号");
+        }
+
+        if (input.CaptchaId.IsNull() || input.Track == null)
+        {
+            throw ResultOutput.Exception("请完成安全验证");
+        }
+
+        var validateResult = _captcha.Validate(input.CaptchaId, input.Track);
+        if (validateResult.Result != ValidateResultType.Success)
+        {
+            throw ResultOutput.Exception($"安全{validateResult.Message}");
+        }
+
+        var codeId = input.CodeId.IsNull() ? Guid.NewGuid().ToString() : input.CodeId;
+        var code = StringHelper.GenerateRandomNumber();
+        await Cache.SetAsync(CacheKeys.GetSmsCodeKey(input.Mobile, codeId), code, TimeSpan.FromMinutes(5));
+
+        //发送短信
+        await _capPublisher.PublishAsync(SubscribeNames.SmsSingleSend,
+        new
+        {
+            input.Mobile,
+            Text = code
+        });
+
+        return codeId;
+    }
+}

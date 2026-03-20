@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Description></Description>
+		<PackageTags></PackageTags>
+		<SignAssembly>False</SignAssembly>
+		<Authors />
+		<Version />
+		<Company />
+		<PackageProjectUrl />
+		<PackageIcon />
+		<RepositoryUrl />
+		<RepositoryType />
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<!--<PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+		<IsAotCompatible>true</IsAotCompatible>
+	</PropertyGroup>-->
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+	  <IsAotCompatible>False</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+	  <IsAotCompatible>False</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.0" />
+		<PackageReference Include="System.Text.Json" Version="4.6.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="src/dist/**/*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="src\dist\favicon.ico" />
+	</ItemGroup>
+</Project>

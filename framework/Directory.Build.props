@@ -1,0 +1,25 @@
+<Project>
+	<PropertyGroup>
+		<Version>8.2.0</Version>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<LangVersion>latest</LangVersion>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<Authors>dalang</Authors>
+		<Company>dalang.lims.web</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>GPL</PackageLicenseExpression>
+		<PackageProjectUrl></PackageProjectUrl>
+		<RepositoryUrl></RepositoryUrl>
+		<RepositoryType></RepositoryType>
+		<PackageTags>DaLang.Lims.WebApi;WebApi;HttpApi;</PackageTags>
+		<PackageIcon>logo.png</PackageIcon>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;</NoWarn>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+</Project>

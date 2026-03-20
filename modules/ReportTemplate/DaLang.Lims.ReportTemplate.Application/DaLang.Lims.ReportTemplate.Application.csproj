@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.DynamicApi\DaLang.Lims.Web.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Contracts\DaLang.Lims.Shared.Contracts.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.ReportTemplate.Contracts\DaLang.Lims.ReportTemplate.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.ReportTemplate.Core\DaLang.Lims.ReportTemplate.Core.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.ReportTemplate.Domain\DaLang.Lims.ReportTemplate.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.ReportTemplate.Sqlsugar.Mysql\DaLang.Lims.ReportTemplate.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>
