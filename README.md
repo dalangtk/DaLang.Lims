@@ -21,7 +21,7 @@
 DaLang LIMS 基于 **.NET 8.0** + **Vue 3** 构建的现代化实验室信息管理系统，提供完整的实验室业务流程管理解决方案，采用前后端分离架构，支持跨平台运行。系统涵盖系统设置、基础数据管理、标本前处理、检验分析、报告生成等核心功能模块。
 
 **此项目为后台Api接口，前端及配套报告单工具项目地址：**
-- vue3前端: https://gitee.com/shabigou/dalang-lims-ui.git
+- vue3前端: https://gitee.com/shabigou/dalang-lims-ui
 - 报告预览/生成器： https://gitee.com/shabigou/dalang-report-designer
 
 ---
