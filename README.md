@@ -22,7 +22,7 @@ DaLang LIMS 基于 **.NET 8.0** + **Vue 3** 构建的现代化实验室信息管
 
 **此项目为后台Api接口，前端及配套报告单工具项目地址：**
 - vue3前端: https://gitee.com/shabigou/dalang-lims-ui.git
-- 报告预览/生成器： 
+- 报告预览/生成器： https://gitee.com/shabigou/dalang-report-designer
 
 ---
 
