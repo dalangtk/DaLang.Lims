@@ -203,8 +203,9 @@ public class BaseItemService : BaseService,IBaseItemService,IDynamicApi
 
 1. **克隆项目**
 ```bash
-git clone https://gitee.com/your-repo/DaLang.Lims.git
-cd DaLang.Lims
+git clone https://gitee.com/shabigou/dalang-lims.git
+cd dalang-lims
+dotnet restore
 ```
 
 2. **配置数据库**
@@ -240,8 +241,8 @@ dotnet run
 
 ## 🔌 扩展开发
 **添加新模块**
-1.在 modules/ 下创建新模块目录
-2.按照分层结构创建子目录
+- 在 modules/ 下创建新模块目录
+- 按照分层结构创建子目录
 ```
 // 在 dbconfig.json 中配置程序集
 "assemblyNames": [
