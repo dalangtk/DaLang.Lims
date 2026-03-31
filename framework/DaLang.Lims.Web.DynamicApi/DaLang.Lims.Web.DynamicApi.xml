@@ -130,6 +130,11 @@
             Specifies the dynamic webapi options for the assembly.
             </summary>
         </member>
+        <member name="P:DaLang.Lims.Web.DynamicApi.DynamicApiOptions.SkipAssemblys">
+            <summary>
+            not create action assembly
+            </summary>
+        </member>
         <member name="M:DaLang.Lims.Web.DynamicApi.DynamicApiOptions.Valid">
             <summary>
             Verify that all configurations are valid

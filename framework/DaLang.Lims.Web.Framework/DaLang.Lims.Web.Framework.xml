@@ -3121,6 +3121,11 @@
             结果格式化
             </summary>
         </member>
+        <member name="P:DaLang.Lims.Web.Framework.Core.Configs.DynamicApiConfig.SkipAssemblys">
+            <summary>
+            不生成接口程序集
+            </summary>
+        </member>
         <member name="T:DaLang.Lims.Web.Framework.Core.Configs.HealthChecksConfig">
             <summary>
             健康检查配置
@@ -6562,7 +6567,7 @@
         </member>
         <member name="F:DaLang.Lims.Web.Framework.Domain.User.UserType.Member">
             <summary>
-            会员
+            客户
             </summary>
         </member>
         <member name="F:DaLang.Lims.Web.Framework.Domain.User.UserType.DefaultUser">

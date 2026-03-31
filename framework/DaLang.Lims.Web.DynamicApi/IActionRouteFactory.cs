@@ -14,7 +14,7 @@ internal class DefaultActionRouteFactory : IActionRouteFactory
     {
         var getValueSuccess = AppConsts.AssemblyDynamicApiOptions
             .TryGetValue(action.Controller.ControllerType.Assembly, out AssemblyDynamicApiOptions assemblyDynamicApiOptions);
-        if (getValueSuccess && !string.IsNullOrWhiteSpace(assemblyDynamicApiOptions?.ApiPrefix))
+        if (getValueSuccess)// && !string.IsNullOrWhiteSpace(assemblyDynamicApiOptions?.ApiPrefix))
         {
             return assemblyDynamicApiOptions.ApiPrefix;
         }
@@ -25,6 +25,9 @@ internal class DefaultActionRouteFactory : IActionRouteFactory
     public string CreateActionRouteModel(string areaName, string controllerName, ActionModel action)
     {
         var apiPreFix = GetApiPreFix(action);
-        var routeStr = $"{apiPreFix}/{areaName}/{controllerName}/{action.ActionName}".Replace("//", "/");
-        return routeStr;        }
+        var routeStr = $"{areaName}/{controllerName}/{action.ActionName}".Replace("//", "/");
+        if (!string.IsNullOrWhiteSpace(apiPreFix))
+            routeStr = $"{apiPreFix}/{routeStr}";
+        return routeStr;
+    }
 }

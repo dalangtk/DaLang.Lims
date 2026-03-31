@@ -7,6 +7,7 @@ using DaLang.Lims.Pretreatment.Contracts.PretreatSampleInfo.Dto;
 using DaLang.Lims.Pretreatment.Core.Consts;
 using DaLang.Lims.Pretreatment.Domain.PretreatDataImport;
 using DaLang.Lims.Pretreatment.Domain.PretreatDataImportConfig;
+using DaLang.Lims.Pretreatment.Domain.PretreatSampleAmount;
 using DaLang.Lims.Pretreatment.Domain.PretreatSampleInfo;
 using DaLang.Lims.Web.Common.Enums;
 using DaLang.Lims.Web.Common.Helpers;
@@ -16,6 +17,7 @@ using DaLang.Lims.Web.Framework.Core;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Repositories;
 using DaLang.Lims.Web.Framework.Services;
 using DaLang.Lims.Web.Framework.Services.Dict;
 using Microsoft.AspNetCore.Hosting;
@@ -38,17 +40,20 @@ public class DataImportService : BaseService, IDataImportService, IDynamicApi
     private IDictService _dictService;
     private IBaseCustomerService _customerService;
     private IPretreatDataImportRepository _dataImportRep;
+    private AdminRepositoryBase<PretreatSampleAmountEntity> _sampleAmountRep;
     public DataImportService(IFileService fileService,
         IPretreatDataImportConfigRepository dataImportConfigRep,
         IDictService dictService,
         IBaseCustomerService customerService,
-        IPretreatDataImportRepository dataImportRep)
+        IPretreatDataImportRepository dataImportRep,
+        AdminRepositoryBase<PretreatSampleAmountEntity> sampleAmountRep)
     {
         _fileService = fileService;
         _dataImportConfigRep = dataImportConfigRep;
         _dictService = dictService;
         _customerService = customerService;
         _dataImportRep = dataImportRep;
+        _sampleAmountRep = sampleAmountRep;
     }
 
     [HttpPost]
@@ -277,7 +282,7 @@ public class DataImportService : BaseService, IDataImportService, IDynamicApi
                 }
             }
 
-                var customerCode = item.Barcode.Substring(0, 6);
+            var customerCode = item.Barcode.Substring(0, 6);
             if (!customerList.Exists(a => a.CustomerCode == customerCode))
             {
                 var currCustomer = await _customerService.GetCustomerInfoByCodeAsync(customerCode);
@@ -290,7 +295,20 @@ public class DataImportService : BaseService, IDataImportService, IDynamicApi
             item.CustomerName = customerList.FirstOrDefault(a => a.CustomerCode == customerCode)!.CustomerName;
             item.FileName = fileEntity.Id;
         }
+
         var idList = await _dataImportRep.InsertListReturnPKAsync(sampleInfos);
+
+        var sampleAmountList = sampleInfos.Select(v => new PretreatSampleAmountEntity
+        {
+            Barcode = v.Barcode,
+            CustomerCode = v.CustomerCode,
+            SampleCnt = sampleInfos.FirstOrDefault(a => a.Barcode == v.Barcode)!.SampleCnt ?? 0,
+            DataSource = v.DataSource,
+            InfoStatus = 4,
+            ItemStatus = 4
+        }).ToList();
+        await _sampleAmountRep.InsertRangeAsync(sampleAmountList);
+
         var list = await _dataImportRep.AsQueryable().Where(a => idList.Contains(a.Id)).Select<PretreatSampleInfoDto>().ToListAsync();
         return list;
     }

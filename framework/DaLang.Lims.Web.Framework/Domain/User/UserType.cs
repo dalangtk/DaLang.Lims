@@ -6,7 +6,7 @@
 public enum UserType
 {
     /// <summary>
-    /// 会员
+    /// 客户
     /// </summary>
     Member = 0,
 

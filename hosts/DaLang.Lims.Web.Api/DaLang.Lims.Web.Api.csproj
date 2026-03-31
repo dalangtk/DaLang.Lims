@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\DaLang.Lims.Web.ApiUI\DaLang.Lims.Web.ApiUI.csproj" />
+    <ProjectReference Include="..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\modules\Api\DaLang.Lims.Api.Application\DaLang.Lims.Api.Application.csproj" />
+    <ProjectReference Include="..\..\modules\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\Exam\DaLang.Lims.Exam.Domain\DaLang.Lims.Exam.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\Pretreatment\DaLang.Lims.Pretreatment.Domain\DaLang.Lims.Pretreatment.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+  </ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.1.2" />
+		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.0.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Configs\appconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configs\dbconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

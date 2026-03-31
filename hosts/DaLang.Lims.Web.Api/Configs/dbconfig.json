@@ -1,0 +1,103 @@
+{
+  "DbConfig": {
+
+    //程序集名称，自动获取实体表
+    "assemblyNames": [
+      "DaLang.Lims.Web.Framework",
+      "DaLang.Lims.BaseData.Domain",
+      "DaLang.Lims.Shared.Domain",
+      "DaLang.Lims.Pretreatment.Domain",
+      "DaLang.Lims.Exam.Domain"
+    ],
+    "EnableConsoleSql": true, // 启用控制台打印SQL
+
+    "ConnectionConfigs": [
+      {
+        "ConfigId": "maindb", // 默认库标识-禁止修改
+        "DbType": "MySql", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
+        "ConnectionString": "Server=localhost; Port=3306; Database=dlims; Uid=root; Pwd=a3%c0df!@123,$; Charset=utf8mb4;SslMode=none;Min pool size=1", // 库连接字符串
+        //"SlaveConnectionConfigs": [ // 读写分离/主从
+        //	{
+        //		"HitRate": 10,
+        //		"ConnectionString": ""
+        //	},
+        //	{
+        //		"HitRate": 10,
+        //		"ConnectionString": ""
+        //	}
+        //],
+        "DbSettings": {
+          "EnableInitDb": false, // 启用库初始化
+          "EnableDiffLog": false, // 启用库表差异日志
+          "EnableUnderLine": false // 启用驼峰转下划线
+        },
+        "TableSettings": {
+          "EnableInitTable": false, // 启用表初始化
+          "EnableIncreTable": false // 启用表增量更新-特性[IncreTable]
+        },
+        "SeedSettings": {
+          "EnableInitSeed": false, // 启用种子初始化
+          "EnableIncreSeed": false, // 启用种子增量更新-特性[IncreSeed]
+          "syncDataIncludeTables": [
+            "sys_api",
+            "sys_file",
+            "sys_org",
+            "sys_permission",
+            "sys_permission_api",
+            "sys_role",
+            "sys_role_org",
+            "sys_role_permission",
+            "sys_tenant",
+            "sys_tenant_permission",
+            "sys_user",
+            "sys_user_org",
+            "sys_user_role",
+            "sys_user_staff",
+            "sys_view"
+          ],
+          //同步排除表["ad_user"]
+          //同步数据排除表，指定表不同步
+          "syncDataExcludeTables": []
+        }
+      }
+      //// 日志独立数据库配置
+      //{
+      //  "ConfigId": "1300000000002", // 日志库标识-禁止修改
+      //  "DbType": "Sqlite",
+      //  "ConnectionString": "DataSource=./Admin.NET.Log.db", // 库连接字符串
+      //  "DbSettings": {
+      //    "EnableInitDb": true, // 启用库初始化
+      //    "EnableDiffLog": false, // 启用库表差异日志
+      //    "EnableUnderLine": false // 启用驼峰转下划线
+      //  },
+      //  "TableSettings": {
+      //    "EnableInitTable": true, // 启用表初始化
+      //    "EnableIncreTable": false // 启用表增量更新-特性[IncreTable]
+      //  },
+      //  "SeedSettings": {
+      //    "EnableInitSeed": false, // 启用种子初始化
+      //    "EnableIncreSeed": false // 启用种子增量更新-特性[IncreSeed]
+      //  }
+      //},
+      //// 其他数据库配置（可以配置多个）
+      //{
+      //  "ConfigId": "test", // 库标识
+      //  "DbType": "Sqlite", // 库类型
+      //  "ConnectionString": "DataSource=./Admin.NET.Test.db", // 库连接字符串
+      //  "DbSettings": {
+      //    "EnableInitDb": true, // 启用库初始化
+      //    "EnableDiffLog": false, // 启用库表差异日志
+      //    "EnableUnderLine": false // 启用驼峰转下划线
+      //  },
+      //  "TableSettings": {
+      //    "EnableInitTable": true, // 启用表初始化
+      //    "EnableIncreTable": false // 启用表增量更新-特性[IncreTable]
+      //  },
+      //  "SeedSettings": {
+      //    "EnableInitSeed": true, // 启用种子初始化
+      //    "EnableIncreSeed": false // 启用种子增量更新-特性[IncreSeed]
+      //  }
+      //}
+    ]
+  }
+}

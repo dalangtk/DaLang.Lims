@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Common\DaLang.Lims.Web.Common.csproj" />
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.DynamicApi\DaLang.Lims.Web.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Contracts\DaLang.Lims.BaseData.Contracts.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\Pretreatment\DaLang.Lims.Pretreatment.Domain\DaLang.Lims.Pretreatment.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Api.Contracts\DaLang.Lims.Api.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Api.Core\DaLang.Lims.Api.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -395,8 +395,20 @@ public class DynamicApiConfig
     /// 结果格式化
     /// </summary>
     public bool FormatResult { get; set; } = true;
+    /// <summary>
+    /// 程序集api前缀
+    /// </summary>
+    public List<AssemblyPreFix> AssemblyPreFixs { get; set; } = new List<AssemblyPreFix>();
+    /// <summary>
+    /// 不生成接口程序集
+    /// </summary>
+    public List<string> SkipAssemblys { get; set; } = new List<string>();
 }
-
+public class AssemblyPreFix
+{
+    public string AssemblyName { get; set; }
+    public string ApiPreFix { get; set; } = "api";
+}
 /// <summary>
 /// 健康检查配置
 /// </summary>

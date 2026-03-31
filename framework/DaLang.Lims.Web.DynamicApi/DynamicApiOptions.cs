@@ -82,6 +82,11 @@ public class DynamicApiOptions
     public Type FormatResultType { get; set; } = FormatResultContext.FormatResultType;
 
     /// <summary>
+    /// not create action assembly
+    /// </summary>
+    public List<string> SkipAssemblys { get; set; } = new List<string>();
+
+    /// <summary>
     /// Verify that all configurations are valid
     /// </summary>
     public void Valid()
@@ -125,7 +130,8 @@ public class DynamicApiOptions
             throw new ArgumentException($"{nameof(assembly)} can not be null.");
         }
 
-        this.AssemblyDynamicApiOptions[assembly] = new AssemblyDynamicApiOptions(apiPreFix, httpVerb);
+        if (!SkipAssemblys.Contains(assembly.GetName().Name))
+            this.AssemblyDynamicApiOptions[assembly] = new AssemblyDynamicApiOptions(apiPreFix, httpVerb);
     }
 
     /// <summary>

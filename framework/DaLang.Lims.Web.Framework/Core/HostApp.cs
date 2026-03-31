@@ -807,9 +807,23 @@ public class HostApp
         //动态api
         services.AddDynamicApi(options =>
         {
+            //DaLang.Lims.Web.Framework
+            options.SkipAssemblys = appConfig.DynamicApi.SkipAssemblys;
             options.FormatResult = appConfig.DynamicApi.FormatResult;
             options.FormatResultType = typeof(ResultOutput<>);
             options.AddAssemblyOptions(GetType().Assembly);
+
+            if (appConfig.DynamicApi.AssemblyPreFixs.Any())
+            {
+                var assemblyNames = appConfig.DynamicApi.AssemblyPreFixs.Select(v => v.AssemblyName).ToArray();
+                var assemblys = AssemblyHelper.GetAssemblyList(assemblyNames);
+                foreach (var item in appConfig.DynamicApi.AssemblyPreFixs)
+                {
+                    var currAssembly = assemblys.FirstOrDefault(a => a.FullName.Contains(item.AssemblyName));
+                    options.AddAssemblyOptions(currAssembly, item.ApiPreFix);
+                }
+            }
+
             _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
         });
 
