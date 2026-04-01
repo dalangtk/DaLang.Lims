@@ -3121,6 +3121,11 @@
             结果格式化
             </summary>
         </member>
+        <member name="P:DaLang.Lims.Web.Framework.Core.Configs.DynamicApiConfig.AssemblyPreFixs">
+            <summary>
+            程序集api前缀
+            </summary>
+        </member>
         <member name="P:DaLang.Lims.Web.Framework.Core.Configs.DynamicApiConfig.SkipAssemblys">
             <summary>
             不生成接口程序集

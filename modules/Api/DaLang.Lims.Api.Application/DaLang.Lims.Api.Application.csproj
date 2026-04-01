@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Contracts\DaLang.Lims.BaseData.Contracts.csproj" />
     <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
     <ProjectReference Include="..\..\Pretreatment\DaLang.Lims.Pretreatment.Domain\DaLang.Lims.Pretreatment.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
     <ProjectReference Include="..\DaLang.Lims.Api.Contracts\DaLang.Lims.Api.Contracts.csproj" />
     <ProjectReference Include="..\DaLang.Lims.Api.Core\DaLang.Lims.Api.Core.csproj" />
   </ItemGroup>

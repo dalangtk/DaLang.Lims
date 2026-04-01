@@ -4,6 +4,10 @@ using DaLang.Lims.BaseData.Contracts.Customer.Dto;
 using DaLang.Lims.BaseData.Domain.Customer;
 using DaLang.Lims.Pretreatment.Domain.PretreatSampleAmount;
 using DaLang.Lims.Pretreatment.Domain.PretreatSampleInfo;
+using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
+using DaLang.Lims.Shared.Contracts.ExamResult.Dto;
+using DaLang.Lims.Shared.Domain.ExamInfo;
+using DaLang.Lims.Shared.Domain.ExamResult;
 using DaLang.Lims.Statistics.Core.ReportQuery;
 using DaLang.Lims.Web.Common.Enums;
 using DaLang.Lims.Web.Common.Helpers;
@@ -27,16 +31,23 @@ public class EntrustService : BaseService, IDynamicApi, IEntrustService
     private IDictService _dictService;
     private AdminRepositoryBase<BaseCustomerEntity> _customerService;
     private AdminRepositoryBase<PretreatSampleInfoEntity> _pretreatmentSampleInfoRep;
+    private AdminRepositoryBase<ExamInfoEntity> _examRep;
+    private AdminRepositoryBase<ExamResultEntity> _examResultRep;
     public EntrustService(AdminRepositoryBase<PretreatSampleAmountEntity> sampleAmountRep,
         IDictService dictService,
         AdminRepositoryBase<BaseCustomerEntity> customerService,
-        AdminRepositoryBase<PretreatSampleInfoEntity> pretreatmentSampleInfoRep)
+        AdminRepositoryBase<PretreatSampleInfoEntity> pretreatmentSampleInfoRep,
+        AdminRepositoryBase<ExamInfoEntity> examRep,
+        AdminRepositoryBase<ExamResultEntity> examResultRep)
     {
         _sampleAmountRep = sampleAmountRep;
         _dictService = dictService;
         _customerService = customerService;
         _pretreatmentSampleInfoRep = pretreatmentSampleInfoRep;
+        _examRep = examRep;
+        _examResultRep = examResultRep;
     }
+
     /// <summary>
     /// 推送数据
     /// </summary>
@@ -127,5 +138,62 @@ public class EntrustService : BaseService, IDynamicApi, IEntrustService
         }
         await _pretreatmentSampleInfoRep.InsertListReturnPKAsync(sampleInfos);
         return true;
+    }
+
+    /// <summary>
+    /// 根据条码获取结果
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<List<EntrustResultDto>> GetResultByBarcode(EntrustResultQueryInpupt input)
+    {
+        CheckHelper.ArgumentNullException(input, "查询条件不能为空！");
+        if (string.IsNullOrWhiteSpace(input.Barcode))
+            throw ResultOutput.Exception("条码号不能为空！");
+
+        var ret = new List<EntrustResultDto>();
+        var examInfos = await _examRep.GetListAsync(v => v.Barcode == input.Barcode);
+        foreach (var item in examInfos)
+        {
+            ret.Add(new EntrustResultDto
+            {
+                ExamInfo = item.Adapt<ExamInfoDto>(),
+                ResultList = (await _examResultRep.GetListAsync(v => v.ExamInfoId == item.Id)).Adapt<List<ExamResultDto>>()
+            });
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 根据时间段获取结果
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<List<EntrustResultDto>> GetResultByTime(EntrustResultQueryInpupt input)
+    {
+        CheckHelper.ArgumentNullException(input, "查询条件不能为空！");
+        CheckHelper.ArgumentNullException(input.CustomerCode, "客户代码不能为空！");
+        CheckHelper.ArgumentNullException(input.Begin, "起始时间不能为空！");
+        CheckHelper.ArgumentNullException(input.End, "截止时间不能为空！");
+
+        var ret = new List<EntrustResultDto>();
+        var queryable = _examRep.AsQueryable().Where(v => v.CustomerCode == input.CustomerCode);
+        if (input.TimeType == EntrustResultQueryTimeType.ReceiveTime)
+            queryable = queryable.Where(v => v.ReceiveTime >= input.Begin && v.ReceiveTime <= input.End);
+        else if (input.TimeType == EntrustResultQueryTimeType.ReportTime)
+            queryable = queryable.Where(v => v.CreateReportTime >= input.Begin && v.CreateReportTime <= input.End);
+
+        var examInfos = await queryable.ToListAsync();
+        foreach (var item in examInfos)
+        {
+            ret.Add(new EntrustResultDto
+            {
+                ExamInfo = item.Adapt<ExamInfoDto>(),
+                ResultList = (await _examResultRep.GetListAsync(v => v.ExamInfoId == item.Id)).Adapt<List<ExamResultDto>>()
+            });
+        }
+        return ret;
     }
 }

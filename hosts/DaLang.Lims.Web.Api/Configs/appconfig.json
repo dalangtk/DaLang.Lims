@@ -46,12 +46,6 @@
       //地址
       "url": "http://localhost:8000",
       "projects": [
-        //{
-        //  "name": "DaLang",
-        //  "code": "admin",
-        //  "version": "v1.0.0",
-        //  "description": ""
-        //},
         {
           "name": "api",
           "code": "api",
@@ -110,6 +104,12 @@
     "dynamicApi": {
       //结果格式化
       "formatResult": true,
+      "assemblyPreFixs": [
+        {
+          "assemblyName": "DaLang.Lims.Api.Application",
+          "apiPreFix": ""
+        }
+      ],
       "skipAssemblys": [
         "DaLang.Lims.Web.Framework"
       ]
