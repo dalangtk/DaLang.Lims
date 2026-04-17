@@ -9,7 +9,7 @@ public class BaseItemPersonalizeDto
     /// <summary>
     /// 项目代码
     /// </summary>
-    public string ItemCode { get; set; }
+    public string? ItemCode { get; set; }
     /// <summary>
     /// 个性化项目名称
     /// </summary>

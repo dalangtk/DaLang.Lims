@@ -1,4 +1,6 @@
-﻿namespace DaLang.Lims.BaseData.Contracts.Purpose.Dto;
+﻿using DaLang.Lims.BaseData.Core.Enum;
+
+namespace DaLang.Lims.BaseData.Contracts.Purpose.Dto;
 
 /// <summary>
 /// 检验目的查询结果输出
@@ -20,7 +22,7 @@ public partial class BasePurposeDto
     /// <summary>
     ///目的代码
     ///</summary>
-    public string PurCode { get; set; }
+    public string? PurCode { get; set; }
     /// <summary>
     ///目的名称
     ///</summary>
@@ -49,6 +51,10 @@ public partial class BasePurposeDto
     ///建议与解释
     ///</summary>
     public string? Suggestions { get; set; }
+    /// <summary>
+    /// 检验目的类型0 普检 1特检 2病理
+    /// </summary>
+    public PurposeTypeEnum PurposeType { get; set; } = PurposeTypeEnum.Routine;
     /// <summary>
     ///备注
     ///</summary>

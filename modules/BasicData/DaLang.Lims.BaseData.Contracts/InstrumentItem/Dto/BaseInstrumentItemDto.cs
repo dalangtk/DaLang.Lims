@@ -22,7 +22,7 @@ public class BaseInstrumentItemDto
     /// <summary>
     ///上机项目代码
     ///</summary>
-    public string InstrumentItemCode { get; set; }
+    public string? InstrumentItemCode { get; set; }
     /// <summary>
     ///上机项目名称
     ///</summary>

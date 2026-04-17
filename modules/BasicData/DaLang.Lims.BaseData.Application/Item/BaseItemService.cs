@@ -3,6 +3,7 @@ using DaLang.Lims.BaseData.Contracts.Item.Dto;
 using DaLang.Lims.BaseData.Domain.Item;
 using DaLang.Lims.Web.BaseData.Contracts.Item;
 using DaLang.Lims.Web.BaseData.Core.Consts;
+using DaLang.Lims.Web.Common.Extensions;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
@@ -92,9 +93,16 @@ public class BaseItemService : BaseService, IBaseItemService, IDynamicApi
         var baseItem = input.BaseItem;
         var itemPersonal = input.BaseItemPersonal;
 
-        if (string.IsNullOrWhiteSpace(baseItem?.ItemCode))
-            throw ResultOutput.Exception("项目代码不可为空");
-        baseItem.ItemCode = baseItem.ItemCode.ToUpper().Trim();
+        //if (string.IsNullOrWhiteSpace(baseItem?.ItemCode))
+        //    throw ResultOutput.Exception("项目代码不可为空");
+
+        var maxItemCode = await _baseItemRep.AsQueryable().MaxAsync(v => v.ItemCode);
+        if (string.IsNullOrWhiteSpace(maxItemCode))
+            maxItemCode = "00000000";
+
+        var next = (maxItemCode.ToInt() + 1).ToString().PadLeft(8, '0');
+
+        baseItem.ItemCode = next;
         var isExists = await _baseItemRep.IsAnyAsync(a => a.ItemCode == baseItem.ItemCode);
         if (isExists)
             throw ResultOutput.Exception($"项目代码{baseItem.ItemCode}已存在！");
@@ -106,6 +114,10 @@ public class BaseItemService : BaseService, IBaseItemService, IDynamicApi
         }
         var id = await _baseItemRep.InsertReturnSnowflakeIdAsync(entity);
         var personalEntity = Mapper.Map<BaseItemPersonalizeEntity>(itemPersonal);
+
+        if (string.IsNullOrWhiteSpace(personalEntity.ItemCode))
+            personalEntity.ItemCode = next;
+
         await _baseItemPersonalRep.InsertAsync(personalEntity);
 
         return id;
@@ -158,5 +170,17 @@ public class BaseItemService : BaseService, IBaseItemService, IDynamicApi
             .SetColumns(a => a.IsDeleted == true)
             .Where(a => a.Id == id)
             .ExecuteCommandAsync() > 0;
+    }
+
+    /// <summary>
+    /// 根据项目名称查询
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<BaseItemDto> GetItemByName(string itemName)
+    {
+        var ret = await _baseItemRep.GetFirstAsync(v => v.ItemName == itemName);
+        return ret.Adapt<BaseItemDto>();
     }
 }

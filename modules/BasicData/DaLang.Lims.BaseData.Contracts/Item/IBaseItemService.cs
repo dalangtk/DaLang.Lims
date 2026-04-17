@@ -18,7 +18,6 @@ public interface IBaseItemService
     /// </summary>
     Task<PageOutput<BaseItemGetListDto>> GetPageAsync(PageInput<BaseItemQueryInput> input);
 
-
     /// <summary>
     /// 新增
     /// </summary>
@@ -34,4 +33,10 @@ public interface IBaseItemService
     /// </summary>
     Task<bool> DeleteAsync(long id);
 
+    /// <summary>
+    /// 根据项目名称查询
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
+    Task<BaseItemDto> GetItemByName(string itemName);
 }

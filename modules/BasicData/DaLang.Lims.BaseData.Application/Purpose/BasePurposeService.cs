@@ -1,11 +1,18 @@
 ﻿using DaLang.Lims.BaseData.Contracts.BasePurpose;
+using DaLang.Lims.BaseData.Contracts.InstrumentItem;
+using DaLang.Lims.BaseData.Contracts.InstrumentItem.Dto;
+using DaLang.Lims.BaseData.Contracts.Item.Dto;
 using DaLang.Lims.BaseData.Contracts.Purpose.Dto;
+using DaLang.Lims.BaseData.Core.Enum;
 using DaLang.Lims.BaseData.Domain.Combo;
 using DaLang.Lims.BaseData.Domain.InstrumentItem;
 using DaLang.Lims.BaseData.Domain.Item;
 using DaLang.Lims.BaseData.Domain.Purpose;
 using DaLang.Lims.BaseData.Domain.SampleType;
+using DaLang.Lims.Web.BaseData.Contracts.Item;
 using DaLang.Lims.Web.BaseData.Core.Consts;
+using DaLang.Lims.Web.Common.Consts;
+using DaLang.Lims.Web.Common.Extensions;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
@@ -30,18 +37,36 @@ public class BasePurposeService : BaseService, IBasePurposeService, IDynamicApi
     private IBasePurposePersonalizeRepository _basePurposePersonalizeRep;
     private IBasePurposeTenantSettingRepository _basePurposeTenantSettingRep;
     private IBaseComboRepository _comboRep;
+    private IBaseInstrumentItemDetailRepository _instrumentItemDetailRep;
+    private IBaseInstrumentItemRepository _baseInstrumentItemRep;
+    private IBaseInstrumentItemService _baseInstrumentItemService;
+    private IBaseInstrumentItemDetailService _baseInstrumentItemDetailService;
+    private IBaseItemRepository _baseItemRep;
+    private IBaseItemService _baseItemService;
 
     public BasePurposeService(IBasePurposeRepository basePurposeRep,
         IBasePurposeDetailRepository basePurposeDetailRep,
         IBasePurposePersonalizeRepository basePurposePersonalizeRep,
         IBasePurposeTenantSettingRepository basePurposeTenantSettingRep,
-        IBaseComboRepository comboRep)
+        IBaseComboRepository comboRep,
+        IBaseInstrumentItemDetailRepository instrumentItemDetailRep,
+        IBaseInstrumentItemRepository instrumentItemRep,
+        IBaseItemRepository itemRep,
+        IBaseItemService itemService,
+        IBaseInstrumentItemService baseInstrumentItemService,
+        IBaseInstrumentItemDetailService baseInstrumentItemDetailService)
     {
         _basePurposeRep = basePurposeRep;
         _basePurposeDetailRep = basePurposeDetailRep;
         _basePurposePersonalizeRep = basePurposePersonalizeRep;
         _basePurposeTenantSettingRep = basePurposeTenantSettingRep;
         _comboRep = comboRep;
+        _instrumentItemDetailRep = instrumentItemDetailRep;
+        _baseInstrumentItemRep = instrumentItemRep;
+        _baseItemRep = itemRep;
+        _baseItemService = itemService;
+        _baseInstrumentItemService = baseInstrumentItemService;
+        _baseInstrumentItemDetailService = baseInstrumentItemDetailService;
     }
 
     /// <summary>
@@ -89,6 +114,7 @@ public class BasePurposeService : BaseService, IBasePurposeService, IDynamicApi
         var list = await _basePurposeRep.GetQueryable(dynamicCondition)
             .WhereIF(filter != null && !string.IsNullOrEmpty(filter.GroupCode), a => a.GroupCode == filter.GroupCode)
             .WhereIF(filter != null && !string.IsNullOrEmpty(filter.PurCode), a => a.PurCode == filter.PurCode || a.PurName.Contains(filter.PurCode))
+            .WhereIF(filter != null && filter.ContainsPathology.Value == false, a => a.GroupCode != LimsConsts.PathologyGroupCode)
             .LeftJoin<BasePurposeTenantSettingEntity>((a, b) => a.PurCode == b.PurCode)
             .OrderBy(a => a.Sort)
             .Select((a, b) => new BasePurposeGetListDto
@@ -114,6 +140,7 @@ public class BasePurposeService : BaseService, IBasePurposeService, IDynamicApi
             .LeftJoin<BasePurposePersonalizeEntity>((a, b) => a.PurCode == b.PurCode && b.IsValid && string.IsNullOrWhiteSpace(b.CustomerCode))
             .WhereIF(filter != null && !string.IsNullOrEmpty(filter.GroupCode), a => a.GroupCode == filter.GroupCode)
             .WhereIF(filter != null && !string.IsNullOrEmpty(filter.PurCode), a => a.PurCode == filter.PurCode)
+            .WhereIF(filter != null && filter.ContainsPathology.Value == false, a => a.GroupCode != LimsConsts.PathologyGroupCode)
             .OrderBy(a => a.Sort)
             .Select((a, b) => new BasePurposeGetListDto
             {
@@ -143,11 +170,87 @@ public class BasePurposeService : BaseService, IBasePurposeService, IDynamicApi
         if (purpose == null || purposeDetail == null)
             throw ResultOutput.Exception("参数有误");
 
+        var maxPurCode = await _basePurposeRep.AsQueryable().MaxAsync(v => v.PurCode);
+        if (string.IsNullOrWhiteSpace(maxPurCode))
+            maxPurCode = "00000000";
+
+        var next = (maxPurCode.ToInt() + 1).ToString().PadLeft(4, '0');
+        purpose.PurCode = next;
+
         var purEntity = Mapper.Map<BasePurposeEntity>(purpose);
         if (purEntity.Sort == 0)
         {
             var sort = await _basePurposeRep.AsQueryable().MaxAsync(a => a.Sort);
             purEntity.Sort = sort + 1;
+        }
+
+        if (purEntity.PurposeType == PurposeTypeEnum.Pathology)
+        {
+            //need create base item and instrument item
+            var baseItem = await _baseItemRep.GetFirstAsync(v => v.ItemName == purEntity.PurName);
+            if (baseItem == null)
+            {
+                var newItem = new BaseItemWithPersonDto
+                {
+                    BaseItem = new BaseItemDto
+                    {
+                        GroupCode = purEntity.GroupCode,
+                        GroupName = purEntity.GroupName,
+                        ItemName = purEntity.PurName,
+                        ResultType = "103",
+                        DecideType = "103",
+                        IsValid = true
+                    },
+                    BaseItemPersonal = new BaseItemPersonalizeDto
+                    {
+                        ItemNamePersonalize = purEntity.PurName,
+                        IsValid = true
+                    }
+                };
+
+                var itemId = await _baseItemService.AddAsync(newItem);
+                baseItem = await _baseItemRep.GetAsync(itemId);
+            }
+            var instrumentItem = await _baseInstrumentItemRep.GetFirstAsync(v => v.InstrumentItemName == purEntity.PurName);
+            if (instrumentItem == null)
+            {
+                var newInstrumentItem = new BaseInstrumentItemDto
+                {
+                    GroupCode = purEntity.GroupCode,
+                    GroupName = purEntity.GroupName,
+                    InstrumentItemName = purEntity.PurName,
+                    IsValid = true
+                };
+                var instrumentId = await _baseInstrumentItemService.AddAsync(newInstrumentItem);
+                instrumentItem = await _baseInstrumentItemRep.GetAsync(instrumentId);
+
+                var newInstrumentItemDetail = new BaseInstrumentItemDetailDto
+                {
+                    InstrumentItemCode = instrumentItem.InstrumentItemCode,
+                    ItemCode = baseItem.ItemCode,
+                    IsValid = true
+                };
+                await _baseInstrumentItemDetailService.AddAsync(newInstrumentItemDetail);
+            }
+
+            var newPurposeDetail = new BasePurposeDetailDto
+            {
+                GroupCode = purEntity.GroupCode,
+                PurCode = purEntity.PurCode,
+                InstrumentItemCode = instrumentItem.InstrumentItemCode,
+                ItemCode = baseItem.ItemCode,
+                IsValid = true
+            };
+
+            purposeDetail = [newPurposeDetail];
+
+            purposeTenantSetting = new BasePurposeTenantSettingDto
+            {
+                PurCode = purEntity.PurCode,
+                IsEnable = true,
+                IsInputHide = purposeTenantSetting?.IsInputHide ?? false,
+                IsValid = true
+            };
         }
 
         var personalizeList = Mapper.Map<List<BasePurposePersonalizeEntity>>(purposePersonalizes);
@@ -289,8 +392,33 @@ public class BasePurposeService : BaseService, IBasePurposeService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
+    [AdminTransaction]
     public async Task<bool> DeleteAsync(long id)
     {
+        var purpose = await _basePurposeRep.GetAsync(id);
+        if (purpose == null)
+            throw ResultOutput.Exception("目的不存在！");
+
+        if (purpose.PurposeType == PurposeTypeEnum.Pathology)
+        {
+            //do not delete item and instrument item, just set isdeleted = true in purpose detail, and the item and instrument can use again
+
+            //var purposeDetail = await _basePurposeDetailRep.GetListAsync(v => v.PurCode == purpose.PurCode);
+            //var instrumentItemCodes = purposeDetail.Select(v => v.InstrumentItemCode).Distinct().ToList();
+            //var instrumentItems = await _instrumentItemDetailRep.GetListAsync(v => instrumentItemCodes.Contains(v.InstrumentItemCode));
+            //var itemCodes = instrumentItems.Select(v => v.ItemCode).Distinct().ToList();
+
+            //await _baseItemRep.SetUpdateable()
+            //    .SetColumns(a => a.IsDeleted == true)
+            //    .Where(a => itemCodes.Contains(a.ItemCode))
+            //    .ExecuteCommandAsync();
+        }
+
+        await _basePurposeDetailRep.SetUpdateable()
+                .SetColumns(a => a.IsDeleted == true)
+                .Where(a => a.PurCode == purpose.PurCode)
+                .ExecuteCommandAsync();
+
         return await _basePurposeRep.SetUpdateable()
             .SetColumns(a => a.IsDeleted == true)
             .Where(a => a.Id == id)

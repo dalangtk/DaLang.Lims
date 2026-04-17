@@ -811,7 +811,7 @@ public class HostApp
             options.SkipAssemblys = appConfig.DynamicApi.SkipAssemblys;
             options.FormatResult = appConfig.DynamicApi.FormatResult;
             options.FormatResultType = typeof(ResultOutput<>);
-            options.AddAssemblyOptions(GetType().Assembly);
+            options.AddAssemblyOptions(GetType().Assembly, "api");
 
             if (appConfig.DynamicApi.AssemblyPreFixs.Any())
             {
@@ -862,7 +862,7 @@ public class HostApp
             Configuration = configuration
         };
         _hostAppOptions?.ConfigurePreMiddleware?.Invoke(hostAppMiddlewareContext);
-               
+
         //异常处理
         app.UseMiddleware<ExceptionMiddleware>();
 

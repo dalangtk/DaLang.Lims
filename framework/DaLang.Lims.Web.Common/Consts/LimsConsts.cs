@@ -14,4 +14,7 @@ public class LimsConsts
     /// 
     /// </summary>
     public const string GenerateFinanceData = "dalang.lims.generatefinancedata";
+
+    public const string PathologyGroupCode = "9999";
+    public const string EntrustGroupCode = "8888";
 }

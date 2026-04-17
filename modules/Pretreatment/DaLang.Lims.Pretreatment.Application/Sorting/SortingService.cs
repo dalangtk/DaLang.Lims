@@ -449,7 +449,7 @@ public class SortingService : BaseService, ISortingService, IDynamicApi
             purposeList.FindAll(v => v.ReceiveTime == null).ForEach(v => v.ReceiveTime = DateTime.Now);
 
             #region process entrust data
-            foreach (var purs in purposeList.FindAll(v => v.GroupCode == "8888").GroupBy(v => v.SampleTypeCode))
+            foreach (var purs in purposeList.FindAll(v => v.GroupCode == LimsConsts.EntrustGroupCode).GroupBy(v => v.SampleTypeCode))
             {
                 var param = new CalcEntrustInput
                 {
@@ -480,7 +480,7 @@ public class SortingService : BaseService, ISortingService, IDynamicApi
             }
             #endregion
 
-            foreach (var purs in purposeList.FindAll(v => v.GroupCode != "8888").GroupBy(a => a.PurCode))
+            foreach (var purs in purposeList.FindAll(v => v.GroupCode != LimsConsts.EntrustGroupCode).GroupBy(a => a.PurCode))
             {
                 var currReceiveTime = purs.First().ReceiveTime!.Value.AddHours(-pushForwardTime);
                 var receiveTimePoint = TimeSpan.Parse(purs.First().ReceiveTime.Value.ToString("HH:mm:ss"));

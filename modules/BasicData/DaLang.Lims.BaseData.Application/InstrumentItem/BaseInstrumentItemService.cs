@@ -4,6 +4,7 @@ using DaLang.Lims.BaseData.Domain.InstrumentItem;
 using DaLang.Lims.BaseData.Domain.Item;
 using DaLang.Lims.BaseData.Domain.Purpose;
 using DaLang.Lims.Web.BaseData.Core.Consts;
+using DaLang.Lims.Web.Common.Extensions;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
@@ -91,9 +92,17 @@ public class BaseInstrumentItemService : BaseService, IBaseInstrumentItemService
     [HttpPost]
     public async Task<long> AddAsync(BaseInstrumentItemDto input)
     {
-        if (string.IsNullOrWhiteSpace(input?.InstrumentItemCode))
-            throw ResultOutput.Exception("上机项目代码不可为空");
-        input.InstrumentItemCode = input.InstrumentItemCode.ToUpper().Trim();
+        //if (string.IsNullOrWhiteSpace(input?.InstrumentItemCode))
+        //    throw ResultOutput.Exception("上机项目代码不可为空");
+        //input.InstrumentItemCode = input.InstrumentItemCode.ToUpper().Trim();
+
+        var maxItemCode = await _baseInstrumentItemRep.AsQueryable().MaxAsync(v => v.InstrumentItemCode);
+        if (string.IsNullOrWhiteSpace(maxItemCode))
+            maxItemCode = "0000";
+
+        var next = (maxItemCode.ToInt() + 1).ToString().PadLeft(4, '0');
+
+        input.InstrumentItemCode = next;
         var isExists = await _baseInstrumentItemRep.IsAnyAsync(a => a.InstrumentItemCode == input.InstrumentItemCode);
         if (isExists)
             throw ResultOutput.Exception($"上机项目代码{input.InstrumentItemCode}已存在！");

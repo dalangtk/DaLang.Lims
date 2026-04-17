@@ -317,7 +317,7 @@ public class DataAuditService : BaseService, IDataAuditService, IDynamicApi
                             var groupName = currPurpose.First().GroupName;
                             if (!string.IsNullOrWhiteSpace(entrustHospitalCode))
                             {
-                                groupCode = "8888";
+                                groupCode = LimsConsts.EntrustGroupCode;
                                 groupName = "外送";
                             }
 

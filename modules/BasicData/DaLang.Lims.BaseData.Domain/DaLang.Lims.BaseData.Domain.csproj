@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.BaseData.Core\DaLang.Lims.BaseData.Core.csproj" />
   </ItemGroup>
 
 </Project>

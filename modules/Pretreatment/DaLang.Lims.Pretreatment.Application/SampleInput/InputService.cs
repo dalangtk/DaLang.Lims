@@ -104,8 +104,23 @@ public class SampleInputService : BaseService, ISampleInputService, IDynamicApi
         if (input.InputType != InputTypeEnum.Item && string.IsNullOrWhiteSpace(input.InputInfo.PatientName))
             throw ResultOutput.Exception("姓名不能为空！");
 
+        if (string.IsNullOrWhiteSpace(input.InputInfo?.Barcode) || input.InputInfo.Barcode.Length < 12)
+            throw ResultOutput.Exception($"条码位数有误！");
+
         if (input.InputType == InputTypeEnum.DirectInput)
         {
+            var customerCode = input.InputInfo.Barcode.Substring(0, 6);
+            var customer = await _customerRep.AsQueryable()
+                .Where(v => v.CustomerCode == customerCode)
+                .Select(v => new BaseCustomerDto
+                {
+                    CustomerCode = customerCode,
+                    CustomerName = v.CustomerName,
+                }).FirstAsync();
+
+            if (customer == null)
+                throw ResultOutput.Exception($"客户不存在！");
+
             var paramValue = await _paramService.GetParamValue(LimsConsts.PushForwardTime, "7");
             if (!int.TryParse(paramValue, out int pushForwardTime))
                 throw ResultOutput.Exception("PushForwardTime参数设置有误！");
@@ -135,15 +150,6 @@ public class SampleInputService : BaseService, ISampleInputService, IDynamicApi
                 }
             }
             #endregion
-
-            var customerCode = input.InputInfo.Barcode.Substring(0, 6);
-            var customer = await _customerRep.AsQueryable()
-                .Where(v => v.CustomerCode == customerCode)
-                .Select(v => new BaseCustomerDto
-                {
-                    CustomerCode = customerCode,
-                    CustomerName = v.CustomerName,
-                }).FirstAsync();
 
             var applyInfo = input.InputInfo.Adapt<ApplyInfoEntity>();
             applyInfo.CustomerCode = customerCode;
@@ -180,7 +186,7 @@ public class SampleInputService : BaseService, ISampleInputService, IDynamicApi
                 applyPurposeList.Add(new ApplyPurposeDto
                 {
                     Id = purposeId,
-                    GroupCode = entrust?.IsEntrust == true ? "8888" : groupCode,
+                    GroupCode = entrust?.IsEntrust == true ? LimsConsts.EntrustGroupCode : groupCode,
                     GroupName = entrust?.IsEntrust == true ? "外送" : groupName,
                     Barcode = input.InputInfo.Barcode,
                     ComboCode = item.ComboCode,

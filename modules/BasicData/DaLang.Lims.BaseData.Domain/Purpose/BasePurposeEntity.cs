@@ -1,4 +1,5 @@
-﻿using DaLang.Lims.Web.Framework.Core.Entities;
+﻿using DaLang.Lims.BaseData.Core.Enum;
+using DaLang.Lims.Web.Framework.Core.Entities;
 using SqlSugar;
 
 #pragma warning disable CS8618
@@ -77,6 +78,11 @@ public partial class BasePurposeEntity : EntityBase
     /// <remarks>备注</remarks>
     [SugarColumn(ColumnName = "Remark", ColumnDataType = "varchar", Length = 256)]
     public string? Remark { get; set; }
+    /// <summary>
+    /// 检验目的类型0 普检 1特检 2病理
+    /// </summary>
+    [SugarColumn(ColumnName = "PurposeType", ColumnDataType = "int", DecimalDigits = 2)]
+    public PurposeTypeEnum PurposeType { get; set; } = PurposeTypeEnum.Routine;
     /// <summary>
     /// 排序
     /// </summary>

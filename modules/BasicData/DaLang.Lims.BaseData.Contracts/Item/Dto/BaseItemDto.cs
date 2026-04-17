@@ -21,7 +21,7 @@ public class BaseItemDto
     /// <summary>
     /// 项目代码
     /// </summary>
-    public string ItemCode { get; set; }
+    public string? ItemCode { get; set; }
     /// <summary>
     /// 项目名称
     /// </summary>
