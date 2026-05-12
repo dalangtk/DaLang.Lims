@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.DynamicApi\DaLang.Lims.Web.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\Exam\DaLang.Lims.Exam.Contracts\DaLang.Lims.Exam.Contracts.csproj" />
+    <ProjectReference Include="..\..\Exam\DaLang.Lims.Exam.Domain\DaLang.Lims.Exam.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pathology.Contracts\DaLang.Lims.Pathology.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pathology.Core\DaLang.Lims.Pathology.Core.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pathology.Domain\DaLang.Lims.Pathology.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Pathology.Sqlsugar.Mysql\DaLang.Lims.Pathology.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -11,4 +11,8 @@
     <ProjectReference Include="..\DaLang.Lims.Exam.Domain\DaLang.Lims.Exam.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Pathology\" />
+  </ItemGroup>
+
 </Project>

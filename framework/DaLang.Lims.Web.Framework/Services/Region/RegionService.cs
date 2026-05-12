@@ -169,23 +169,11 @@ public class RegionService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task DeleteAsync(long id)
-    {
-        var idList = await GetChildIdListAsync(id);
-
-        await _regionRep.DeleteAsync(a => idList.Contains(a.Id));
-    }
-
-    /// <summary>
     /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task SoftDeleteAsync(long id)
+    public async Task DeleteAsync(long id)
     {
         var idList = await GetChildIdListAsync(id);
         await _regionRep.AsUpdateable().Where(a => idList.Contains(a.Id)).SetColumns(a => a.IsDeleted == true).ExecuteCommandAsync();

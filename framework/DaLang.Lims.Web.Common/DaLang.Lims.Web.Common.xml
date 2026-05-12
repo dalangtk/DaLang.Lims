@@ -19,6 +19,11 @@
             
             </summary>
         </member>
+        <member name="F:DaLang.Lims.Web.Common.Consts.LimsConsts.PathologyReceiveMode">
+            <summary>
+            病理接收模式 0不分拣 1分拣
+            </summary>
+        </member>
         <member name="T:DaLang.Lims.Web.Common.Enums.OperationTypeEnum">
             <summary>
             操作类型枚举

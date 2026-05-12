@@ -451,6 +451,12 @@ public partial class ExamInfoEntity : EntityTenant
     [SugarColumn(ColumnName = "CreateReportTime", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "datetime")]
     public DateTime? CreateReportTime { get; set; }
     /// <summary>
+    /// 复审次数
+    /// </summary>
+    /// <remarks>复审次数</remarks>
+    [SugarColumn(ColumnName = "ReviewCount", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "int", Length = 4, DefaultValue = "0")]
+    public int ReviewCount { get; set; } = 0;
+    /// <summary>
     /// 检查类型 0默认1加做 2复查
     /// </summary>
     /// <remarks>检查类型 0默认1加做 2复查</remarks>

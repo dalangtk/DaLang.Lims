@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SqlSugar;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.Common.Helpers;
+using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Consts;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain;
 using DaLang.Lims.Web.Framework.Domain.LoginLog;
 using DaLang.Lims.Web.Framework.Services.LoginLog.Dto;
-using DaLang.Lims.Web.Common.Helpers;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.LoginLog;
 
@@ -49,10 +49,6 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
         .WhereIF(userName.NotNull(), a => a.ProName.Contains(userName))
         .Select<LoginLogListOutput>()
         .ToPagedListAsync(input.CurrentPage, input.PageSize);
-        //.Count(out var total)
-        //.OrderByDescending(true, c => c.Id)
-        //.Page(input.CurrentPage, input.PageSize)
-        //.ToListAsync<LoginLogListOutput>();
 
         var data = new PageOutput<LoginLogListOutput>()
         {

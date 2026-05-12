@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Exam.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Exam.Sqlsugar.Mysql", "modules\Exam\DaLang.Lims.Exam.Sqlsugar.Mysql\DaLang.Lims.Exam.Sqlsugar.Mysql.csproj", "{CA56C3B1-9E93-480D-8DDF-8C5B8E456B90}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04ReportTemplate", "04ReportTemplate", "{E3CCC9AB-AD4A-4059-BC4A-1CF0CDDA0DC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05ReportTemplate", "05ReportTemplate", "{E3CCC9AB-AD4A-4059-BC4A-1CF0CDDA0DC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.ReportTemplate.Core", "modules\ReportTemplate\DaLang.Lims.ReportTemplate.Core\DaLang.Lims.ReportTemplate.Core.csproj", "{1132F19F-1344-4517-A18E-81A2EAF82134}"
 EndProject
@@ -75,7 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.ReportTemplate.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.ReportTemplate.Application", "modules\ReportTemplate\DaLang.Lims.ReportTemplate.Application\DaLang.Lims.ReportTemplate.Application.csproj", "{807F38C8-EEA4-4844-986A-433F9D1A91F4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05Statistics", "05Statistics", "{C78142CC-0E51-4BC2-9CAA-AB99CF31506A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06Statistics", "06Statistics", "{C78142CC-0E51-4BC2-9CAA-AB99CF31506A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Statistics.Application", "modules\Statistics\DaLang.Lims.Statistics.Application\DaLang.Lims.Statistics.Application.csproj", "{910A2834-94BB-46B9-B644-6187603A93F3}"
 EndProject
@@ -92,6 +92,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Api.Contracts", "modules\Api\DaLang.Lims.Api.Contracts\DaLang.Lims.Api.Contracts.csproj", "{293D4FE6-E7A7-4C33-8B80-1685BEE6F682}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Api.Core", "modules\Api\DaLang.Lims.Api.Core\DaLang.Lims.Api.Core.csproj", "{E8B719D3-17FA-4FD5-895F-63837637CB5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04Pathology", "04Pathology", "{FD491E00-F188-4FDF-BEA5-E67EC8B31B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Application", "modules\Pathology\DaLang.Lims.Pathology.Application\DaLang.Lims.Pathology.Application.csproj", "{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Contracts", "modules\Pathology\DaLang.Lims.Pathology.Contracts\DaLang.Lims.Pathology.Contracts.csproj", "{52DC37BE-E4B3-42E1-A0F2-946D41185354}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Core", "modules\Pathology\DaLang.Lims.Pathology.Core\DaLang.Lims.Pathology.Core.csproj", "{34380964-9930-47C8-998D-A712DA9B51AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Domain", "modules\Pathology\DaLang.Lims.Pathology.Domain\DaLang.Lims.Pathology.Domain.csproj", "{9B154FA2-357F-4434-99B3-01554573360A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Sqlsugar.Mysql", "modules\Pathology\DaLang.Lims.Pathology.Sqlsugar.Mysql\DaLang.Lims.Pathology.Sqlsugar.Mysql.csproj", "{F4A6906A-1FBF-4A05-879F-977FB0C361A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -239,6 +251,26 @@ Global
 		{E8B719D3-17FA-4FD5-895F-63837637CB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8B719D3-17FA-4FD5-895F-63837637CB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8B719D3-17FA-4FD5-895F-63837637CB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DC37BE-E4B3-42E1-A0F2-946D41185354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DC37BE-E4B3-42E1-A0F2-946D41185354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DC37BE-E4B3-42E1-A0F2-946D41185354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DC37BE-E4B3-42E1-A0F2-946D41185354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34380964-9930-47C8-998D-A712DA9B51AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34380964-9930-47C8-998D-A712DA9B51AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34380964-9930-47C8-998D-A712DA9B51AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34380964-9930-47C8-998D-A712DA9B51AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B154FA2-357F-4434-99B3-01554573360A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B154FA2-357F-4434-99B3-01554573360A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B154FA2-357F-4434-99B3-01554573360A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B154FA2-357F-4434-99B3-01554573360A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,6 +318,12 @@ Global
 		{DFBE3410-A10E-4C6C-83A5-D87BDB4CE135} = {012B708C-F5EA-49D6-AB7A-ECC2FD0442B5}
 		{293D4FE6-E7A7-4C33-8B80-1685BEE6F682} = {012B708C-F5EA-49D6-AB7A-ECC2FD0442B5}
 		{E8B719D3-17FA-4FD5-895F-63837637CB5C} = {012B708C-F5EA-49D6-AB7A-ECC2FD0442B5}
+		{FD491E00-F188-4FDF-BEA5-E67EC8B31B99} = {A7D7F4FA-4286-4727-82D6-2C78E17D16E6}
+		{88A1C753-70E7-4B9A-9EDD-429B8FCA1B89} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
+		{52DC37BE-E4B3-42E1-A0F2-946D41185354} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
+		{34380964-9930-47C8-998D-A712DA9B51AB} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
+		{9B154FA2-357F-4434-99B3-01554573360A} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
+		{F4A6906A-1FBF-4A05-879F-977FB0C361A5} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

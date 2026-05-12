@@ -186,7 +186,7 @@ public class BaseInstrumentItemService : BaseService, IBaseInstrumentItemService
                     ReportOrder = c.PrintOrder,
                     ItemReportOrder = d.Sort.ToString(),
                     MethodBasis = e.MethodBasis,
-                    ResultType = d.ResultType,
+                    ResultType = string.IsNullOrWhiteSpace(b.ResultType) ? d.ResultType : b.ResultType,
                     IsCalculate = e.IsCalculcate,
                     CalcExpression = e.CalcExpression,
                     DefaultValue = string.IsNullOrWhiteSpace(b.DefaultValue) ? e.DefaultValue : b.DefaultValue

@@ -57,4 +57,11 @@ public interface IOptionListService
     /// <param name="input"></param>
     /// <returns></returns>
     public Task<List<LabelValueDto>> GetAskRuleOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取用户选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public Task<List<LabelValueDto>> GetUserOptions(PageInput<string> input);
 }

@@ -13,6 +13,7 @@ using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain.Dict;
 using DaLang.Lims.Web.Framework.Domain.DictType;
+using DaLang.Lims.Web.Framework.Domain.User;
 using DaLang.Lims.Web.Framework.Repositories;
 using DaLang.Lims.Web.Framework.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
     private readonly IBaseSampleTypeRepository _sampleTypeRep;
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
     private readonly IBaseAskRuleRepository _askRuleRep;
+    private readonly IUserRepository _userRep;
     public OptionListService(IBaseCustomerRepository customerRep,
         IBaseEntrustHospitalRepository entrustHospitalRep,
         IBaseExamPlanRepository examPlanRep,
@@ -40,7 +42,8 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         IBasePurposeRepository purposeRep,
         IBaseSampleTypeRepository sampleTypeRep,
         AdminRepositoryBase<DictEntity> dictRep,
-        IBaseAskRuleRepository askRuleRep)
+        IBaseAskRuleRepository askRuleRep,
+        IUserRepository userRep)
     {
         _customerRep = customerRep;
         _entrustHospitalRep = entrustHospitalRep;
@@ -50,6 +53,7 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         _sampleTypeRep = sampleTypeRep;
         _dictRep = dictRep;
         _askRuleRep = askRuleRep;
+        _userRep = userRep;
     }
     /// <summary>
     /// 获取客户选项
@@ -225,6 +229,27 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
           {
               Label = a.AskRuleName,
               Value = a.AskRuleCode
+          })
+          .ToPagedListAsync(input.CurrentPage, input.PageSize);
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取用户选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetUserOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _userRep.AsQueryable()
+          .WhereIF(!string.IsNullOrWhiteSpace(query), a => a.UserName!.StartsWith(query.ToUpper()) || a.Name!.Contains(query))
+          .Select(a => new LabelValueDto
+          {
+              Label = a.Name,
+              Value = a.Id.ToString()
           })
           .ToPagedListAsync(input.CurrentPage, input.PageSize);
         var data = list.Items.ToList();

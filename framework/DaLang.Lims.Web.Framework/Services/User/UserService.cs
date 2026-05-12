@@ -1,15 +1,6 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.Common.Helpers;
+using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Configs;
@@ -36,9 +27,18 @@ using DaLang.Lims.Web.Framework.Domain.UserStaff;
 using DaLang.Lims.Web.Framework.Services.Auth;
 using DaLang.Lims.Web.Framework.Services.Auth.Dto;
 using DaLang.Lims.Web.Framework.Services.User.Dto;
-using DaLang.Lims.Web.Common.Helpers;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
+using Mapster;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.User;
 
@@ -816,7 +816,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除用户
+    /// 删除用户
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -840,103 +840,17 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         //删除用户角色
-        await _userRoleRep.DeleteAsync(a => a.UserId == id);
+        await _userRoleRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.UserId == id).ExecuteCommandAsync();
         //删除用户所属部门
-        await _userOrgRep.DeleteAsync(a => a.UserId == id);
+        await _userOrgRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.UserId == id).ExecuteCommandAsync();
         //删除员工
-        await _userStaffRep.DeleteAsync(a => a.Id == id);
+        await _userStaffRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
         //删除用户
-        await _userRep.DeleteAsync(a => a.Id == id);
+        await _userRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
 
         //删除用户数据权限缓存
         await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
     }
-
-    /// <summary>
-    /// 批量彻底删除用户
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchDeleteAsync(long[] ids)
-    {
-        var admin = await _userRep.AsQueryable().Where(a => ids.Contains(a.Id) &&
-        (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
-
-        if (admin)
-        {
-            throw ResultOutput.Exception("平台管理员禁止删除");
-        }
-
-        //删除用户角色
-        await _userRoleRep.DeleteAsync(a => ids.Contains(a.UserId));
-        //删除用户所属部门
-        await _userOrgRep.DeleteAsync(a => ids.Contains(a.UserId));
-        //删除员工
-        await _userStaffRep.DeleteAsync(a => ids.Contains(a.Id));
-        //删除用户
-        await _userRep.DeleteAsync(a => ids.Contains(a.Id));
-
-        foreach (var userId in ids)
-        {
-            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
-        }
-    }
-
-    /// <summary>
-    /// 删除用户
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task SoftDeleteAsync(long id)
-    {
-        var user = await _userRep.AsQueryable().Where(a => a.Id == id).Select(a => new { a.Type }).FirstAsync();
-        if (user == null)
-        {
-            throw ResultOutput.Exception("用户不存在");
-        }
-
-        if (user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
-        {
-            throw ResultOutput.Exception("平台管理员禁止删除");
-        }
-        await _userRoleRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.UserId == id).ExecuteCommandAsync();
-        await _userOrgRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.UserId == id).ExecuteCommandAsync();
-        await _userStaffRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-        await _userRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-
-        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
-    }
-
-    /// <summary>
-    /// 批量删除用户
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        var admin = await _userRep.AsQueryable().Where(a => ids.Contains(a.Id) &&
-        (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
-
-        if (admin)
-        {
-            throw ResultOutput.Exception("平台管理员禁止删除");
-        }
-
-        await _userRoleRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.UserId)).ExecuteCommandAsync();
-        await _userOrgRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.UserId)).ExecuteCommandAsync();
-
-        await _userStaffRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.Id)).ExecuteCommandAsync(); ;
-        await _userRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.Id)).ExecuteCommandAsync(); ;
-
-        foreach (var userId in ids)
-        {
-            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
-        }
-    }
-
     /// <summary>
     /// 上传头像
     /// </summary>

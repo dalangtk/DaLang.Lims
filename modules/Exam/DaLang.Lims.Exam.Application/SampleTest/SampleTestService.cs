@@ -7,6 +7,7 @@ using DaLang.Lims.BaseData.Contracts.Combo.Dto;
 using DaLang.Lims.BaseData.Contracts.InstrumentItem;
 using DaLang.Lims.BaseData.Domain.Combo;
 using DaLang.Lims.BaseData.Domain.Customer;
+using DaLang.Lims.BaseData.Domain.Group;
 using DaLang.Lims.BaseData.Domain.InstrumentItem;
 using DaLang.Lims.BaseData.Domain.Item;
 using DaLang.Lims.BaseData.Domain.ItemReference;
@@ -99,6 +100,7 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
     private readonly IHttpClientFactory _httpFactory;
     private readonly IParameterService _param;
     private readonly AdminRepositoryBase<ReportFilesEntity> _reportFileRep;
+    private readonly IBaseGroupRepository _baseGroupRep;
 
     public SampleTestService(AdminRepositoryBase<ExamInfoEntity> examInfoRep,
         AdminRepositoryBase<ExamResultEntity> examResultRep,
@@ -127,7 +129,8 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
         IExamCriticalValueRepository criticalValueRep,
         IHttpClientFactory httpFactory,
         IParameterService param,
-        AdminRepositoryBase<ReportFilesEntity> reportFileRep)
+        AdminRepositoryBase<ReportFilesEntity> reportFileRep,
+        IBaseGroupRepository baseGroupRep)
     {
         _examInfoRep = examInfoRep;
         _examResultRep = examResultRep;
@@ -151,12 +154,13 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
         _applyItemRep = applyItemRep;
         _baseComboRep = baseComboRep;
         _auditRuleService = auditRuleService;
-        basePurposeRep = _basePurposeRep;
+        _basePurposeRep = basePurposeRep;
         _instrumentItemService = instrumentItemService;
         _criticalValueRep = criticalValueRep;
         _httpFactory = httpFactory;
         _param = param;
         _reportFileRep = reportFileRep;
+        _baseGroupRep = baseGroupRep;
     }
     /// <summary>
     /// 获取检验列表
@@ -320,11 +324,11 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
 
         var isExists = await _examInfoRep.IsAnyAsync(v => v.Id == examInfo.Id);
         if (!isExists)
-            throw ResultOutput.Exception("标本检验不存在！");
+            throw ResultOutput.Exception("检验信息不存在！");
 
         var entity = Mapper.Map<ExamInfoEntity>(examInfo);
         await _examInfoRep.GetUpdateable(entity).UpdateColumns(input.UpdateFields.ToArray()).EnableDiffLogEvent().ExecuteCommandAsync();
-        if (input.UpdateFields.Exists(v => v.ToLower().Equals("age")))
+        if (input.UpdateFields.Exists(v => v.ToLower().Contains("age")))
         {
             var info = await _examInfoRep.GetFirstAsync(v => v.Id == entity.Id);
             info.AgeValue = AgeConvertHelper.CalculateAgeToMinute(info.Age1, info.AgeUnit1, info.Age2, info.AgeUnit2);
@@ -685,6 +689,7 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
             examInfo.SecondAuditName = AppInfo.User.Name;
             examInfo.SecondAuditAuthorizedId = AppInfo.User.Id;
             examInfo.SecondAuditTime = DateTime.Now;
+            examInfo.ReviewCount += 1;
         }
         await _examInfoRep.AsUpdateable(examInfo)
             .SetUpdateable()
@@ -704,7 +709,8 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
                 v.SecondAuditId,
                 v.SecondAuditName,
                 v.SecondAuditAuthorizedId,
-                v.SecondAuditTime
+                v.SecondAuditTime,
+                v.ReviewCount
             })
             .ExecuteCommandAsync();
 
@@ -822,6 +828,11 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
             ReasonContent = input.ReasonContent,
             UnAuditType = isFirstUnCheck ? 0 : 1
         };
+
+        await _reportFileRep
+            .SetColumnUpdateable(v => v.IsValid == false)
+            .Where(v => v.ExamInfoId == examInfo.Id)
+            .ExecuteCommandAsync();
 
         await _sampleTrackRep.InsertAsync(sampleTrack.Adapt<ExamSampleTrackEntity>());
         await _unAuditLogRep.InsertAsync(unAuditLog.Adapt<ExamUnAuditLogEntity>());
@@ -1290,15 +1301,24 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
     /// <summary>
     /// 校验组别权限
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="uid"></param>
     /// <param name="groupCode"></param>
     /// <param name="operType"></param>
     /// <returns></returns>
     [NonAction]
-    private async Task<string> CheckUserGroupPermission(long id, string groupCode, OperationTypeEnum operType)
+    public async Task<string> CheckUserGroupPermission(long uid, string groupCode, OperationTypeEnum operType)
     {
+        var allGroupCode = new List<string>();
+        var group = await _baseGroupRep.GetListAsync(v => v.GroupCode == groupCode);
+        if (group.Exists(v => !string.IsNullOrWhiteSpace(v.ParentCode)))
+        {
+            var parentCodeList = group.Select(v => v.ParentCode).Distinct().ToList();
+            var parentGroup = await _baseGroupRep.GetListAsync(v => parentCodeList.Contains(v.GroupCode));
+            allGroupCode = group.Select(v => v.GroupCode).Concat(parentGroup.Select(v => v.GroupCode)).ToList();
+        }
+
         var query = _userGroupRep.AsQueryable()
-            .Where(v => v.GroupCode == groupCode && v.UserId == id);
+            .Where(v => allGroupCode.Contains(v.GroupCode) && v.UserId == uid);
         switch (operType)
         {
             case OperationTypeEnum.FirstCheck:
@@ -1329,7 +1349,7 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
     /// <returns></returns>
     [HttpPost]
     [NonFormatResult]
-    public async Task<FileResult> RptPreview(long examInfoId)
+    public async Task<FileResult> RptPreview([FromQuery] long examInfoId)
     {
         try
         {

@@ -159,14 +159,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         if (existsOrg != null)
         {
             if (existsOrg.Name == input.Name)
-            {
                 throw ResultOutput.Exception($"企业名称已存在");
-            }
 
             if (existsOrg.Code == input.Code)
-            {
                 throw ResultOutput.Exception($"企业编码已存在");
-            }
         }
 
         var where = Expressionable.Create<UserEntity>()
@@ -182,19 +178,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         if (existsUser != null)
         {
             if (existsUser.UserName == input.UserName)
-            {
                 throw ResultOutput.Exception($"企业账号已存在");
-            }
 
             if (input.Phone.NotNull() && existsUser.Mobile == input.Phone)
-            {
                 throw ResultOutput.Exception($"企业手机号已存在");
-            }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
-            {
                 throw ResultOutput.Exception($"企业邮箱已存在");
-            }
         }
 
         if (string.IsNullOrWhiteSpace(input.DbKey))
@@ -345,9 +335,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     {
         var tenant = await _tenantRep.GetAsync(input.Id);
         if (!(tenant?.Id > 0))
-        {
             throw ResultOutput.Exception("租户不存在");
-        }
 
         var existsOrg = await _orgRep.AsQueryable()
             .Where(a => a.Id != tenant.OrgId && (a.Name == input.Name || a.Code == input.Code))
@@ -357,14 +345,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         if (existsOrg != null)
         {
             if (existsOrg.Name == input.Name)
-            {
                 throw ResultOutput.Exception($"企业名称已存在");
-            }
 
             if (existsOrg.Code == input.Code)
-            {
                 throw ResultOutput.Exception($"企业编码已存在");
-            }
         }
 
         var where = Expressionable.Create<UserEntity>()
@@ -381,19 +365,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         if (existsUser != null)
         {
             if (existsUser.UserName == input.UserName)
-            {
                 throw ResultOutput.Exception($"企业账号已存在");
-            }
 
             if (input.Phone.NotNull() && existsUser.Mobile == input.Phone)
-            {
                 throw ResultOutput.Exception($"企业手机号已存在");
-            }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
-            {
                 throw ResultOutput.Exception($"企业邮箱已存在");
-            }
         }
         //更新用户
         await _userRep
@@ -431,7 +409,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -440,9 +418,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     {
         var tenantType = await _tenantRep.AsQueryable().Where(a => a.Id == id).Select(a => a.TenantType).FirstAsync();
         if (tenantType == (int)TenantType.Platform)
-        {
             throw ResultOutput.Exception("平台租户禁止删除");
-        }
 
         //删除角色权限
         await _rolePermissionRep.Value.AsUpdateable().Where(a => a.Role.TenantId == id).SetColumns(a => a.IsDeleted == true).ExecuteCommandAsync();
@@ -476,66 +452,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     }
 
     /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task SoftDeleteAsync(long id)
-    {
-        var tenantType = await _tenantRep.AsQueryable().Where(a => a.Id == id).Select(a => a.TenantType).FirstAsync();
-        if (tenantType == (int)TenantType.Platform)
-        {
-            throw ResultOutput.Exception("平台租户禁止删除");
-        }
-
-        //删除部门
-        await _orgRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.TenantId == id).ExecuteCommandAsync();
-
-        //删除用户
-        await _userRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.TenantId == id && a.Type != UserType.Member).ExecuteCommandAsync();
-
-        //删除角色
-        await _roleRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.TenantId == id).ExecuteCommandAsync();
-
-        //删除租户
-        await _tenantRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-
-        //清除租户下所有用户权限缓存
-        await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { id });
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        var tenantType = await _tenantRep.AsQueryable().Where(a => ids.Contains(a.Id)).Select(a => a.TenantType).FirstAsync();
-        if (tenantType == (int)TenantType.Platform)
-        {
-            throw ResultOutput.Exception("平台租户禁止删除");
-        }
-
-        //删除部门
-        await _orgRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.TenantId.Value)).ExecuteCommandAsync();
-
-        //删除用户
-        await _userRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member).ExecuteCommandAsync();
-
-        //删除角色
-        await _roleRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.TenantId.Value)).ExecuteCommandAsync();
-
-        //删除租户
-        await _tenantRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.Id)).ExecuteCommandAsync();
-
-        //清除租户下所有用户权限缓存
-        await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(ids.ToList());
-    }
-
-    /// <summary>
     /// 设置启用
     /// </summary>
     /// <param name="input"></param>
@@ -544,9 +460,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     {
         var entity = await _tenantRep.GetAsync(input.TenantId);
         if (entity.TenantType == (int)TenantType.Platform)
-        {
             throw ResultOutput.Exception("平台租户禁止禁用");
-        }
         entity.IsValid = input.IsValid;
         await _tenantRep.UpdateAsync(entity);
     }

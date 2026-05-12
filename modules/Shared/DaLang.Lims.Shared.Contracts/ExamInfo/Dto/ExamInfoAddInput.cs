@@ -292,6 +292,10 @@ public class ExamInfoAddInput
     ///</summary>
     public DateTime? CreateReportTime { get; set; }
     /// <summary>
+    /// 复审次数
+    /// </summary>
+    public int ReviewCount { get; set; } = 0;
+    /// <summary>
     ///检查类型 0默认1加做 2复查
     ///</summary>
     public int TestType { get; set; } = 0;

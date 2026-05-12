@@ -1,9 +1,7 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
+using DaLang.Lims.Web.Framework.Core.Cache;
 using DaLang.Lims.Web.Framework.Core.Consts;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
@@ -12,9 +10,10 @@ using DaLang.Lims.Web.Framework.Domain.DictType;
 using DaLang.Lims.Web.Framework.Domain.DictType.Dto;
 using DaLang.Lims.Web.Framework.Repositories;
 using DaLang.Lims.Web.Framework.Services.DictType.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
-using DaLang.Lims.Web.Framework.Core.Cache;
+using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.DictType;
 
@@ -143,21 +142,5 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         await _dictTypeRep.UpdateAsync(dictType);
 
         await _cache.DelAsync(CacheKeys.SystemDict + dictType.Code);
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchDeleteAsync(long[] ids)
-    {
-        var dictList = await _dictRep.AsQueryable().Where(a => ids.Contains(a.DictTypeId)).ToListAsync();
-        var dictTypes = await _dictTypeRep.GetListAsync(a => ids.Contains(a.Id));
-        dictList.ForEach(a => a.IsDeleted = true);
-        dictTypes.ForEach(a => a.IsDeleted = true);
-        await _dictRep.UpdateRangeAsync(dictList);
-        await _dictTypeRep.UpdateRangeAsync(dictTypes);
     }
 }

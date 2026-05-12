@@ -19,6 +19,4 @@ public partial interface IDictTypeService
     Task UpdateAsync(DictTypeUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task BatchDeleteAsync(long[] ids);
 }

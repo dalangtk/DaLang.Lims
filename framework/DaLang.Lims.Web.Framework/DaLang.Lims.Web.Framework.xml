@@ -6802,27 +6802,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Api.ApiService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量彻底删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Api.ApiService.SoftDeleteAsync(System.Int64)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Api.ApiService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Api.ApiService.SyncAsync(DaLang.Lims.Web.Framework.Services.Api.Dto.ApiSyncInput)">
             <summary>
             同步
@@ -7532,13 +7511,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.DictType.DictTypeService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
         <member name="T:DaLang.Lims.Web.Framework.Services.DictType.Dto.DictTypeAddInput">
             <summary>
             添加字典类型
@@ -7674,13 +7646,6 @@
             删除
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Dict.DictService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:DaLang.Lims.Web.Framework.Services.Dict.Dto.DictAddInput">
@@ -7889,24 +7854,17 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Document.DocumentService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除文档
+            删除文档
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Document.DocumentService.DeleteImageAsync(System.Int64,System.String)">
             <summary>
-            彻底删除图片
+            删除图片
             </summary>
             <param name="documentId"></param>
             <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Document.DocumentService.SoftDeleteAsync(System.Int64)">
-            <summary>
-            删除文档
-            </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Document.DocumentService.GetPlainListAsync">
@@ -8654,13 +8612,6 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Org.OrgService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Org.OrgService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
@@ -9338,13 +9289,6 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Permission.PermissionService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Permission.PermissionService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
@@ -9629,30 +9573,9 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Pkg.PkgService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Pkg.PkgService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量彻底删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Pkg.PkgService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Pkg.PkgService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:DaLang.Lims.Web.Framework.Services.Pkg.MapConfig">
@@ -9921,13 +9844,6 @@
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Region.RegionService.DeleteAsync(System.Int64)">
-            <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Region.RegionService.SoftDeleteAsync(System.Int64)">
             <summary>
             删除
             </summary>
@@ -10217,30 +10133,9 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Role.RoleService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Role.RoleService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量彻底删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Role.RoleService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Role.RoleService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Role.RoleService.SetDataScopeAsync(DaLang.Lims.Web.Framework.Services.Role.Dto.RoleSetDataScopeInput)">
@@ -10470,23 +10365,9 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Tenant.TenantService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Tenant.TenantService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.Tenant.TenantService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.Tenant.TenantService.SetEnableAsync(DaLang.Lims.Web.Framework.Services.Tenant.Dto.TenantSetEnableInput)">
@@ -10971,30 +10852,9 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.User.UserService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除用户
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.User.UserService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量彻底删除用户
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.User.UserService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除用户
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.User.UserService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除用户
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.User.UserService.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile,System.Boolean)">
@@ -11181,30 +11041,9 @@
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.View.ViewService.DeleteAsync(System.Int64)">
             <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.View.ViewService.BatchDeleteAsync(System.Int64[])">
-            <summary>
-            批量彻底删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.View.ViewService.SoftDeleteAsync(System.Int64)">
-            <summary>
             删除
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DaLang.Lims.Web.Framework.Services.View.ViewService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:DaLang.Lims.Web.Framework.Services.View.ViewService.SyncAsync(DaLang.Lims.Web.Framework.Services.View.Dto.ViewSyncInput)">

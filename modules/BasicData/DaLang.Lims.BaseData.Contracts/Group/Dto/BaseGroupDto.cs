@@ -18,6 +18,10 @@ public class BaseGroupDto
     /// </summary>
     public string GroupName { get; set; }
     /// <summary>
+    /// 父级组别
+    /// </summary>
+    public string? ParentCode { get; set; }
+    /// <summary>
     /// 排序
     /// </summary>
     public int Sort { get; set; }

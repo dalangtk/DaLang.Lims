@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Consts;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Core.Entities;
 using DaLang.Lims.Web.Framework.Domain.Org;
 using DaLang.Lims.Web.Framework.Domain.Pkg;
 using DaLang.Lims.Web.Framework.Domain.PkgPermission;
@@ -15,9 +13,11 @@ using DaLang.Lims.Web.Framework.Domain.Tenant;
 using DaLang.Lims.Web.Framework.Domain.TenantPkg;
 using DaLang.Lims.Web.Framework.Domain.User;
 using DaLang.Lims.Web.Framework.Services.Pkg.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
-using DaLang.Lims.Web.Framework.Core.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Pkg;
 
@@ -335,7 +335,7 @@ public class PkgService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -344,53 +344,6 @@ public class PkgService : BaseService, IDynamicApi
     {
         var pkgIdList = await _pkgRep.GetChildIdListAsync(id);
         var tenantIds = await _tenantPkgRep.AsQueryable().Where(a => pkgIdList.Contains(a.PkgId)).ToListAsync(a => a.TenantId.Value);
-
-        //删除租户套餐
-        await _tenantPkgRep.DeleteAsync(a => a.TenantId == id);
-        //删除套餐权限
-        await _pkgPermissionRep.Value.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
-        //删除套餐
-        await _pkgRep.DeleteAsync(a => pkgIdList.Contains(a.Id));
-
-        //清除租户下所有用户权限缓存
-        await ClearUserPermissionsAsync(tenantIds);
-    }
-
-    /// <summary>
-    /// 批量彻底删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchDeleteAsync(long[] ids)
-    {
-        var pkgIdList = await _pkgRep.GetChildIdListAsync(ids);
-        var tenantIds = await _tenantPkgRep.AsQueryable().Where(a => pkgIdList.Contains(a.PkgId)).ToListAsync(a => a.TenantId.Value);
-
-        //删除租户套餐
-        await _tenantPkgRep.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
-        //删除套餐权限
-        await _pkgPermissionRep.Value.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
-        //删除套餐
-
-        var entities = await _pkgRep.AsQueryable().Where(a => pkgIdList.Contains(a.Id)).ToListAsync();
-        entities.ForEach(a => a.IsDeleted = true);
-        await _pkgRep.UpdateRangeAsync(entities);
-
-        //清除租户下所有用户权限缓存
-        await ClearUserPermissionsAsync(tenantIds);
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task SoftDeleteAsync(long id)
-    {
-        var pkgIdList = await _pkgRep.GetChildIdListAsync(id);
-        var tenantIds = await _tenantPkgRep.AsQueryable().Where(a => pkgIdList.Contains(a.PkgId)).ToListAsync(a => a.TenantId.Value);
         await _tenantPkgRep.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
         await _pkgPermissionRep.Value.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
 
@@ -399,26 +352,6 @@ public class PkgService : BaseService, IDynamicApi
 
         await _pkgRep.UpdateRangeAsync(entites);
 
-        //清除租户下所有用户权限缓存
-        await ClearUserPermissionsAsync(tenantIds);
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        var pkgIdList = await _pkgRep.GetChildIdListAsync(ids);
-        var tenantIds = await _tenantPkgRep.AsQueryable().Where(a => ids.Contains(a.PkgId)).ToListAsync(a => a.TenantId.Value);
-        await _tenantPkgRep.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
-        await _pkgPermissionRep.Value.DeleteAsync(a => pkgIdList.Contains(a.PkgId));
-
-        var entites = await _pkgRep.AsQueryable().Where(a => pkgIdList.Contains(a.Id)).ToListAsync();
-        entites.ForEach(a => a.IsDeleted = true);
-        await _pkgRep.UpdateRangeAsync(entites);
         //清除租户下所有用户权限缓存
         await ClearUserPermissionsAsync(tenantIds);
     }

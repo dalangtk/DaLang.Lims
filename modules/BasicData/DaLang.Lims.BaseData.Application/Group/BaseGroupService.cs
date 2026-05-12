@@ -9,6 +9,7 @@ using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Services;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
 
 
 namespace DaLang.Lims.Web.BaseData.Services.Group;
@@ -42,11 +43,17 @@ public class BaseGroupService : BaseService, IBaseGroupService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<List<BaseGroupDto>> GetAllAsync()
+    public async Task<List<BaseGroupGetListDto>> GetAllAsync(bool includeChildren = false)
     {
-        var output = await _baseGroupRep.GetListAsync();
-        output.Sort((a, b) => a.GroupCode.CompareTo(b.GroupCode));
-        return output.Adapt<List<BaseGroupDto>>();
+        var output = await _baseGroupRep.AsQueryable()
+            .WhereIF(!includeChildren, v => string.IsNullOrWhiteSpace(v.ParentCode))
+            .OrderBy(c => c.Sort)
+            .Select(c => new BaseGroupGetListDto
+            {
+                Children = SqlFunc.Subqueryable<BaseGroupEntity>().Where(v => v.ParentCode == c.GroupCode).ToList<BaseGroupDto>()
+            }, true)
+            .ToListAsync();
+        return output;
     }
     /// <summary>
     /// 分页查询
@@ -60,8 +67,12 @@ public class BaseGroupService : BaseService, IBaseGroupService, IDynamicApi
         var dynamicCondition = ChangeConditon(input.DynamicFilter);
         var list = await _baseGroupRep.GetQueryable(dynamicCondition)
             .WhereIF(!string.IsNullOrWhiteSpace(filter.GroupCode), a => a.GroupCode == filter.GroupCode || a.GroupName == filter.GroupCode)
+            .Where(c => string.IsNullOrWhiteSpace(c.ParentCode))
             .OrderBy(c => c.Sort)
-            .Select<BaseGroupGetListDto>()
+            .Select(c => new BaseGroupGetListDto
+            {
+                Children = SqlFunc.Subqueryable<BaseGroupEntity>().Where(v => v.ParentCode == c.GroupCode).ToList<BaseGroupDto>()
+            }, true)
             .ToPagedListAsync(input.CurrentPage, input.PageSize);
 
         var data = new PageOutput<BaseGroupGetListDto> { List = list.Items.ToList(), Total = list.Total };
@@ -78,7 +89,7 @@ public class BaseGroupService : BaseService, IBaseGroupService, IDynamicApi
     {
         if (string.IsNullOrWhiteSpace(input?.GroupCode))
             throw ResultOutput.Exception("组别代码不可为空");
-        input.GroupCode = input.GroupCode.ToUpper().Trim();
+        input.GroupCode = input.GroupCode.Trim();
         var isExists = await _baseGroupRep.IsAnyAsync(a => a.GroupCode == input.GroupCode);
         if (isExists)
             throw ResultOutput.Exception($"组别代码{input.GroupCode}已存在！");
@@ -86,7 +97,10 @@ public class BaseGroupService : BaseService, IBaseGroupService, IDynamicApi
         var entity = Mapper.Map<BaseGroupEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _baseGroupRep.AsQueryable().MaxAsync(a => a.Sort);
+            var query = _baseGroupRep.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(entity.ParentCode))
+                query = query.Where(v => v.GroupCode == entity.ParentCode);
+            var sort = await query.MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         var id = await _baseGroupRep.InsertReturnSnowflakeIdAsync(entity);

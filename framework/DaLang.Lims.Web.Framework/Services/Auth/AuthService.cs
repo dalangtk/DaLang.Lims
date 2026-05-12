@@ -333,7 +333,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             //menuSelect = menuSelect.ToTree(o => o.Childs, o => o.ParentId, 0, o => o.Id);
         }
 
-        //var bb = menuSelect
+        //var a = menuSelect
         //    .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
         //    .Includes(a => a.View).ToSql();
 
@@ -349,7 +349,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         //.Select(a => new AuthUserMenuDto { ViewPath = a.View.Path }, true)
 
-        //var aa = await menuSelect
+        //var b = await menuSelect
         //    .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
         //    .Includes(a => a.View)
         //    //.Includes(a => a.Childs)
@@ -363,7 +363,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             .Select(a => new AuthUserMenuDto { ViewPath = a.View.Path }, true)
             .ToListAsync();
 
-        var list222 = new List<AuthUserMenuDto>();// menuList.Select(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+        //var list222 = new List<AuthUserMenuDto>();// menuList.Select(a => new AuthUserMenuDto { ViewPath = a.View.Path });
 
         return menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
 

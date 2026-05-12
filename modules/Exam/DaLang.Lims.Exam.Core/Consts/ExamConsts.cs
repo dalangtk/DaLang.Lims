@@ -9,7 +9,6 @@ public static partial class ExamConsts
     /// 默认域
     /// </summary>
     public const string AreaName = "exam";
-
 }
 
 /// <summary>

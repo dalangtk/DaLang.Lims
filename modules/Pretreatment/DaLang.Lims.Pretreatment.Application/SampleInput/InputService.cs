@@ -152,6 +152,7 @@ public class SampleInputService : BaseService, ISampleInputService, IDynamicApi
             #endregion
 
             var applyInfo = input.InputInfo.Adapt<ApplyInfoEntity>();
+            applyInfo.ReceiveTime = DateTime.Now;
             applyInfo.CustomerCode = customerCode;
             applyInfo.CustomerName = customer.CustomerName;
             applyInfo.DataSource = 2;

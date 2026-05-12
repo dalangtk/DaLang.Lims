@@ -25,6 +25,12 @@ public partial class BaseGroupEntity : EntityBase
     [SugarColumn(ColumnName = "GroupName", ColumnDataType = "varchar", Length = 32)]
     public string GroupName { get; set; }
     /// <summary>
+    /// 父级组别
+    /// </summary>
+    /// <remarks>父级组别</remarks>
+    [SugarColumn(ColumnName = "ParentCode", ColumnDataType = "varchar", Length = 16)]
+    public string? ParentCode { get; set; }
+    /// <summary>
     /// 排序
     /// <summary>
     /// <remarks>排序</remarks>

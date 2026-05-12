@@ -17,4 +17,8 @@ public class LimsConsts
 
     public const string PathologyGroupCode = "9999";
     public const string EntrustGroupCode = "8888";
+    /// <summary>
+    /// 病理接收模式 0不分拣 1分拣
+    /// </summary>
+    public const string PathologyReceiveMode = "pathologyreceivemode";
 }

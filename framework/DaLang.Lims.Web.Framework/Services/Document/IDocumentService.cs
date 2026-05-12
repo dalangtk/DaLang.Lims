@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DaLang.Lims.Web.Framework.Services.Document.Dto;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Services.Document.Dto;
 
 namespace DaLang.Lims.Web.Framework.Services.Document;
 
@@ -38,8 +38,6 @@ public partial interface IDocumentService
     Task DeleteAsync(long id);
 
     Task DeleteImageAsync(long documentId, string url);
-
-    Task SoftDeleteAsync(long id);
 
     Task<string> UploadImage([FromForm] DocumentUploadImageInput input);
 }

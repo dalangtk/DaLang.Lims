@@ -37,6 +37,8 @@ public enum OperationTypeEnum
     CancelTest = 13,
     [Description("打印报告")]
     PrintReport = 14,
+    [Description("检验修改信息")]
+    ExamModifiedInfo = 15,
 }
 
 /// <summary>

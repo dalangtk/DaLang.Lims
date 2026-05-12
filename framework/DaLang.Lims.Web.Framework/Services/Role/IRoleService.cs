@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Dto;
+﻿using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain.Role.Dto;
 using DaLang.Lims.Web.Framework.Services.Role.Dto;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Role;
 
@@ -26,12 +26,6 @@ public interface IRoleService
     Task UpdateAsync(RoleUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task BatchDeleteAsync(long[] ids);
-
-    Task SoftDeleteAsync(long id);
-
-    Task BatchSoftDeleteAsync(long[] ids);
 
     Task SetDataScopeAsync(RoleSetDataScopeInput input);
 }

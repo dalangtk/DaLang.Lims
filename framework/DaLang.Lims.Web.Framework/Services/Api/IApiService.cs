@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
+﻿using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain.Api;
 using DaLang.Lims.Web.Framework.Domain.Api.Dto;
 using DaLang.Lims.Web.Framework.Services.Api.Dto;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Api;
 
@@ -24,12 +24,6 @@ public interface IApiService
     Task UpdateAsync(ApiUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task BatchDeleteAsync(long[] ids);
-
-    Task SoftDeleteAsync(long id);
-
-    Task BatchSoftDeleteAsync(long[] ids);
 
     Task SyncAsync(ApiSyncInput input);
 }

@@ -1,16 +1,17 @@
-﻿using Mapster;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
+using DaLang.Lims.Web.Framework.Core.Consts;
+using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
+using DaLang.Lims.Web.Framework.Domain.Document;
+using DaLang.Lims.Web.Framework.Domain.DocumentImage;
+using DaLang.Lims.Web.Framework.Services.Document.Dto;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Consts;
-using DaLang.Lims.Web.Framework.Domain.Document;
-using DaLang.Lims.Web.Framework.Domain.DocumentImage;
-using DaLang.Lims.Web.Framework.Services.Document.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
 
 namespace DaLang.Lims.Web.Framework.Services.Document;
 
@@ -188,36 +189,30 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除文档
+    /// 删除文档
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _documentRepository.DeleteAsync(m => m.Id == id);
+        await _documentRepository
+            .SetColumnUpdateable(a => a.IsDeleted == true)
+            .Where(a => a.Id == id)
+            .ExecuteCommandAsync();
     }
 
     /// <summary>
-    /// 彻底删除图片
+    /// 删除图片
     /// </summary>
     /// <param name="documentId"></param>
     /// <param name="url"></param>
     /// <returns></returns>
     public async Task DeleteImageAsync(long documentId, string url)
     {
-        await _documentImageRepository.DeleteAsync(m => m.DocumentId == documentId && m.Url == url);
-    }
-
-    /// <summary>
-    /// 删除文档
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task SoftDeleteAsync(long id)
-    {
-        var entity = await _documentRepository.GetAsync(id);
-        entity.IsDeleted = true;
-        await _documentRepository.UpdateAsync(entity);
+        await _documentImageRepository
+            .SetColumnUpdateable(a => a.IsDeleted == true)
+            .Where(m => m.DocumentId == documentId && m.Url == url)
+            .ExecuteCommandAsync();
     }
 
     /// <summary>

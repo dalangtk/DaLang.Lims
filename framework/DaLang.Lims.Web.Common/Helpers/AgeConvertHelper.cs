@@ -16,10 +16,17 @@ public class AgeConvertHelper
     {
         int totalMinutes1 = 0;
         int totalMinutes2 = 0;
-        if (int.TryParse(age1.Trim(), out int firstAge))
-            totalMinutes1 = ConvertAgeToMinutes(firstAge, ageUnit1);
-        if (int.TryParse(age2.Trim(), out int secondAge))
-            totalMinutes1 = ConvertAgeToMinutes(secondAge, ageUnit2);
+        if (!string.IsNullOrWhiteSpace(age1?.Trim()))
+        {
+            if (int.TryParse(age1.Trim(), out int firstAge))
+                totalMinutes1 = ConvertAgeToMinutes(firstAge, ageUnit1);
+        }
+        if (!string.IsNullOrWhiteSpace(age2?.Trim()))
+        {
+            if (int.TryParse(age2.Trim(), out int secondAge))
+                totalMinutes1 = ConvertAgeToMinutes(secondAge, ageUnit2);
+        }
+
         return totalMinutes1 + totalMinutes2;
     }
     public static int ConvertAgeToMinutes(int age, string ageUnit)

@@ -61,7 +61,7 @@ public class BasePurposeDetailService : BaseService, IBasePurposeDetailService, 
             {
                 ItemName = string.IsNullOrWhiteSpace(c.ItemNamePersonalize) ? b.ItemName : c.ItemNamePersonalize,
                 PrintOrder = c.PrintOrder ?? "",
-                ResultType = e.Name
+                ResultType = a.ResultType
             }, true)
             .ToListAsync();
 

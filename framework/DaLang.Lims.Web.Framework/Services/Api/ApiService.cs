@@ -1,31 +1,28 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.XPath;
-using System.Xml;
+﻿using DaLang.Lims.Web.Common.Extensions;
+using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Configs;
 using DaLang.Lims.Web.Framework.Core.Consts;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Core.Entities;
 using DaLang.Lims.Web.Framework.Domain.Api;
 using DaLang.Lims.Web.Framework.Domain.Api.Dto;
 using DaLang.Lims.Web.Framework.Repositories;
-using DaLang.Lims.Web.Framework.Services.Api.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
-using DaLang.Lims.Web.Common.Extensions;
-using DaLang.Lims.Web.Common.Helpers;
 using DaLang.Lims.Web.Framework.Resources;
-using DaLang.Lims.Web.Framework.Core.Entities;
+using DaLang.Lims.Web.Framework.Services.Api.Dto;
+using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace DaLang.Lims.Web.Framework.Services.Api;
 
@@ -88,20 +85,6 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         var data = await _apiRep.AsQueryable()
             .ToPagedListAsync(input.CurrentPage, input.PageSize);
-        //.WhereDynamicFilter(input.DynamicFilter)
-        //.WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
-        //.Count(out var total)
-        //.OrderBy(a => a.ParentId)
-        //.OrderBy(a => a.Sort)
-        //.Page(input.CurrentPage, input.PageSize)
-        //.ToListAsync();
-
-        //var data = new PageOutput<ApiEntity>()
-        //{
-        //    List = list,
-        //    Total = total
-        //};
-
         return data;
     }
 
@@ -162,38 +145,10 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _apiRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-    }
-
-    /// <summary>
-    /// 批量彻底删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    public async Task BatchDeleteAsync(long[] ids)
-    {
-        await _apiRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.Id)).ExecuteCommandAsync(); ;
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpDelete]
-    public async Task SoftDeleteAsync(long id)
-    {
-        await _apiRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    public async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        await _apiRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(o => ids.Contains(o.Id)).ExecuteCommandAsync();
+        await _apiRep
+            .SetColumnUpdateable(a => a.IsDeleted == true)
+            .Where(a => a.Id == id)
+            .ExecuteCommandAsync();
     }
 
     /// <summary>

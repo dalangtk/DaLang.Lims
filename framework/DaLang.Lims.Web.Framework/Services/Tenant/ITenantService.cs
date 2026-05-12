@@ -19,8 +19,4 @@ public interface ITenantService
     Task UpdateAsync(TenantUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task SoftDeleteAsync(long id);
-
-    Task BatchSoftDeleteAsync(long[] ids);
 }

@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Consts;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
@@ -15,8 +12,11 @@ using DaLang.Lims.Web.Framework.Domain.RolePermission;
 using DaLang.Lims.Web.Framework.Domain.User;
 using DaLang.Lims.Web.Framework.Domain.UserRole;
 using DaLang.Lims.Web.Framework.Services.Role.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Role;
 
@@ -202,14 +202,10 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     public async Task<long> AddAsync(RoleAddInput input)
     {
         if (await _roleRep.AsQueryable().AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
-        {
-            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
-        }
+        throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
 
         if (input.Code.NotNull() && await _roleRep.AsQueryable().AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
-        {
             throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
-        }
 
         var entity = Mapper.Map<RoleEntity>(input);
         if (entity.Sort == 0)
@@ -236,19 +232,13 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         var entity = await _roleRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
-        {
             throw ResultOutput.Exception("角色不存在");
-        }
 
         if (await _roleRep.AsQueryable().AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
-        {
             throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
-        }
 
         if (input.Code.NotNull() && await _roleRep.AsQueryable().AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
-        {
             throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
-        }
 
         Mapper.Map(input, entity);
         await _roleRep.UpdateAsync(entity);
@@ -266,7 +256,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -277,74 +267,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var userIds = await _userRoleRep.AsQueryable().Where(a => roleIdList.Contains(a.RoleId)).ToListAsync(a => a.UserId);
 
         //删除用户角色
-        await _userRoleRep.DeleteAsync(a => a.UserId == id);
+        await _userRoleRep.SetColumnUpdateable(v => v.IsDeleted == true).Where(a => a.UserId == id).ExecuteCommandAsync();
         //删除角色权限
-        await _rolePermissionRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
+        await _rolePermissionRep.SetColumnUpdateable(v => v.IsDeleted == true).Where(a => roleIdList.Contains(a.RoleId)).ExecuteCommandAsync();
         //删除角色
-        await _roleRep.DeleteAsync(a => roleIdList.Contains(a.Id));
-
-        foreach (var userId in userIds)
-        {
-            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
-        }
-    }
-
-    /// <summary>
-    /// 批量彻底删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchDeleteAsync(long[] ids)
-    {
-        var roleIdList = await _roleRep.GetChildIdListAsync(ids);
-        var userIds = await _userRoleRep.AsQueryable().Where(a => roleIdList.Contains(a.RoleId)).ToListAsync(a => a.UserId);
-
-        //删除用户角色
-        await _userRoleRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        //删除角色权限
-        await _rolePermissionRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        //删除角色
-        await _roleRep.AsUpdateable().Where(a => roleIdList.Contains(a.Id)).SetColumns(a => a.IsDeleted == true).ExecuteCommandAsync();
-
-        foreach (var userId in userIds)
-        {
-            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
-        }
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task SoftDeleteAsync(long id)
-    {
-        var roleIdList = await _roleRep.GetChildIdListAsync(id);
-        var userIds = await _userRoleRep.AsQueryable().Where(a => roleIdList.Contains(a.RoleId)).ToListAsync(a => a.UserId);
-        await _userRoleRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        await _rolePermissionRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        await _roleRep.AsUpdateable().Where(a => roleIdList.Contains(a.Id)).SetColumns(a => a.IsDeleted == true).ExecuteCommandAsync();
-        foreach (var userId in userIds)
-        {
-            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
-        }
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        var roleIdList = await _roleRep.GetChildIdListAsync(ids);
-        var userIds = await _userRoleRep.AsQueryable().Where(a => ids.Contains(a.RoleId)).ToListAsync(a => a.UserId);
-        await _userRoleRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        await _rolePermissionRep.DeleteAsync(a => roleIdList.Contains(a.RoleId));
-        await _roleRep.AsUpdateable().Where(a => roleIdList.Contains(a.Id)).SetColumns(a => a.IsDeleted == true).ExecuteCommandAsync();
+        await _roleRep.SetColumnUpdateable(v => v.IsDeleted == true).Where(a => roleIdList.Contains(a.Id)).ExecuteCommandAsync();
         foreach (var userId in userIds)
         {
             await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
@@ -360,9 +287,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         var entity = await _roleRep.GetAsync(input.RoleId);
         if (!(entity?.Id > 0))
-        {
             throw ResultOutput.Exception("角色不存在");
-        }
 
         Mapper.Map(input, entity);
         await _roleRep.UpdateAsync(entity);

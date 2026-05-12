@@ -16,7 +16,7 @@ public interface IBaseGroupService
     /// 获取所有
     /// </summary>
     /// <returns></returns>
-    Task<List<BaseGroupDto>> GetAllAsync();
+    Task<List<BaseGroupGetListDto>> GetAllAsync(bool includeChildren = false);
 
     /// <summary>
     /// 分页查询

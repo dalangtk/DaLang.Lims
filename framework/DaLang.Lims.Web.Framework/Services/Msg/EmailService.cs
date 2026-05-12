@@ -1,12 +1,11 @@
-﻿using DotNetCore.CAP;
+﻿using DaLang.Lims.Web.Framework.Core.Configs;
+using DaLang.Lims.Web.Framework.Services.Msg.Events;
+using DotNetCore.CAP;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using System;
 using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Configs;
-using DaLang.Lims.Web.Framework.Services.Msg.Events;
 
 namespace DaLang.Lims.Web.Framework.Services.Msg;
 

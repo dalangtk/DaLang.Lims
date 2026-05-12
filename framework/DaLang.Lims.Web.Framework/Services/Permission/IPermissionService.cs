@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DaLang.Lims.Web.Framework.Services.Permission.Dto;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Services.Permission.Dto;
 
 namespace DaLang.Lims.Web.Framework.Services.Permission;
 
@@ -43,8 +43,6 @@ public partial interface IPermissionService
     Task UpdateDotAsync(PermissionUpdateDotInput input);
 
     Task DeleteAsync(long id);
-
-    Task SoftDeleteAsync(long id);
 
     Task AssignAsync(PermissionAssignInput input);
 

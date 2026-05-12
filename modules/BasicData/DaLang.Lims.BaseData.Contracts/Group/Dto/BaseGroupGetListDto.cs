@@ -2,6 +2,7 @@
 
 public class BaseGroupGetListDto : BaseGroupDto
 {
+    public List<BaseGroupDto> Children { get; set; } = new List<BaseGroupDto>();
     /// <summary>
     /// 创建者Id
     /// </summary>

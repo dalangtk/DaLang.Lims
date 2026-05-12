@@ -1,9 +1,5 @@
-﻿using Mapster;
-using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Configs;
 using DaLang.Lims.Web.Framework.Core.Consts;
@@ -19,8 +15,12 @@ using DaLang.Lims.Web.Framework.Domain.TenantPkg;
 using DaLang.Lims.Web.Framework.Domain.User;
 using DaLang.Lims.Web.Framework.Domain.UserRole;
 using DaLang.Lims.Web.Framework.Services.Permission.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
+using Mapster;
+using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Permission;
 
@@ -381,35 +381,12 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
-    {
-        //递归查询所有权限点
-        var ids = _permissionRep.AsQueryable()
-        .Where(a => a.Id == id)
-        //.AsTreeCte()
-        .ToList(a => a.Id);
-
-        //删除权限关联接口
-        await _permissionApiRep.DeleteAsync(a => ids.Contains(a.PermissionId));
-
-        //删除相关权限
-        await _permissionRep.DeleteAsync(a => ids.Contains(a.Id));
-
-        //清除用户权限缓存
-        await ClearUserPermissionsAsync(ids);
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task SoftDeleteAsync(long id)
     {
         //递归查询所有权限点
         var ids = _permissionRep.AsQueryable()

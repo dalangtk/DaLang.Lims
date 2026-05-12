@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Dto;
+﻿using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain.User.Dto;
 using DaLang.Lims.Web.Framework.Services.Auth.Dto;
 using DaLang.Lims.Web.Framework.Services.User.Dto;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.User;
 
@@ -28,12 +27,6 @@ public interface IUserService
     Task UpdateAsync(UserUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task BatchDeleteAsync(long[] ids);
-
-    Task SoftDeleteAsync(long id);
-
-    Task BatchSoftDeleteAsync(long[] ids);
 
     Task ChangePasswordAsync(UserChangePasswordInput input);
 

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Dto;
+﻿using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Domain.Dict.Dto;
 using DaLang.Lims.Web.Framework.Services.Dict.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Dict;
 
@@ -25,6 +25,4 @@ public partial interface IDictService
     Task UpdateAsync(DictUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task BatchDeleteAsync(long[] ids);
 }

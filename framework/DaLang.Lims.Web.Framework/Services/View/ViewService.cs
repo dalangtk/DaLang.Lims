@@ -1,15 +1,16 @@
-﻿using Mapster;
+﻿using DaLang.Lims.Web.DynamicApi;
+using DaLang.Lims.Web.DynamicApi.Attributes;
+using DaLang.Lims.Web.Framework.Core.Attributes;
+using DaLang.Lims.Web.Framework.Core.Consts;
+using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
+using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Domain.View;
+using DaLang.Lims.Web.Framework.Services.View.Dto;
+using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Core.Attributes;
-using DaLang.Lims.Web.Framework.Core.Consts;
-using DaLang.Lims.Web.Framework.Core.Dto;
-using DaLang.Lims.Web.Framework.Domain.View;
-using DaLang.Lims.Web.Framework.Services.View.Dto;
-using DaLang.Lims.Web.DynamicApi;
-using DaLang.Lims.Web.DynamicApi.Attributes;
 
 namespace DaLang.Lims.Web.Framework.Services.View;
 
@@ -92,44 +93,13 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _viewRep.DeleteAsync(m => m.Id == id);
-    }
-
-    /// <summary>
-    /// 批量彻底删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    public async Task BatchDeleteAsync(long[] ids)
-    {
-        await _viewRep.DeleteAsync(a => ids.Contains(a.Id));
-    }
-
-    /// <summary>
-    /// 删除
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task SoftDeleteAsync(long id)
-    {
-        await _viewRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-
-    public async Task BatchSoftDeleteAsync(long[] ids)
-    {
-        await _viewRep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.Id)).ExecuteCommandAsync();
+        await _viewRep.SetColumnUpdateable(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync();
     }
 
     /// <summary>

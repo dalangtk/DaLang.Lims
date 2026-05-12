@@ -11,7 +11,6 @@ using DaLang.Lims.Web.Framework.Core.Helpers;
 using DaLang.Lims.Web.Framework.Domain;
 using DaLang.Lims.Web.Framework.Domain.Dto;
 using DaLang.Lims.Web.Framework.Services.Dto;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DaLang.Lims.Web.Framework.Services.Org.Input;
+﻿using DaLang.Lims.Web.Framework.Services.Org.Input;
 using DaLang.Lims.Web.Framework.Services.Org.Output;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DaLang.Lims.Web.Framework.Services.Org;
 
@@ -16,6 +16,4 @@ public partial interface IOrgService
     Task UpdateAsync(OrgUpdateInput input);
 
     Task DeleteAsync(long id);
-
-    Task SoftDeleteAsync(long id);
 }

@@ -3,6 +3,7 @@ using DaLang.Lims.Exam.Contracts.SampleTest.Dto;
 using DaLang.Lims.Shared.Contracts.Dto;
 using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
 using DaLang.Lims.Shared.Contracts.ExamResult.Dto;
+using DaLang.Lims.Web.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DaLang.Lims.Exam.Contracts.SampleTest;
@@ -109,4 +110,13 @@ public interface ISampleTestService
     /// <param name="examInfoId"></param>
     /// <returns></returns>
     Task<List<ReportFilesDto>> GetReportFiles(long examInfoId);
+
+    /// <summary>
+    /// 判断用户组别权限
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="groupCode"></param>
+    /// <param name="operType"></param>
+    /// <returns></returns>
+    Task<string> CheckUserGroupPermission(long id, string groupCode, OperationTypeEnum operType);
 }

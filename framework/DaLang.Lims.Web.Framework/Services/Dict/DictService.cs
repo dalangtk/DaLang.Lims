@@ -1,6 +1,4 @@
-﻿using AngleSharp.Dom;
-using AngleSharp.Text;
-using DaLang.Lims.Web.DynamicApi;
+﻿using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Cache;
 using DaLang.Lims.Web.Framework.Core.Consts;
@@ -282,21 +280,5 @@ public class DictService : BaseService, IDictService, IDynamicApi
                 await _cache.SetAsync(keyName, dictList, TimeSpan.FromHours(24));
             }
         }
-    }
-
-    /// <summary>
-    /// 批量删除
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    public async Task BatchDeleteAsync(long[] ids)
-    {
-        var entities = await _dictRep.GetListAsync(o => ids.Contains(o.Id));
-        entities.ForEach(a =>
-        {
-            a.IsDeleted = true;
-        });
-
-        await _dictRep.UpdateRangeAsync(entities);
     }
 }
