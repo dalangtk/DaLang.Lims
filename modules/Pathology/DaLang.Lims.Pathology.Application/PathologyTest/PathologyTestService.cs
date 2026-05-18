@@ -1,11 +1,15 @@
 ﻿using DaLang.Lims.BaseData.Contracts.AuditRule;
 using DaLang.Lims.BaseData.Contracts.AuditRule.Dto;
 using DaLang.Lims.BaseData.Domain.Customer;
+using DaLang.Lims.BaseData.Domain.Group;
+using DaLang.Lims.BaseData.Domain.UserGroup;
+using DaLang.Lims.Exam.Contracts.ExamUnAuditLog.Dto;
 using DaLang.Lims.Exam.Contracts.Pathology.Dto;
 using DaLang.Lims.Exam.Contracts.ReportTask.Dto;
 using DaLang.Lims.Exam.Contracts.SampleTest;
 using DaLang.Lims.Exam.Contracts.SampleTest.Dto;
 using DaLang.Lims.Exam.Domain.ExamUnAuditLog;
+using DaLang.Lims.Exam.Domain.ReportFiles;
 using DaLang.Lims.Exam.Domain.ReportTask;
 using DaLang.Lims.Pathology.Application.PathologySetting;
 using DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
@@ -40,9 +44,11 @@ using DaLang.Lims.Web.Framework.Core;
 using DaLang.Lims.Web.Framework.Core.Attributes;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Core.Dto;
+using DaLang.Lims.Web.Framework.Domain.User;
 using DaLang.Lims.Web.Framework.Repositories;
 using DaLang.Lims.Web.Framework.Services;
 using DaLang.Lims.Web.Framework.Services.Parameter;
+using DaLang.Lims.Web.Framework.Services.User.Dto;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -75,6 +81,10 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
     private readonly AdminRepositoryBase<ExamSampleTrackEntity> _sampleTrackRep;
     private readonly IExamUnAuditLogRepository _unAuditLogRep;
     private readonly BasePathologySettingService _settingService;
+    private readonly AdminRepositoryBase<ReportFilesEntity> _reportFileRep;
+    private readonly IBaseGroupRepository _baseGroupRep;
+    private readonly IBaseUserGroupRepository _userGroupRep;
+    private readonly IUserRepository _userRep;
 
     public PathologyTestService(AdminRepositoryBase<ApplyInfoEntity> applyInfoRep,
         AdminRepositoryBase<ApplyPurposeEntity> applyPurposeRep,
@@ -93,7 +103,11 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         IBaseCustomerReportExtendRepository reportExtendRep,
         AdminRepositoryBase<ExamSampleTrackEntity> sampleTrackRep,
         IExamUnAuditLogRepository unAuditLogRep,
-        BasePathologySettingService settingService)
+        BasePathologySettingService settingService,
+        AdminRepositoryBase<ReportFilesEntity> reportFileRep,
+        IBaseGroupRepository baseGroupRep,
+        IBaseUserGroupRepository userGroupRep,
+        IUserRepository userRep)
     {
         _applyInfoRep = applyInfoRep;
         _applyPurposeRep = applyPurposeRep;
@@ -113,6 +127,10 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         _sampleTrackRep = sampleTrackRep;
         _unAuditLogRep = unAuditLogRep;
         _settingService = settingService;
+        _reportFileRep = reportFileRep;
+        _baseGroupRep = baseGroupRep;
+        _userGroupRep = userGroupRep;
+        _userRep = userRep;
     }
 
     /// <summary>
@@ -568,20 +586,79 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
     }
 
     /// <summary>
-    /// 保存特检结果
+    /// 保存结果
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<bool> SaveSpecialResult(List<ExamSpecialResultDto> input)
+    [AdminTransaction]
+    public async Task<bool> SaveResult(SaveResultInput input)
     {
-        if (input == null || input.Count == 0)
+        if (input == null)
             throw ResultOutput.Exception("input can not be null or empty.");
 
-        await _examSpecialResultRep.Context.Updateable(input.Adapt<List<ExamSpecialResultEntity>>()).UpdateColumns(v => new
+        if (input.ExamInfoId <= 0)
+            throw ResultOutput.Exception("invalid examInfoId.");
+
+        var examInfo = await _examInfoRep.GetFirstAsync(v => v.Id == input.ExamInfoId);
+        if (examInfo == null)
+            throw ResultOutput.Exception("examInfo not found.");
+
+        if (input.ResultType == 1
+            && examInfo.SampleStatus != SampleStatusEnum.Testing.ToInt()
+            && examInfo.SampleStatus != SampleStatusEnum.GiantInspection.ToInt())
         {
-            v.FieldValue
-        }, true).ExecuteCommandAsync();
+            throw ResultOutput.Exception($"当前样本状态为{((SampleStatusEnum)examInfo.SampleStatus).ToDescription()}，无法保存结果！");
+        }
+
+        if (input.ResultType == 2
+            && examInfo.SampleStatus != SampleStatusEnum.Testing.ToInt()
+            && examInfo.SampleStatus != SampleStatusEnum.GiantInspection.ToInt()
+             && examInfo.SampleStatus != SampleStatusEnum.FirstCheck.ToInt())
+        {
+            throw ResultOutput.Exception($"当前样本状态为{((SampleStatusEnum)examInfo.SampleStatus).ToDescription()}，无法保存结果！");
+        }
+
+        var resultInput = input.SpecialResultList.Adapt<List<ExamSpecialResultEntity>>();
+        if (resultInput != null && resultInput.Count > 0)
+        {
+            var ret = await _examSpecialResultRep.Context.Updateable(resultInput).UpdateColumns(v => new
+            {
+                v.FieldValue
+            }, true).ExecuteCommandAsync();
+        }
+        if (input.Doctor != null)
+        {
+            bool needUpdateExam = false;
+            var updateable = _examInfoRep.AsUpdateable();
+            if (examInfo.SecondAuditAuthorizedId != input.Doctor.SecondDoctorId)
+            {
+                updateable = updateable.SetColumns(v => v.SecondAuditAuthorizedId == input.Doctor.SecondDoctorId)
+                    .SetColumns(v => v.SecondAuditId == AppInfo.User.Id)
+                    .SetColumns(v => v.SecondAuditName == input.Doctor.SecondDoctor);
+
+                needUpdateExam = true;
+            }
+            if (examInfo.ApproverAuthorizedId != input.Doctor.ReportDoctorId)
+            {
+                updateable = updateable.SetColumns(v => v.ApproverAuthorizedId == input.Doctor.ReportDoctorId)
+                    .SetColumns(v => v.ApproverId == AppInfo.User.Id)
+                    .SetColumns(v => v.ApproverName == input.Doctor.ReportDoctor);
+
+                needUpdateExam = true;
+            }
+
+            if (examInfo.SecondAuditTime != input.Doctor.ReportTime)
+            {
+                updateable = updateable.SetColumns(v => v.SecondAuditTime == input.Doctor.ReportTime);
+                needUpdateExam = true;
+            }
+
+            if (needUpdateExam)
+            {
+                var r = await updateable.Where(v => v.Id == input.ExamInfoId).ExecuteCommandAsync();
+            }
+        }
 
         return true;
     }
@@ -606,22 +683,27 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         if (!string.IsNullOrWhiteSpace(ckResult))
             throw ResultOutput.Exception(ckResult);
 
-        if (examInfo.ApproverAuthorizedId == null)
+        long uid = AppInfo.User.Id;
+        if (input.AuditType == OperationTypeEnum.SecondCheck)
         {
-            examInfo.ApproverAuthorizedId = AppInfo.User.Id;
-            examInfo.ApproverId = AppInfo.User.Id;
-            examInfo.ApproverName = AppInfo.User.Name;
+            if (examInfo.ApproverAuthorizedId == null)
+            {
+                examInfo.ApproverAuthorizedId = AppInfo.User.Id;
+                examInfo.ApproverId = AppInfo.User.Id;
+                examInfo.ApproverName = AppInfo.User.Name;
+            }
+
+            if (examInfo.SecondAuditId == null)
+            {
+                examInfo.SecondAuditAuthorizedId = AppInfo.User.Id;
+                examInfo.SecondAuditId = AppInfo.User.Id;
+                examInfo.SecondAuditName = AppInfo.User.Name;
+            }
+
+            uid = examInfo.SecondAuditAuthorizedId!.Value;
         }
 
-        if (examInfo.SecondAuditId == null)
-        {
-            examInfo.SecondAuditAuthorizedId = AppInfo.User.Id;
-            examInfo.SecondAuditId = AppInfo.User.Id;
-            examInfo.SecondAuditName = AppInfo.User.Name;
-        }
-
-        long uid = examInfo.SecondAuditId.Value;
-        ckResult = await _sampleTestService.CheckUserGroupPermission(uid, examInfo.WFCode, input.AuditType);
+        ckResult = await _sampleTestService.CheckUserGroupPermission(uid, examInfo.WFCode!, input.AuditType);
         if (!string.IsNullOrWhiteSpace(ckResult))
             throw ResultOutput.Exception(ckResult);
 
@@ -673,6 +755,10 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         }
         else if (input.AuditType == OperationTypeEnum.SecondCheck)
         {
+            var currSetting = await _settingService.GetSettingByWfCode(examInfo.WFCode!);
+            if (!currSetting.CanSameUserReport && examInfo.SecondAuditAuthorizedId == examInfo.ApproverAuthorizedId)
+                throw ResultOutput.Exception("审核失败，审核人不能与审批人相同！");
+
             purposeList.ForEach(v =>
             {
                 v.SampleStatus = SampleStatusEnum.SecondCheck.ToInt();
@@ -744,5 +830,48 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         ret.ExamInfo = examInfo.Adapt<ExamInfoDto>();
 
         return ret;
+    }
+
+    /// <summary>
+    /// 反审核
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ExamInfoDto> UnAudit(UnAuditInput input) => await _sampleTestService.UnAudit(input);
+
+    /// <summary>
+    /// 获取病理复诊医生
+    /// </summary>
+    /// <param name="wfCode"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<List<UserGetOptionDto>> GetPathologySecondAuditUsers(string wfCode)
+    {
+        var group = await _baseGroupRep.GetListAsync(v => v.GroupCode == LimsConsts.PathologyGroupCode || v.GroupCode == wfCode);
+        var groupCodes = group.Select(v => v.GroupCode).ToList();
+
+        var query = _userGroupRep.AsQueryable()
+            .InnerJoin<UserEntity>((a, b) => a.UserId == b.Id)
+            .Where(a => groupCodes.Contains(a.GroupCode))
+            .Where(a => a.CanSecondCheck == 1);
+        //switch (operType)
+        //{
+        //    case OperationTypeEnum.FirstCheck:
+        //        query.Where(a => a.CanFirstCheck == 1 || a.CanSecondCheck == 1);
+        //        break;
+        //    case OperationTypeEnum.SecondCheck:
+        //        query.Where(a => a.CanSecondCheck == 1);
+        //        break;
+        //}
+
+        var userList = await query.Select((a, b) => new UserGetOptionDto
+        {
+            Id = a.UserId,
+            Name = b.Name,
+            UserName = b.UserName
+        }).ToListAsync();
+
+        return userList;
     }
 }

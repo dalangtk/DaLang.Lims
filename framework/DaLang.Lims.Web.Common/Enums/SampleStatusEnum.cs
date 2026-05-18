@@ -48,6 +48,11 @@ public enum SampleStatusEnum
     [Description("检验中")]
     Testing = 1061,
     /// <summary>
+    /// 巨检
+    /// </summary>
+    [Description("巨检")]
+    GiantInspection = 1062,
+    /// <summary>
     /// 初审
     /// </summary>
     [Description("初审")]

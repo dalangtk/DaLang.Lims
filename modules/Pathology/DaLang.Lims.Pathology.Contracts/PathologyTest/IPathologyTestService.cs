@@ -1,8 +1,10 @@
 ﻿using DaLang.Lims.Exam.Contracts.Pathology.Dto;
 using DaLang.Lims.Exam.Contracts.SampleTest.Dto;
 using DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
+using DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
 using DaLang.Lims.Shared.Contracts.ExamSpecialResult.Dto;
+using DaLang.Lims.Web.Framework.Services.User.Dto;
 
 namespace DaLang.Lims.Pathology.Contracts.PathologyTest;
 
@@ -31,15 +33,27 @@ public interface IPathologyTestService
     /// <returns></returns>
     Task<List<long>> PathologyBack(PathologyBackInput input);
     /// <summary>
-    /// 保存特检结果
+    /// 保存结果
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    Task<bool> SaveSpecialResult(List<ExamSpecialResultDto> input);
+    Task<bool> SaveResult(SaveResultInput input);
     /// <summary>
     /// 审核
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     Task<AuditResultDto> PathologyAudit(AuditInput input);
+    /// <summary>
+    /// 反审核
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<ExamInfoDto> UnAudit(UnAuditInput input);
+    /// <summary>
+    /// 获取病理复诊医生
+    /// </summary>
+    /// <param name="wfCode"></param>
+    /// <returns></returns>
+    Task<List<UserGetOptionDto>> GetPathologySecondAuditUsers(string wfCode);
 }

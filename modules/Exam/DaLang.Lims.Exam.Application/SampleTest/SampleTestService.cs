@@ -756,6 +756,7 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
+    [AdminTransaction]
     public async Task<ExamInfoDto> UnAudit(UnAuditInput input)
     {
         var examInfo = await _examInfoRep.GetFirstAsync(v => v.Id == input.ExamInfoId);
@@ -766,19 +767,34 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
         if (!string.IsNullOrWhiteSpace(ckResult))
             throw ResultOutput.Exception(ckResult);
 
-        var operType = examInfo.SampleStatus == SampleStatusEnum.Printed.ToInt() ? OperationTypeEnum.PrintedUnChecked : OperationTypeEnum.UnChecked;
-        ckResult = await CheckUserGroupPermission(AppInfo.User.Id, examInfo.GroupCode, operType);
+        var operType = examInfo.SampleStatus == SampleStatusEnum.Printed.ToInt() || examInfo.DownloadFlag == 1 ? OperationTypeEnum.PrintedUnChecked : OperationTypeEnum.UnChecked;
+
+        var groupCode = examInfo.GroupCode == LimsConsts.PathologyGroupCode ? examInfo.WFCode : examInfo.GroupCode;
+        ckResult = await CheckUserGroupPermission(AppInfo.User.Id, groupCode, operType);
         if (!string.IsNullOrWhiteSpace(ckResult))
             throw ResultOutput.Exception(ckResult);
 
+        var taskId = examInfo.TaskId;
+        var originalSampleStatus = examInfo.SampleStatus.ToInt();
         bool isFirstUnCheck = examInfo.SampleStatus == SampleStatusEnum.FirstCheck.ToInt();
 
-        examInfo.SampleStatus = SampleStatusEnum.Testing.ToInt();
-        examInfo.SampleStatusName = SampleStatusEnum.Testing.ToDescription();
-        examInfo.FirstAuditId = null;
-        examInfo.FirstAuditName = null;
-        examInfo.FirstAuditAuthorizedId = null;
-        examInfo.FirstAuditTime = null;
+        if (examInfo.GroupCode != LimsConsts.PathologyGroupCode
+            || (examInfo.GroupCode == LimsConsts.PathologyGroupCode && isFirstUnCheck)
+            || (examInfo.GroupCode == LimsConsts.PathologyGroupCode && !isFirstUnCheck && examInfo.FirstAuditId is null))
+        {
+            examInfo.FirstAuditId = null;
+            examInfo.FirstAuditName = null;
+            examInfo.FirstAuditAuthorizedId = null;
+            examInfo.FirstAuditTime = null;
+            examInfo.SampleStatus = SampleStatusEnum.Testing.ToInt();
+            examInfo.SampleStatusName = SampleStatusEnum.Testing.ToDescription();
+        }
+        else if (examInfo.GroupCode == LimsConsts.PathologyGroupCode && !isFirstUnCheck && examInfo.FirstAuditId is not null)
+        {
+            examInfo.SampleStatus = SampleStatusEnum.FirstCheck.ToInt();
+            examInfo.SampleStatusName = SampleStatusEnum.FirstCheck.ToDescription();
+        }
+
         examInfo.SecondAuditId = null;
         examInfo.SecondAuditName = null;
         examInfo.SecondAuditAuthorizedId = null;
@@ -786,6 +802,12 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
         examInfo.CreateReportTime = null;
         examInfo.PrintReportTime = null;
         examInfo.DownloadFlag = null;
+
+        await _purposeRep.AsUpdateable()
+            .SetColumns(v => v.SampleStatus == examInfo.SampleStatus)
+            .SetColumns(v => v.SampleStatusName == examInfo.SampleStatusName)
+            .Where(v => v.Barcode == examInfo.Barcode && v.TaskId == examInfo.TaskId && v.AddType != 2 && v.SampleStatus == originalSampleStatus)
+            .ExecuteCommandAsync();
 
         await _examInfoRep.AsUpdateable(examInfo)
             .UpdateColumns(v => new
@@ -811,12 +833,12 @@ public class SampleTestService : BaseService, ISampleTestService, IDynamicApi, I
         var sampleTrack = new ExamSampleTrackDto
         {
             Barcode = examInfo.Barcode,
-            GroupCode = examInfo.GroupCode,
-            GroupName = examInfo.GroupName,
+            GroupCode = examInfo.GroupCode!,
+            GroupName = examInfo.GroupName!,
             TestDate = examInfo.TestDate,
             SampleNo = examInfo.SampleNo,
             OperationType = OperationTypeEnum.UnChecked,
-            TrackContent = $"{content}，{input.ReasonContent}"
+            TrackContent = $"{content}{(string.IsNullOrWhiteSpace(input.ReasonContent) ? "" : "，" + input.ReasonContent)}"
         };
 
         var unAuditLog = new ExamUnAuditLogAddInput

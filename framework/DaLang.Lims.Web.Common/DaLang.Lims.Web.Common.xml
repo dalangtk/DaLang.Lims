@@ -114,6 +114,11 @@
             检验中
             </summary>
         </member>
+        <member name="F:DaLang.Lims.Web.Common.Enums.SampleStatusEnum.GiantInspection">
+            <summary>
+            巨检
+            </summary>
+        </member>
         <member name="F:DaLang.Lims.Web.Common.Enums.SampleStatusEnum.FirstCheck">
             <summary>
             初审

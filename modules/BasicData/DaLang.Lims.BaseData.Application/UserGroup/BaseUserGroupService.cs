@@ -4,6 +4,7 @@ using DaLang.Lims.BaseData.Contracts.UserGroup.Dto;
 using DaLang.Lims.BaseData.Domain.Group;
 using DaLang.Lims.BaseData.Domain.UserGroup;
 using DaLang.Lims.Web.BaseData.Core.Consts;
+using DaLang.Lims.Web.Common.Enums;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core;

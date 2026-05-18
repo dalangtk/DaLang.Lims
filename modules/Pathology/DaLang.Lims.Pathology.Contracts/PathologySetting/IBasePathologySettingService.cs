@@ -39,4 +39,10 @@ public interface IBasePathologySettingService
     /// <param name="wfCode"></param>
     /// <returns></returns>
     Task<PathologySettingDto> GetSettingByWfCode(string wfCode);
+
+    /// <summary>
+    /// 获取病理工作流
+    /// </summary>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetPathologyWfCodes();
 }

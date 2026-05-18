@@ -1,7 +1,9 @@
-﻿using DaLang.Lims.Pathology.Contracts.PathologySetting;
+﻿using DaLang.Lims.BaseData.Domain.Group;
+using DaLang.Lims.Pathology.Contracts.PathologySetting;
 using DaLang.Lims.Pathology.Contracts.PathologySetting.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
 using DaLang.Lims.Pathology.Domain.PathologySetting;
+using DaLang.Lims.Web.Common.Consts;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Cache;
@@ -22,10 +24,15 @@ public class BasePathologySettingService : BaseService, IBasePathologySettingSer
 {
     private IBasePathologySettingRepository _basePathologySettingRep;
     private ICacheTool _cacheTool;
+    private IBaseGroupRepository _baseGroupRep;
 
-    public BasePathologySettingService(IBasePathologySettingRepository basePathologySettingRep)
+    public BasePathologySettingService(IBasePathologySettingRepository basePathologySettingRep,
+        IBaseGroupRepository baseGroupRep,
+        ICacheTool cacheTool)
     {
         _basePathologySettingRep = basePathologySettingRep;
+        _baseGroupRep = baseGroupRep;
+        _cacheTool = cacheTool;
     }
 
     /// <summary>
@@ -122,5 +129,19 @@ public class BasePathologySettingService : BaseService, IBasePathologySettingSer
         }, TimeSpan.FromMinutes(240));
 
         return ret.Adapt<PathologySettingDto>();
+    }
+
+    /// <summary>
+    /// 获取病理工作流
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<List<LabelValueDto>> GetPathologyWfCodes()
+    {
+        var list = await _baseGroupRep.AsQueryable()
+            .Where(v => v.ParentCode == LimsConsts.PathologyGroupCode)
+            .Select(v => new LabelValueDto { Label = v.GroupCode, Value = v.GroupName })
+            .ToListAsync();
+        return list;
     }
 }
