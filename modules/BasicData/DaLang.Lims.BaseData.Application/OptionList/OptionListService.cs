@@ -202,11 +202,11 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         var dictCode = input.Filter;
         var list = await _dictRep.AsQueryable()
             .InnerJoin<DictTypeEntity>((a, b) => b.Code.Contains(dictCode) && a.IsValid == true && a.DictTypeId == b.Id)
-            .OrderBy(c => c.Sort)
+            .OrderBy(a => a.Sort)
             .Select(a => new LabelValueDto
             {
-                Label = a.Value,
-                Value = a.Name
+                Label = a.Name,
+                Value = a.Value
             })
             .ToPagedListAsync(input.CurrentPage, input.PageSize);
         var data = list.Items.ToList();

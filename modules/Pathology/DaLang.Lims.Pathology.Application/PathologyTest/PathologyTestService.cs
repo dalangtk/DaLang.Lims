@@ -514,7 +514,6 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
                         FieldValue = property.Value.ToString(),
                         ResultType = PathologyConsts.OtherResultField.Contains(property.Name) ? input.ResultType : 3,
                     });
-                    //Console.WriteLine($"{property.Name}: {property.Value}");
                 }
 
                 await _examSpecialResultRep.Context.Insertable(specialResultList.Adapt<List<ExamSpecialResultEntity>>()).ExecuteCommandAsync();
