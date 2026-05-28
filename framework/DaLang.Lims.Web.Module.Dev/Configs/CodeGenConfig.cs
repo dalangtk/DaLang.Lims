@@ -17,7 +17,7 @@
     }
     public class DefaultCodegenOption
     {
-        public string AuthorName { get; set; } = "SirHQ";
+        public string AuthorName { get; set; } = "DaLang";
         public string BackendOut { get; set; } = "";
         public string FrontendOut { get; set; } = "";
         /// <summary>

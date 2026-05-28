@@ -37,34 +37,76 @@
       //模板列表
       "templates": [
         {
-          "source": "_EN_Entity.cs.tpl",
-          "outTo": "_BO_\\Domain\\_EN_"
-        },
-        {
-          "source": "I_EN_Repository.cs.tpl",
-          "outTo": "_BO_\\Domain\\_EN_"
-        },
-        {
-          "source": "_EN_Repository.cs.tpl",
-          "outTo": "_BO_\\Repositories\\_EN_"
-        },
-        {
-          "source": "I_EN_Service.cs.tpl",
-          "outTo": "_BO_\\Services\\_EN_"
-        },
-        {
-          "source": "_EN_Service.cs.tpl",
-          "outTo": "_BO_\\Services\\_EN_"
-        },
-        {
-          "source": "Default_Consts.cs.tpl",
-          "outTo": "_BO_\\Core\\Consts",
-          "IsExistSkip": true
-        },
-        {
           "source": "_NP_.csproj.tpl",
           "outTo": "_BO_\\",
           "IsExistSkip": true
+        },
+        {
+          "source": "_NP_.Application.csproj.tpl",
+          "outTo": "_BO_\\_NP_.Application"
+        },
+        {
+          "source": "_EN_Service.cs.tpl",
+          "outTo": "_BO_\\_NP_.Application\\_EN_"
+        },
+
+        {
+          "source": "_NP_.Contracts.csproj.tpl",
+          "outTo": "_BO_\\_NP_.Contracts",
+          "IsExistSkip": true
+        },
+        {
+          "source": "I_EN_Service.cs.tpl",
+          "outTo": "_BO_\\_NP_.Contracts\\_EN_"
+        },
+        {
+          "source": "_EN_AddInput.cs.tpl",
+          "outTo": "_BO_\\_NP_.Contracts\\_EN_\\Dto"
+        },
+        {
+          "source": "_EN_UpdateInput.cs.tpl",
+          "outTo": "_BO_\\_NP_.Contracts\\_EN_\\Dto"
+        },
+        {
+          "source": "_EN_QueryInput.cs.tpl",
+          "outTo": "_BO_\\_NP_.Contracts\\_EN_\\Dto"
+        },
+        {
+          "source": "_EN_Dto.cs.tpl",
+          "outTo": "_BO_\\_NP_.Contracts\\_EN_\\Dto"
+        },
+
+        {
+          "source": "_NP_.Core.csproj.tpl",
+          "outTo": "_BO_\\_NP_.Core",
+          "IsExistSkip": true
+        },
+        {
+          "source": "Default_Consts.cs.tpl",
+          "outTo": "_BO_\\_NP_.Core\\Consts",
+          "IsExistSkip": true
+        },
+
+        {
+          "source": "_NP_domain.csproj.tpl",
+          "outTo": "_BO_\\_NP_.Domain"
+        },
+        {
+          "source": "I_EN_Repository.cs.tpl",
+          "outTo": "_BO_\\_NP_.Domain\\_EN_"
+        },
+        {
+          "source": "_EN_Entity.cs.tpl",
+          "outTo": "_BO_\\_NP_.Domain\\_EN_"
+        },
+        {
+          "source": "_NP_.Sqlsugar.Mysql.csproj.tpl",
+          "outTo": "_BO_\\_NP_.Sqlsugar.Mysql",
+          "IsExistSkip": true
+        },
+        {
+          "source": "_EN_Repository.cs.tpl",
+          "outTo": "_BO_\\_NP_.Sqlsugar.Mysql\\Repositories\\_EN_"
         }
       ]
     },

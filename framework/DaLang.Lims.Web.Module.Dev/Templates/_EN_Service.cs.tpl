@@ -31,11 +31,11 @@ using DaLang.Lims.Web.Framework.Domain.Dict;
 using SqlSugar;
 
 using @(gen.Namespace).Domain.@(entityNamePc);
-using @(gen.Namespace).Services.@(entityNamePc).Dto;
+using @(gen.Namespace).Contracts.@(entityNamePc).Dto;
 using @(gen.Namespace).Core.Consts;
 
 
-namespace @(gen.Namespace).Services.@(entityNamePc)
+namespace @(gen.Namespace).Application.@(entityNamePc)
 {
     /// <summary>
     /// @(gen.BusName)服务
@@ -204,7 +204,7 @@ namespace @(gen.Namespace).Services.@(entityNamePc)
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<long> AddAsync(@(entityNamePc)Dto input)
+        public async Task<long> AddAsync(@(entityNamePc)AddInput input)
         {
             var entity = Mapper.Map<@(entityNamePc)Entity>(input);
             if (entity.Sort == 0)
@@ -222,7 +222,7 @@ namespace @(gen.Namespace).Services.@(entityNamePc)
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task UpdateAsync(@(entityNamePc)Dto input)
+        public async Task UpdateAsync(@(entityNamePc)UpdateInput input)
         {
             var entity = await _@(entityNameCc)Rep.GetAsync(input.Id);
             if (!(entity?.Id > 0))
@@ -244,45 +244,17 @@ namespace @(gen.Namespace).Services.@(entityNamePc)
         }
 
 
-@if(gen.GenBatchDelete){
-        @:/// <summary>
-        @:/// 批量删除
-        @:/// </summary>
-        @:/// <param name="ids"></param>
-        @:/// <returns></returns>
-        @:[HttpPut]
-        @:public async Task<bool> BatchDeleteAsync(long[] ids)
-        @:{
-        @:    return await _@(entityNameCc)Rep.SetColumnUpdateable(a => a.IsDeleted == true).Where(a => ids.Contains(a.UserId)).ExecuteCommandAsync() > 0;
-        @:}
-}
-
-@if(gen.GenSoftDelete){
-        @:/// <summary>
-        @:/// 软删除
-        @:/// </summary>
-        @:/// <param name="id"></param>
-        @:/// <returns></returns>
-        @:[HttpDelete]
-        @:public async Task<bool> SoftDeleteAsync(long id)
-        @:{
-        @:    return await _@(entityNameCc)Rep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => a.Id == id).ExecuteCommandAsync() > 0;
-        @:}
-}
-
-@if (gen.GenBatchSoftDelete)
-{
-        @:/// <summary>
-        @:/// 批量软删除
-        @:/// </summary>
-        @:/// <param name="ids"></param>
-        @:/// <returns></returns>
-        @:[HttpPut]
-        @:public async Task<bool> BatchSoftDeleteAsync(long[] ids)
-        @:{
-        @:    return await _@(entityNameCc)Rep.AsUpdateable().SetColumns(a => a.IsDeleted == true).Where(a => ids.Contains(a.UserId)).ExecuteCommandAsync() > 0;
-        @:}
-
-}
+        @if(gen.GenBatchDelete){
+                @:/// <summary>
+                @:/// 批量删除
+                @:/// </summary>
+                @:/// <param name="ids"></param>
+                @:/// <returns></returns>
+                @:[HttpPut]
+                @:public async Task<bool> BatchDeleteAsync(long[] ids)
+                @:{
+                @:    return await _@(entityNameCc)Rep.SetColumnUpdateable(a => a.IsDeleted == true).Where(a => ids.Contains(a.UserId)).ExecuteCommandAsync() > 0;
+                @:}
+        }
     }
 }

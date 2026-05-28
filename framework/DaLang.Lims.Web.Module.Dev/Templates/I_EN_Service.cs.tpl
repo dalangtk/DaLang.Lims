@@ -16,9 +16,9 @@ using System.Collections.Generic;
 {
 @:using @(ns);    
 }
-using @(gen.Namespace).Services.@(entityNamePc).Dto;
+using @(gen.Namespace).Contracts.@(entityNamePc).Dto;
 
-namespace @(gen.Namespace).Services.@(entityNamePc)
+namespace @(gen.Namespace).Contracts.@(entityNamePc)
 {
     /// <summary>
     /// @(gen.BusName)服务

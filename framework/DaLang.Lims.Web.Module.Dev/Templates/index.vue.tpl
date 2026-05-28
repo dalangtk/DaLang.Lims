@@ -261,10 +261,9 @@ const perms = {
   add:'api:@(permissionArea):add',
   update:'api:@(permissionArea):update',
   delete:'api:@(permissionArea):delete',
-  batDelete:'api:@(permissionArea):batch-delete',
 }
 
-const actionColWidth = authAll([perms.update, perms.softDelete]) || authAll([perms.update, perms.delete]) ? 135 : 70
+const actionColWidth = authAll([perms.update, perms.delete]) ? 135 : 70
 
 const state = reactive({
   loading: false,
