@@ -9,7 +9,9 @@
 
 namespace @(gen.Namespace).Contracts.@(entityNamePc).Dto
 {
-    /// <summary>@(gen.BusName)更新数据输入</summary>
+    /// <summary>
+    /// @(gen.BusName)更新数据输入
+    /// </summary>
     public partial class @(entityNamePc)UpdateInput:@(entityNamePc)AddInput {
     @if (!String.IsNullOrWhiteSpace(gen.BaseEntity))
     {

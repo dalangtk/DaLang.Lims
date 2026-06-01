@@ -44,15 +44,15 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
   /**
    * No description
    *
-   * @(at)tags @(areaNameCc)
+   * @(at)tags @(gen.AreaGrouping.ToLower())
    * @(at)name GetPage
    * @(at)summary 查询分页
-   * @(at)request POST:/api/@(areaName)/@(entityNameKc.ToLower())/get-page
+   * @(at)request POST:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/get-page
    * @(at)secure
    */
   getPage = (data: GetPageInput<@(entityNamePc)QueryListInput>, params: RequestParams = {}) =>
     this.request<ResultBasePageOutput<@(entityNamePc)ListOutput>, any>({
-      path: `/api/@(areaName)/@(entityNameKc.ToLower())/get-page`,
+      path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/get-page`,
       method: 'POST',
       body: data,
       secure: true,
@@ -63,10 +63,10 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
     /**
    * No description
    *
-   * @(at)tags @(areaNameCc)
+   * @(at)tags @(gen.AreaGrouping.ToLower())
    * @(at)name Get
    * @(at)summary 查询@(gen.BusName)
-   * @(at)request GET:/api/@(areaName)/@(entityNameKc.ToLower())/get
+   * @(at)request GET:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/get
    * @(at)secure
    */
   get = (
@@ -77,7 +77,7 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
     params: RequestParams = {}
   ) =>
     this.request<ResultBaseOutput<@(entityNamePc)Output>, any>({
-      path: `/api/@(areaName)/@(entityNameKc.ToLower())/get`,
+      path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/get`,
       method: 'GET',
       query: query,
       secure: true,
@@ -87,15 +87,15 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
   /**
   * No description
   *
-  * @(at)tags @(areaNameCc)
+  * @(at)tags @(gen.AreaGrouping.ToLower())
   * @(at)name GetAll
   * @(at)summary 查询@(gen.BusName)所有数据
-  * @(at)request GET:/api/@(areaName)/@(entityNameKc.ToLower())/getAll
+  * @(at)request GET:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/getAll
   * @(at)secure
   */
  getAll = () =>
    this.request<ResultBaseOutput<Array<@(entityNamePc)Output>>, any>({
-     path: `/api/@(areaName)/@(entityNameKc.ToLower())/get-all`,
+     path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/get-all`,
      method: 'GET',
      secure: true,
      format: 'json',
@@ -103,15 +103,15 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
  /**
   * No description
   *
-  * @(at)tags @(areaNameCc)
+  * @(at)tags @(gen.AreaGrouping.ToLower())
   * @(at)name Add
   * @(at)summary 新增@(gen.BusName)
-  * @(at)request POST:/api/@(areaName)/@(entityNameKc.ToLower())/add
+  * @(at)request POST:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/add
   * @(at)secure
   */
  add = (data: @(entityNamePc)AddInput, params: RequestParams = {}) =>
    this.request<ResultBaseOutput<number>, any>({
-     path: `/api/@(areaName)/@(entityNameKc.ToLower())/add`,
+     path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/add`,
      method: 'POST',
      body: data,
      secure: true,
@@ -122,15 +122,15 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
  /**
   * No description
   *
-  * @(at)tags @(areaNameCc)
+  * @(at)tags @(gen.AreaGrouping.ToLower())
   * @(at)name Update
   * @(at)summary 修改@(gen.BusName)
-  * @(at)request PUT:/api/@(areaName)/@(entityNameKc.ToLower())/update
+  * @(at)request PUT:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/update
   * @(at)secure
   */
  update = (data: @(entityNamePc)UpdateInput, params: RequestParams = {}) =>
    this.request<AxiosResponse, any>({
-     path: `/api/@(areaName)/@(entityNameKc.ToLower())/update`,
+     path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/update`,
      method: 'PUT',
      body: data,
      secure: true,
@@ -140,10 +140,10 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
  /**
   * No description
   *
-  * @(at)tags @(areaNameCc)
+  * @(at)tags @(gen.AreaGrouping.ToLower())
   * @(at)name Delete
   * @(at)summary 删除@(gen.BusName)
-  * @(at)request DELETE:/api/@(areaName)/@(entityNameKc.ToLower())/delete
+  * @(at)request DELETE:/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/delete
   * @(at)secure
   */
  delete = (
@@ -154,7 +154,7 @@ export class @(entityNamePc)Api<SecurityDataType = unknown> extends HttpClient<S
    params: RequestParams = {}
  ) =>
    this.request<AxiosResponse, any>({
-     path: `/api/@(areaName)/@(entityNameKc.ToLower())/delete`,
+     path: `/api/@(gen.AreaGrouping.ToLower())/@(entityNameKc.ToLower())/delete`,
      method: 'DELETE',
      query: query,
      secure: true,

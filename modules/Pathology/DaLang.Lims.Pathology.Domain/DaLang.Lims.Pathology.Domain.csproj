@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PathologySubDisease\" />
+  </ItemGroup>
+
 </Project>

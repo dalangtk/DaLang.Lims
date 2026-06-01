@@ -3,7 +3,8 @@
     if (gen == null) return;
     var entityNamePC = gen.EntityName.NamingPascalCase();
 }
-using @(gen.Namespace).Core.Consts;
+
+using @(gen.Namespace).Domain.@(entityNamePC);
 using DaLang.Lims.Web.Framework.Core.Db.Transaction;
 using DaLang.Lims.Web.Framework.Repositories;
 

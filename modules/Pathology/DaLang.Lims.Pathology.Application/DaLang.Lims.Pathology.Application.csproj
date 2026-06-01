@@ -21,4 +21,8 @@
     <ProjectReference Include="..\DaLang.Lims.Pathology.Sqlsugar.Mysql\DaLang.Lims.Pathology.Sqlsugar.Mysql.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PathologySubDisease\" />
+  </ItemGroup>
+
 </Project>

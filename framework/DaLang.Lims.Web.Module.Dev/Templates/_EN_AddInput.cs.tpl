@@ -10,13 +10,17 @@
 namespace @(gen.Namespace).Contracts.@(entityNamePc).Dto
 {
 @if(gen.GenAdd){
-@:    /// <summary>@(gen.BusName)新增输入</summary>
+@:    /// <summary>
+@:    /// @(gen.BusName)新增输入
+@:    /// </summary>
 @:    public partial class @(entityNamePc)AddInput {
         @foreach (var col in gen.Fields.Where(w=>w.WhetherAdd))
         {
             if (!col.IsIgnoreColumn())
             {
-@:        /// <summary>@(col.Title)</summary>
+@:        /// <summary>
+@:        /// @(col.Title)
+@:        /// </summary>
                 if (!col.IsNullable)
                 {
 @:        [Required(ErrorMessage = "@((!String.IsNullOrEmpty(col.Title)?col.Title:col.ColumnName)+"不能为空")")]

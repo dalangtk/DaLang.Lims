@@ -9,8 +9,11 @@
 
 namespace @(gen.Namespace).Contracts.@(entityNamePc).Dto
 {
-    /// <summary>@(gen.BusName)查询输出</summary>
-    public partial class @(entityNamePc)Dto:@(entityNamePc)UpdateInput {
+    /// <summary>
+    /// @(gen.BusName)查询输出
+    /// </summary>
+    public partial class @(entityNamePc)Dto:@(entityNamePc)UpdateInput 
+    {
    
     }
 }

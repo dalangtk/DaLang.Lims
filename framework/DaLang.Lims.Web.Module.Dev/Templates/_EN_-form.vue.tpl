@@ -24,6 +24,8 @@
     var entityNameCc = entityName.NamingCamelCase();// camelCase(entityName);
 
     var at = "@";
+    var commonFields = new String[] { "id", "ProId", "ProName", "ProTime", "ModId"
+    , "ModName","ModTime","IsModified", "IsDeleted","TenantId"};
     var apiName = entityName + "Api";
 
     var permissionArea = string.Concat(areaNameKc, ":", entityNameKc);
@@ -312,6 +314,8 @@ const onNameChange = (val: string) => {
 const defaultToAdd = (): @(entityNamePc)AddInput => {
   return {
 @foreach(var col in gen.Fields.Where(w=>!w.IsIgnoreColumn())){
+    if (commonFields.Any(a => a.ToLower() == col.ColumnName.ToLower()))
+              continue;
 @:    @(col.ColumnName.NamingCamelCase()): @(CodeGenFieldEntityExtension.GetDefaultValuestringScript(col)),
 }
   } as @(entityNamePc)AddInput

@@ -32,6 +32,7 @@ using SqlSugar;
 
 using @(gen.Namespace).Domain.@(entityNamePc);
 using @(gen.Namespace).Contracts.@(entityNamePc).Dto;
+using @(gen.Namespace).Contracts.@(entityNamePc);
 using @(gen.Namespace).Core.Consts;
 
 
@@ -115,7 +116,7 @@ namespace @(gen.Namespace).Application.@(entityNamePc)
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<PageOutput<@(entityNamePc)GetListDto>> GetPageAsync(PageInput<@(entityNamePc)QueryInput> input)
+        public async Task<PageOutput<@(entityNamePc)Dto>> GetPageAsync(PageInput<@(entityNamePc)QueryInput> input)
         {
             var filter = input.Filter;
             var dynamicCondition = ChangeConditon(input.DynamicFilter);
@@ -133,7 +134,7 @@ namespace @(gen.Namespace).Application.@(entityNamePc)
                 }
             }
                 .OrderBy(c => c.Sort)
-                .Select<@(entityNamePc)GetListDto>()
+                .Select<@(entityNamePc)Dto>()
                 .ToPagedListAsync(input.CurrentPage, input.PageSize);
         
             @if(gen.Fields.Any(a=>!string.IsNullOrWhiteSpace(a.DictTypeCode))) {
@@ -192,7 +193,7 @@ namespace @(gen.Namespace).Application.@(entityNamePc)
 
             }
 
-            var data = new PageOutput<@(entityNamePc)GetListDto> { List = list.Items.ToList(), Total = list.Total };
+            var data = new PageOutput<@(entityNamePc)Dto> { List = list.Items.ToList(), Total = list.Total };
         
             return data;
         }
