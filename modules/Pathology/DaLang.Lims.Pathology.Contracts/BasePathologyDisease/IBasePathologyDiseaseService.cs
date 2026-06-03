@@ -54,4 +54,11 @@ public interface IBasePathologyDiseaseService
     /// <param name="id"></param>
     /// <returns></returns>
     Task<bool> DeleteDiseaseDetail(long id);
+
+    /// <summary>
+    /// 获取疾病列表
+    /// </summary>
+    /// <param name="diseaseCodes"></param>
+    /// <returns></returns>
+    Task<List<BasePathologyDiseaseDto>> GetDiseaseList(List<string> diseaseCodes);
 }

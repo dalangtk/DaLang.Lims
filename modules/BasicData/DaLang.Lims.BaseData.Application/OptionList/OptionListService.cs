@@ -6,6 +6,9 @@ using DaLang.Lims.BaseData.Domain.ExamPlan;
 using DaLang.Lims.BaseData.Domain.Item;
 using DaLang.Lims.BaseData.Domain.Purpose;
 using DaLang.Lims.BaseData.Domain.SampleType;
+using DaLang.Lims.Pathology.Domain.BasePathologyDisease;
+using DaLang.Lims.Pathology.Domain.BasePathologySampleType;
+using DaLang.Lims.Pathology.Domain.PathologyTemplate;
 using DaLang.Lims.Web.BaseData.Core.Consts;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
@@ -35,6 +38,9 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
     private readonly IBaseAskRuleRepository _askRuleRep;
     private readonly IUserRepository _userRep;
+    private readonly IBasePathologyDiseaseRepository _pathologyDiseaseRep;
+    private readonly IBasePathologySampleTypeRepository _pathologySampleTypeRep;
+    private readonly IBasePathologyTemplateRepository _pathologyTemplateRep;
     public OptionListService(IBaseCustomerRepository customerRep,
         IBaseEntrustHospitalRepository entrustHospitalRep,
         IBaseExamPlanRepository examPlanRep,
@@ -43,7 +49,10 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         IBaseSampleTypeRepository sampleTypeRep,
         AdminRepositoryBase<DictEntity> dictRep,
         IBaseAskRuleRepository askRuleRep,
-        IUserRepository userRep)
+        IUserRepository userRep,
+        IBasePathologyDiseaseRepository pathologyDiseaseRep,
+        IBasePathologySampleTypeRepository pathologySampleTypeRep,
+        IBasePathologyTemplateRepository pathologyTemplateRep)
     {
         _customerRep = customerRep;
         _entrustHospitalRep = entrustHospitalRep;
@@ -54,6 +63,9 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         _dictRep = dictRep;
         _askRuleRep = askRuleRep;
         _userRep = userRep;
+        _pathologyDiseaseRep = pathologyDiseaseRep;
+        _pathologySampleTypeRep = pathologySampleTypeRep;
+        _pathologyTemplateRep = pathologyTemplateRep;
     }
     /// <summary>
     /// 获取客户选项
@@ -252,6 +264,96 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
               Value = a.Id.ToString()
           })
           .ToPagedListAsync(input.CurrentPage, input.PageSize);
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取疾病选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetDiseaseOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _pathologyDiseaseRep.AsQueryable()
+            .Where(a => a.DiseaseCode == query || a.DiseaseName!.Contains(query))
+            .Select(a => new LabelValueDto
+            {
+                Label = a.DiseaseName,
+                Value = a.DiseaseCode
+            })
+            .ToPagedListAsync(input.CurrentPage, input.PageSize);
+
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取病理标本类型选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetPathologySampleTypeOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _pathologySampleTypeRep.AsQueryable()
+            .Where(a => a.SampleTypeCode == query || a.SampleTypeName!.Contains(query))
+            .Select(a => new LabelValueDto
+            {
+                Label = a.SampleTypeName,
+                Value = a.SampleTypeCode
+            })
+            .ToPagedListAsync(input.CurrentPage, input.PageSize);
+
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取病理诊断模板选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetPathologyDiagnosisTemplateOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _pathologyTemplateRep.AsQueryable()
+            .Where(a => a.TemplateCode == query || a.TemplateName!.Contains(query))
+            .Where(v => v.TemplateType == 1)
+            .Select(a => new LabelValueDto
+            {
+                Label = a.TemplateName,
+                Value = a.TemplateCode
+            })
+            .ToPagedListAsync(input.CurrentPage, input.PageSize);
+
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取病理巨检模板选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetPathologyGrossExaminationTemplateOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _pathologyTemplateRep.AsQueryable()
+            .Where(a => a.TemplateCode == query || a.TemplateName!.Contains(query))
+            .Where(v => v.TemplateType == 2)
+            .Select(a => new LabelValueDto
+            {
+                Label = a.TemplateName,
+                Value = a.TemplateCode
+            })
+            .ToPagedListAsync(input.CurrentPage, input.PageSize);
+
         var data = list.Items.ToList();
         return data;
     }

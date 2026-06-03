@@ -6,5 +6,5 @@ namespace DaLang.Lims.Pathology.Contracts.BasePathologySubDisease.Dto;
 /// </summary>
 public partial class BasePathologySubDiseaseQueryInput
 {
-
+    public string? SubDiseaseCode { get; set; }
 }

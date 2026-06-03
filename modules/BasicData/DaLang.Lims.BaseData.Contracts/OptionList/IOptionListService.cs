@@ -64,4 +64,32 @@ public interface IOptionListService
     /// <param name="input"></param>
     /// <returns></returns>
     public Task<List<LabelValueDto>> GetUserOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取疾病选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetDiseaseOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取病理标本类型选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetPathologySampleTypeOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取病理诊断模板选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetPathologyDiagnosisTemplateOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取病理巨检模板选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetPathologyGrossExaminationTemplateOptions(PageInput<string> input);
 }

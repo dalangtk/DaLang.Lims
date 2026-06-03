@@ -110,8 +110,8 @@ public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateS
         var next = input.WFCode + (maxPurCode.ToInt() + 1).ToString().PadLeft(4, '0');
         entity.TemplateCode = next;
 
-        if (!string.IsNullOrWhiteSpace(input.TemplateContent))
-            input.TemplateContent = DesEncrypt.Encrypt(input.TemplateContent);
+        if (!string.IsNullOrWhiteSpace(entity.TemplateContent))
+            entity.TemplateContent = DesEncrypt.Encrypt(entity.TemplateContent);
 
         var id = await _basePathologyTemplateRep.InsertReturnSnowflakeIdAsync(entity);
         return id;
@@ -136,6 +136,8 @@ public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateS
             throw ResultOutput.Exception("诊断模板不存在！");
 
         Mapper.Map(input, entity);
+        if (!string.IsNullOrWhiteSpace(input.TemplateContent))
+            input.TemplateContent = DesEncrypt.Encrypt(input.TemplateContent);
         await _basePathologyTemplateRep.UpdateAsync(entity);
     }
 
@@ -150,5 +152,25 @@ public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateS
         return await _basePathologyTemplateRep
             .SetColumnUpdateable(a => a.IsDeleted == true)
             .Where(a => a.Id == id).ExecuteCommandAsync() > 0;
+    }
+
+    /// <summary>
+    /// 根据模板代码获取模板列表
+    /// </summary>
+    /// <param name="templateCodes"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetPathologyTemplateList(List<string> templateCodes)
+    {
+        var ret = await _basePathologyTemplateRep
+            .AsQueryable()
+            .WhereIF(templateCodes != null && templateCodes.Any(), v => templateCodes.Contains(v.TemplateCode))
+            .Select(v => new LabelValueDto
+            {
+                Label = v.TemplateName,
+                Value = v.TemplateCode
+            })
+            .ToListAsync();
+        return ret;
     }
 }

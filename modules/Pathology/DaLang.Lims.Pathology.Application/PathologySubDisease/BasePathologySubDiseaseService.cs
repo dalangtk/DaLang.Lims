@@ -51,6 +51,7 @@ public class BasePathologySubDiseaseService : BaseService, IBasePathologySubDise
         var filter = input.Filter;
         var dynamicCondition = ChangeConditon(input.DynamicFilter);
         var list = await _basePathologySubDiseaseRep.GetQueryable(dynamicCondition)
+            .WhereIF(!string.IsNullOrWhiteSpace(filter.SubDiseaseCode), c => c.SubDiseaseCode == filter.SubDiseaseCode || c.SubDiseaseName!.StartsWith(filter.SubDiseaseCode!))
             .OrderBy(c => c.Sort)
             .Select<BasePathologySubDiseaseDto>()
             .ToPagedListAsync(input.CurrentPage, input.PageSize);

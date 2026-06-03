@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Pathology\DaLang.Lims.Pathology.Domain\DaLang.Lims.Pathology.Domain.csproj" />
     <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
     <ProjectReference Include="..\DaLang.Lims.BaseData.Contracts\DaLang.Lims.BaseData.Contracts.csproj" />
     <ProjectReference Include="..\DaLang.Lims.BaseData.Core\DaLang.Lims.BaseData.Core.csproj" />

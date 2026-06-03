@@ -1,5 +1,4 @@
-﻿using AngleSharp.Dom;
-using DaLang.Lims.Pathology.Contracts.BasePathologyDisease;
+﻿using DaLang.Lims.Pathology.Contracts.BasePathologyDisease;
 using DaLang.Lims.Pathology.Contracts.BasePathologyDisease.Dto;
 using DaLang.Lims.Pathology.Contracts.BasePathologyDiseaseDetail.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
@@ -188,5 +187,20 @@ public class BasePathologyDiseaseService : BaseService, IBasePathologyDiseaseSer
             .ExecuteCommandAsync();
 
         return ret > 0;
+    }
+
+    /// <summary>
+    /// 获取疾病列表
+    /// </summary>
+    /// <param name="diseaseCodes"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<BasePathologyDiseaseDto>> GetDiseaseList(List<string> diseaseCodes)
+    {
+        var ret = await _basePathologyDiseaseRep.AsQueryable()
+            .WhereIF(diseaseCodes != null && diseaseCodes.Any(), a => diseaseCodes!.Contains(a.DiseaseCode!))
+            .Select<BasePathologyDiseaseDto>()
+            .ToListAsync();
+        return ret;
     }
 }

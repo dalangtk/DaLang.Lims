@@ -20,7 +20,7 @@ public partial class BasePathologyTemplateEntity : EntityTenant
     /// 模板代码
     /// </summary>
     /// <remarks>模板代码</remarks>
-    [SugarColumn(ColumnName = "TemplateCode", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "varchar", Length = 8)]
+    [SugarColumn(ColumnName = "TemplateCode", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "varchar", Length = 16)]
     public string? TemplateCode { get; set; }
     /// <summary>
     /// 模板名称

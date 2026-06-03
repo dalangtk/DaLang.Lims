@@ -39,4 +39,11 @@ public interface IBasePathologyTemplateService
     /// 删除
     /// </summary>
     Task<bool> DeleteAsync(long id);
+
+    /// <summary>
+    /// 根据模板代码获取模板列表
+    /// </summary>
+    /// <param name="templateCodes"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetPathologyTemplateList(List<string> templateCodes);
 }
