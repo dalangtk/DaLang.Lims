@@ -1,7 +1,7 @@
-﻿using DaLang.Lims.Pathology.Contracts.BasePathologySubDisease.Dto;
+﻿using DaLang.Lims.Pathology.Contracts.PathologySubDisease.Dto;
 using DaLang.Lims.Web.Framework.Core.Dto;
 
-namespace DaLang.Lims.Pathology.Contracts.BasePathologySubDisease;
+namespace DaLang.Lims.Pathology.Contracts.PathologySubDisease;
 
 /// <summary>
 /// 子疾病服务

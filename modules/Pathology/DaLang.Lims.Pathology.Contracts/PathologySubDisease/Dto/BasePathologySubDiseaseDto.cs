@@ -1,5 +1,5 @@
 ﻿
-namespace DaLang.Lims.Pathology.Contracts.BasePathologySubDisease.Dto;
+namespace DaLang.Lims.Pathology.Contracts.PathologySubDisease.Dto;
 
 /// <summary>
 /// 子疾病查询输出

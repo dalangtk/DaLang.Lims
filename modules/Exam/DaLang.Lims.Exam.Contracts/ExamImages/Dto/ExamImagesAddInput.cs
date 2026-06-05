@@ -31,6 +31,10 @@ public class ExamImagesAddInput
     ///</summary>
     public string? AntiBodyName { get; set; }
     /// <summary>
+    /// 图片类型
+    /// </summary>
+    public int ImageType { get; set; }
+    /// <summary>
     ///是否显示
     ///</summary>
     public bool IsShow { get; set; } = true;

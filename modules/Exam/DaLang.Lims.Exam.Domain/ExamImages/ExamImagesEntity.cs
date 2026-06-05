@@ -53,6 +53,12 @@ public partial class ExamImagesEntity : EntityTenant
     [SugarColumn(ColumnName = "AntiBodyName", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "varchar", Length = 32)]
     public string? AntiBodyName { get; set; }
     /// <summary>
+    /// 图片类型 0常规 1巨检
+    /// </summary>
+    /// <remarks>图片类型 0常规 1巨检</remarks>
+    [SugarColumn(ColumnName = "ImageType", IsOnlyIgnoreInsert = false, IsOnlyIgnoreUpdate = false, ColumnDataType = "int", DecimalDigits = 2)]
+    public int ImageType { get; set; }
+    /// <summary>
     /// 是否显示
     /// </summary>
     /// <remarks>是否显示</remarks>

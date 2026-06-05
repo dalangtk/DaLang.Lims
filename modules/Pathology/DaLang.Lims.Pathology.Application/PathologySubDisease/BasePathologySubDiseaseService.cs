@@ -1,5 +1,5 @@
-﻿using DaLang.Lims.Pathology.Contracts.BasePathologySubDisease;
-using DaLang.Lims.Pathology.Contracts.BasePathologySubDisease.Dto;
+﻿using DaLang.Lims.Pathology.Contracts.PathologySubDisease;
+using DaLang.Lims.Pathology.Contracts.PathologySubDisease.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
 using DaLang.Lims.Pathology.Domain.BasePathologySubDisease;
 using DaLang.Lims.Web.Common.Extensions;
