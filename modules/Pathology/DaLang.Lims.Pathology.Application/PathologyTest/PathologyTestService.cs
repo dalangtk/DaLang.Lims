@@ -12,7 +12,6 @@ using DaLang.Lims.Exam.Domain.ExamUnAuditLog;
 using DaLang.Lims.Exam.Domain.ReportFiles;
 using DaLang.Lims.Exam.Domain.ReportTask;
 using DaLang.Lims.Pathology.Application.PathologySetting;
-using DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
 using DaLang.Lims.Pathology.Contracts.PathologyTest;
 using DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
@@ -490,7 +489,7 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
     public async Task InitializeDefaultResult(InitializeDefaultResultInput input)
     {
         var customerCode = input.Barcode.Substring(0, 6);
-        var templateIds = await _templateRep.AsQueryable().Where(v => (v.CustomerCodes.Contains(customerCode) || string.IsNullOrWhiteSpace(v.CustomerCodes)) && v.IsDefaultResult == true).OrderByDescending(v => v.CustomerCodes).Select(v => v.Id).ToListAsync();
+        var templateIds = await _templateRep.AsQueryable().Where(v => (v.CustomerCodes.Contains(customerCode) || string.IsNullOrWhiteSpace(v.CustomerCodes)) && v.WFCode == input.WFCode && v.IsDefaultResult == true).OrderByDescending(v => v.CustomerCodes).Select(v => v.Id).ToListAsync();
         if (templateIds != null && templateIds.Count > 0)
         {
             var template = await _templateRep.GetByIdAsync(templateIds.First());
@@ -621,10 +620,28 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         var resultInput = input.SpecialResultList.Adapt<List<ExamSpecialResultEntity>>();
         if (resultInput != null && resultInput.Count > 0)
         {
-            var ret = await _examSpecialResultRep.Context.Updateable(resultInput).UpdateColumns(v => new
+            var updateResult = resultInput.FindAll(v => v.Id > 0);
+            if (updateResult.Any())
             {
-                v.FieldValue
-            }, true).ExecuteCommandAsync();
+                var ret = await _examSpecialResultRep.Context.Updateable(resultInput).UpdateColumns(v => new
+                {
+                    v.FieldValue
+                }, true).ExecuteCommandAsync();
+            }
+
+            var insertResult = resultInput.FindAll(v => v.Id == 0);
+            if (insertResult.Any())
+            {
+                foreach (var item in insertResult)
+                {
+                    item.ExamInfoId = examInfo.Id;
+                    item.GroupCode = examInfo.GroupCode;
+                    item.Barcode = examInfo.Barcode;
+                    item.SampleNo = examInfo.SampleNo;
+                    item.TestDate = examInfo.TestDate!.Value;
+                }
+                var ret = await _examSpecialResultRep.Context.Insertable(insertResult).ExecuteCommandAsync();
+            }
         }
         if (input.Doctor != null)
         {

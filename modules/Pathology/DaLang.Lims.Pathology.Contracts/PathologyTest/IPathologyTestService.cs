@@ -1,6 +1,5 @@
 ﻿using DaLang.Lims.Exam.Contracts.Pathology.Dto;
 using DaLang.Lims.Exam.Contracts.SampleTest.Dto;
-using DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
 using DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
 using DaLang.Lims.Shared.Contracts.ExamSpecialResult.Dto;

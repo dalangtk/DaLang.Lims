@@ -1,6 +1,9 @@
-﻿using DaLang.Lims.Pathology.Contracts.PathologyTemplate;
+﻿using AngleSharp.Dom;
+using DaLang.Lims.Pathology.Contracts.PathologyTemplate;
 using DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
+using DaLang.Lims.Pathology.Core.Enum;
+using DaLang.Lims.Pathology.Domain.PathologySampleType;
 using DaLang.Lims.Pathology.Domain.PathologyTemplate;
 using DaLang.Lims.Web.Common.Extensions;
 using DaLang.Lims.Web.Common.Helpers;
@@ -11,6 +14,7 @@ using DaLang.Lims.Web.Framework.Core.Dto;
 using DaLang.Lims.Web.Framework.Services;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
 
 namespace DaLang.Lims.Pathology.Application.PathologyTemplate;
 
@@ -21,10 +25,12 @@ namespace DaLang.Lims.Pathology.Application.PathologyTemplate;
 public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateService, IDynamicApi
 {
     private IBasePathologyTemplateRepository _basePathologyTemplateRep;
+    private IBasePathologySampleTypeRepository _basePathologySampleTypeRep;
 
-    public BasePathologyTemplateService(IBasePathologyTemplateRepository basePathologyTemplateRep)
+    public BasePathologyTemplateService(IBasePathologyTemplateRepository basePathologyTemplateRep, IBasePathologySampleTypeRepository basePathologySampleTypeRep)
     {
         _basePathologyTemplateRep = basePathologyTemplateRep;
+        _basePathologySampleTypeRep = basePathologySampleTypeRep;
     }
 
     /// <summary>
@@ -172,5 +178,38 @@ public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateS
             })
             .ToListAsync();
         return ret;
+    }
+
+    /// <summary>
+    /// 获取巨检模板
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<GrossExaminationTemplateDto>> GetGrossExaminationTemplateAsync(GrossExaminationTemplateQueryInput input)
+    {
+        if (input.SampleTypeCodes == null || !input.SampleTypeCodes.Any())
+            throw ResultOutput.Exception("invalid sampleTypeCodes.");
+
+        var list = await _basePathologySampleTypeRep.AsQueryable()
+            .LeftJoin<BasePathologyTemplateEntity>((a, b) => a.TemplateCode.Contains(b.TemplateCode) && b.TemplateType == (int)TemplateTypeEnum.GrossExamination && b.IsValid && !b.IsDeleted)
+            .Where((a, b) => input.SampleTypeCodes.Contains(a.SampleTypeCode) || input.SampleTypeCodes.Contains(a.ParentCode))
+            .Where((a, b) => !string.IsNullOrWhiteSpace(a.TemplateCode))
+            .Select((a, b) => new GrossExaminationTemplateDto
+            {
+                SampleTypeName = string.IsNullOrWhiteSpace(a.ParentCode) ? a.SampleTypeName : "",
+                TemplateCode = b.TemplateCode,
+                TemplateName = b.TemplateName,
+                TemplateContent = b.TemplateContent
+            })
+            .ToListAsync();
+
+        list.RemoveAll(v => string.IsNullOrWhiteSpace(v.TemplateContent));
+        foreach (var item in list)
+        {
+            if (!string.IsNullOrWhiteSpace(item.TemplateContent))
+                item.TemplateContent = DesEncrypt.Decrypt(item.TemplateContent);
+        }
+        return list;
     }
 }

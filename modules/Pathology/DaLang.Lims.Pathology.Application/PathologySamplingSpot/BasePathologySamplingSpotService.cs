@@ -146,8 +146,8 @@ public class BasePathologySamplingSpotService : BaseService, IBasePathologySampl
              {
                  Id = a.Id,
                  SamplingSpotCode = a.SamplingSpotCode!,
-                 SampleTypeCode = a.SampleTypeCode!,
                  SamplingSpotName = b.SamplingSpotName,
+                 SampleTypeCode = a.SampleTypeCode!,
                  SampleTypeName = c.SampleTypeName
              })
              .ToListAsync();

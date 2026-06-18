@@ -1,4 +1,4 @@
-﻿namespace DaLang.Lims.Pathology.Contracts.PathologyTemplate.Dto;
+﻿namespace DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 
 public class PathologyBackInput
 {

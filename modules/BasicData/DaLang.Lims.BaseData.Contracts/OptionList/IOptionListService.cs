@@ -92,4 +92,11 @@ public interface IOptionListService
     /// <param name="input"></param>
     /// <returns></returns>
     Task<List<LabelValueDto>> GetPathologyGrossExaminationTemplateOptions(PageInput<string> input);
+
+    /// <summary>
+    /// 获取取材部位选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<LabelValueDto>> GetSamplingSpotOptions(PageInput<string> input);
 }

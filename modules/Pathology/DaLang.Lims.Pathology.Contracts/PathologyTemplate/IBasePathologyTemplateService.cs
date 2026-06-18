@@ -46,4 +46,11 @@ public interface IBasePathologyTemplateService
     /// <param name="templateCodes"></param>
     /// <returns></returns>
     Task<List<LabelValueDto>> GetPathologyTemplateList(List<string> templateCodes);
+
+    /// <summary>
+    /// 获取巨检模板
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<GrossExaminationTemplateDto>> GetGrossExaminationTemplateAsync(GrossExaminationTemplateQueryInput input);
 }

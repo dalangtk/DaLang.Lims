@@ -8,6 +8,7 @@ using DaLang.Lims.BaseData.Domain.Purpose;
 using DaLang.Lims.BaseData.Domain.SampleType;
 using DaLang.Lims.Pathology.Domain.PathologyDisease;
 using DaLang.Lims.Pathology.Domain.PathologySampleType;
+using DaLang.Lims.Pathology.Domain.PathologySamplingSpot;
 using DaLang.Lims.Pathology.Domain.PathologyTemplate;
 using DaLang.Lims.Web.BaseData.Core.Consts;
 using DaLang.Lims.Web.DynamicApi;
@@ -41,6 +42,7 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
     private readonly IBasePathologyDiseaseRepository _pathologyDiseaseRep;
     private readonly IBasePathologySampleTypeRepository _pathologySampleTypeRep;
     private readonly IBasePathologyTemplateRepository _pathologyTemplateRep;
+    private readonly IBasePathologySamplingSpotRepository _samplingSpotRep;
     public OptionListService(IBaseCustomerRepository customerRep,
         IBaseEntrustHospitalRepository entrustHospitalRep,
         IBaseExamPlanRepository examPlanRep,
@@ -52,7 +54,8 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         IUserRepository userRep,
         IBasePathologyDiseaseRepository pathologyDiseaseRep,
         IBasePathologySampleTypeRepository pathologySampleTypeRep,
-        IBasePathologyTemplateRepository pathologyTemplateRep)
+        IBasePathologyTemplateRepository pathologyTemplateRep,
+        IBasePathologySamplingSpotRepository samplingSpotRep)
     {
         _customerRep = customerRep;
         _entrustHospitalRep = entrustHospitalRep;
@@ -66,6 +69,7 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
         _pathologyDiseaseRep = pathologyDiseaseRep;
         _pathologySampleTypeRep = pathologySampleTypeRep;
         _pathologyTemplateRep = pathologyTemplateRep;
+        _samplingSpotRep = samplingSpotRep;
     }
     /// <summary>
     /// 获取客户选项
@@ -351,6 +355,28 @@ public class OptionListService : BaseService, IOptionListService, IDynamicApi
             {
                 Label = a.TemplateName,
                 Value = a.TemplateCode
+            })
+            .ToPagedListAsync(input.CurrentPage, input.PageSize);
+
+        var data = list.Items.ToList();
+        return data;
+    }
+
+    /// <summary>
+    /// 获取取材部位选项
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<LabelValueDto>> GetSamplingSpotOptions(PageInput<string> input)
+    {
+        var query = input.Filter;
+        var list = await _samplingSpotRep.AsQueryable()
+            .Where(a => a.SamplingSpotCode == query || a.PinYin.Contains(query) || a.SamplingSpotName!.Contains(query))
+            .Select(a => new LabelValueDto
+            {
+                Label = a.SamplingSpotName,
+                Value = a.SamplingSpotCode
             })
             .ToPagedListAsync(input.CurrentPage, input.PageSize);
 
