@@ -12,9 +12,14 @@ using DaLang.Lims.Exam.Domain.ExamUnAuditLog;
 using DaLang.Lims.Exam.Domain.ReportFiles;
 using DaLang.Lims.Exam.Domain.ReportTask;
 using DaLang.Lims.Pathology.Application.PathologySetting;
+using DaLang.Lims.Pathology.Contracts.ExamPathologySamplingSpot.Dto;
+using DaLang.Lims.Pathology.Contracts.PathologySamplingSpotDetail.Dto;
 using DaLang.Lims.Pathology.Contracts.PathologyTest;
 using DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 using DaLang.Lims.Pathology.Core.Consts;
+using DaLang.Lims.Pathology.Domain.ExamPathologySamplingSpot;
+using DaLang.Lims.Pathology.Domain.PathologySampleType;
+using DaLang.Lims.Pathology.Domain.PathologySamplingSpot;
 using DaLang.Lims.Pathology.Domain.PathologySetting;
 using DaLang.Lims.Pathology.Domain.PathologyTemplate;
 using DaLang.Lims.Shared.Contracts.ApplyPurpose.Dto;
@@ -84,6 +89,7 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
     private readonly IBaseGroupRepository _baseGroupRep;
     private readonly IBaseUserGroupRepository _userGroupRep;
     private readonly IUserRepository _userRep;
+    private readonly IExamPathologySamplingSpotRepository _examSamplingSpotRep;
 
     public PathologyTestService(AdminRepositoryBase<ApplyInfoEntity> applyInfoRep,
         AdminRepositoryBase<ApplyPurposeEntity> applyPurposeRep,
@@ -106,7 +112,8 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         AdminRepositoryBase<ReportFilesEntity> reportFileRep,
         IBaseGroupRepository baseGroupRep,
         IBaseUserGroupRepository userGroupRep,
-        IUserRepository userRep)
+        IUserRepository userRep,
+        IExamPathologySamplingSpotRepository examSamplingSpotRep)
     {
         _applyInfoRep = applyInfoRep;
         _applyPurposeRep = applyPurposeRep;
@@ -130,6 +137,7 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         _baseGroupRep = baseGroupRep;
         _userGroupRep = userGroupRep;
         _userRep = userRep;
+        _examSamplingSpotRep = examSamplingSpotRep;
     }
 
     /// <summary>
@@ -889,5 +897,53 @@ public class PathologyTestService : BaseService, IPathologyTestService, IDynamic
         }).ToListAsync();
 
         return userList;
+    }
+
+    /// <summary>
+    /// 保存取材部位明细
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> SaveSamplingSpotDetail(List<ExamPathologySamplingSpotUpdateInput> input)
+    {
+        var addList = input.FindAll(v => v.Id <= 0);
+        if (addList.Any())
+            await _examSamplingSpotRep.InsertRangeAsync(addList.Adapt<List<ExamPathologySamplingSpotEntity>>());
+
+        var updateList = input.FindAll(v => v.Id > 0);
+        if (updateList.Any())
+            await _examSamplingSpotRep.UpdateRangeAsync(updateList.Adapt<List<ExamPathologySamplingSpotEntity>>());
+
+        return true;
+    }
+
+    /// <summary>
+    /// 获取取材部位明细
+    /// </summary>
+    /// <param name="examInfoId"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    [HttpGet]
+    public async Task<List<ExamPathologySamplingSpotDto>> GetSamplingSpotDetail(long examInfoId)
+    {
+        if (examInfoId <= 0)
+            throw ResultOutput.Exception("invalid examInfoId.");
+
+        var ret = await _examSamplingSpotRep.AsQueryable()
+            .InnerJoin<BasePathologySamplingSpotEntity>((a, b) => a.SamplingSpotCode == b.SamplingSpotCode && b.IsValid && !b.IsDeleted)
+            .InnerJoin<BasePathologySampleTypeEntity>((a, b, c) => a.SampleTypeCode == c.SampleTypeCode && c.IsValid && !c.IsDeleted)
+            .Where((a, b, c) => a.ExamInfoId == examInfoId)
+            .Select((a, b, c) => new ExamPathologySamplingSpotDto
+            {
+                Id = a.Id,
+                ExamInfoId = a.ExamInfoId,
+                SampleTypeCode = a.SampleTypeCode,
+                SampleTypeName = c.SampleTypeName,
+                SamplingSpotCode = a.SamplingSpotCode,
+                SamplingSpotName = b.SamplingSpotName
+            }).ToListAsync();
+
+        return ret;
     }
 }

@@ -7,5 +7,5 @@ public class SaveResultInput
     public long ExamInfoId { get; set; }
     public int ResultType { get; set; }
     public List<ExamSpecialResultDto> SpecialResultList { get; set; } = new List<ExamSpecialResultDto>();
-    public PathologyDoctor Doctor { get; set; }
+    public PathologyDoctor? Doctor { get; set; }
 }

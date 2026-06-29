@@ -136,10 +136,12 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
     /// 获取所有图片
     /// </summary>
     /// <param name="examInfoId"></param>
+    /// <param name="isGrossExamination"></param>
     /// <returns></returns>
-    public async Task<List<ExamImagesDto>> GetAll(long examInfoId)
+    public async Task<List<ExamImagesDto>> GetAll(long examInfoId, bool isGrossExamination = false)
     {
-        var output = await _examImagesRep.GetListAsync(v => v.ExamInfoId == examInfoId);
+        var imageType = isGrossExamination ? 1 : 0;
+        var output = await _examImagesRep.GetListAsync(v => v.ExamInfoId == examInfoId && v.ImageType == imageType);
         return output.Adapt<List<ExamImagesDto>>();
     }
 
@@ -148,8 +150,9 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
     /// </summary>
     /// <param name="file"></param>
     /// <param name="examInfoId"></param>
+    /// <param name="isGrossExamination"></param>
     /// <returns></returns>
-    public async Task<FileEntity> UploadExamImage([Required] IFormFile file, long examInfoId)
+    public async Task<FileEntity> UploadExamImage([Required] IFormFile file, long examInfoId, bool isGrossExamination = false)
     {
         var fileRet = await _fileService.UploadFileAsync(file, "lims\\exam\\examimage", true, "", false);
         var image = new ExamImagesDto
@@ -157,6 +160,7 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
             ExamInfoId = examInfoId,
             FileName = fileRet.FileName,
             FileUrl = fileRet.LinkUrl,
+            ImageType = isGrossExamination ? 1 : 0,
             IsShow = true
         };
 

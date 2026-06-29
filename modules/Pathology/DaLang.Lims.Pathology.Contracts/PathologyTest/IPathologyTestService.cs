@@ -1,5 +1,7 @@
 ﻿using DaLang.Lims.Exam.Contracts.Pathology.Dto;
 using DaLang.Lims.Exam.Contracts.SampleTest.Dto;
+using DaLang.Lims.Pathology.Contracts.ExamPathologySamplingSpot.Dto;
+using DaLang.Lims.Pathology.Contracts.PathologySamplingSpotDetail.Dto;
 using DaLang.Lims.Pathology.Contracts.PathologyTest.Dto;
 using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
 using DaLang.Lims.Shared.Contracts.ExamSpecialResult.Dto;
@@ -55,4 +57,16 @@ public interface IPathologyTestService
     /// <param name="wfCode"></param>
     /// <returns></returns>
     Task<List<UserGetOptionDto>> GetPathologySecondAuditUsers(string wfCode);
+    /// <summary>
+    /// 保存取材部位明细
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<bool> SaveSamplingSpotDetail(List<ExamPathologySamplingSpotUpdateInput> input);
+    /// <summary>
+    /// 获取取材部位明细
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    Task<List<ExamPathologySamplingSpotDto>> GetSamplingSpotDetail(long examInfoId);
 }

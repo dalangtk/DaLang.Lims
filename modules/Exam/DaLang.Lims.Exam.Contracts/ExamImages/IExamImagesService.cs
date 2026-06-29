@@ -40,14 +40,16 @@ public interface IExamImagesService
     /// 获取所有图片
     /// </summary>
     /// <param name="examInfoId"></param>
+    /// <param name="isGrossExamination"></param>
     /// <returns></returns>
-    Task<List<ExamImagesDto>> GetAll(long examInfoId);
+    Task<List<ExamImagesDto>> GetAll(long examInfoId, bool isGrossExamination = false);
 
     /// <summary>
     /// 上传检验图片
     /// </summary>
     /// <param name="file"></param>
     /// <param name="examInfoId"></param>
+    /// <param name="isGrossExamination"></param>
     /// <returns></returns>
-    Task<FileEntity> UploadExamImage([Required] IFormFile file, long examInfoId);
+    Task<FileEntity> UploadExamImage([Required] IFormFile file, long examInfoId, bool isGrossExamination = false);
 }
