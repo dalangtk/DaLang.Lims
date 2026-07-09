@@ -30,6 +30,11 @@ public class AppConfig
     public string[] AssemblyNames { get; set; }
 
     /// <summary>
+    /// 注册码
+    /// </summary>
+    public HostLicense License { get; set; } = new HostLicense();
+
+    /// <summary>
     /// 租户类型
     /// </summary>
     public bool Tenant { get; set; } = false;
@@ -455,6 +460,12 @@ public class BasicAuthenticationConfig : AuthenticationSchemeOptions
     public string Realm { get; set; }
     public string UserName { get; set; }
     public string UserPassword { get; set; }
+}
+
+public class HostLicense
+{
+    public string LicenseKey { get; set; }
+    public string PublicKey { get; set; }
 }
 
 /// <summary>

@@ -105,6 +105,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Pathology.Sqlsugar.Mysql", "modules\Pathology\DaLang.Lims.Pathology.Sqlsugar.Mysql\DaLang.Lims.Pathology.Sqlsugar.Mysql.csproj", "{F4A6906A-1FBF-4A05-879F-977FB0C361A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99Keygen", "99Keygen", "{AAC6F869-7330-4F84-A5A2-00F5CD9FA589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Keygen", "keygen\DaLang.Lims.Keygen\DaLang.Lims.Keygen.csproj", "{AA6A63C7-CE34-437A-9191-69085FB5004C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.GetMachineCode", "keygen\DaLang.Lims.GetMachineCode\DaLang.Lims.GetMachineCode.csproj", "{0F748FC0-BFD6-4FD1-BD21-51C1457968A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +277,14 @@ Global
 		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4A6906A-1FBF-4A05-879F-977FB0C361A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6A63C7-CE34-437A-9191-69085FB5004C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6A63C7-CE34-437A-9191-69085FB5004C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6A63C7-CE34-437A-9191-69085FB5004C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6A63C7-CE34-437A-9191-69085FB5004C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F748FC0-BFD6-4FD1-BD21-51C1457968A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F748FC0-BFD6-4FD1-BD21-51C1457968A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F748FC0-BFD6-4FD1-BD21-51C1457968A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F748FC0-BFD6-4FD1-BD21-51C1457968A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -324,6 +338,8 @@ Global
 		{34380964-9930-47C8-998D-A712DA9B51AB} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
 		{9B154FA2-357F-4434-99B3-01554573360A} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
 		{F4A6906A-1FBF-4A05-879F-977FB0C361A5} = {FD491E00-F188-4FDF-BEA5-E67EC8B31B99}
+		{AA6A63C7-CE34-437A-9191-69085FB5004C} = {AAC6F869-7330-4F84-A5A2-00F5CD9FA589}
+		{0F748FC0-BFD6-4FD1-BD21-51C1457968A9} = {AAC6F869-7330-4F84-A5A2-00F5CD9FA589}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

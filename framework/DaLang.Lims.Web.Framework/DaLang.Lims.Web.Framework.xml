@@ -9,6 +9,11 @@
             应用全局信息
             </summary>
         </member>
+        <member name="F:DaLang.Lims.Web.Framework.Core.AppInfo.IsRegistrationCodeValid">
+            <summary>
+            注册码有效
+            </summary>
+        </member>
         <member name="P:DaLang.Lims.Web.Framework.Core.AppInfo.IsRun">
             <summary>
             应用是否运行
@@ -2764,6 +2769,11 @@
         <member name="P:DaLang.Lims.Web.Framework.Core.Configs.AppConfig.AssemblyNames">
             <summary>
             程序集名称
+            </summary>
+        </member>
+        <member name="P:DaLang.Lims.Web.Framework.Core.Configs.AppConfig.License">
+            <summary>
+            注册码
             </summary>
         </member>
         <member name="P:DaLang.Lims.Web.Framework.Core.Configs.AppConfig.Tenant">

@@ -27,6 +27,11 @@ public static class AppInfo
         EffectiveTypes = EffectiveAssemblies.SelectMany(GetTypes);
     }
 
+    /// <summary>
+    /// 注册码有效
+    /// </summary>
+    public static bool IsRegistrationCodeValid = true;
+
     private static bool _isRun;
 
     /// <summary>

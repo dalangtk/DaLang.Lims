@@ -21,6 +21,7 @@ using DaLang.Lims.Web.Framework.Core.Logs;
 using DaLang.Lims.Web.Framework.Core.Middlewares;
 using DaLang.Lims.Web.Framework.Core.RegisterModules;
 using DaLang.Lims.Web.Framework.Core.Startup;
+using DaLang.Lims.Web.Framework.Core.Validators;
 using DaLang.Lims.Web.Framework.Db.SqlSugar;
 using DaLang.Lims.Web.Framework.Resources;
 using DaLang.Lims.Web.Framework.Services.User;
@@ -195,6 +196,15 @@ public class HostApp
             //app应用配置
             var appConfig = AppInfo.GetOptions<AppConfig>();
             services.AddSingleton(appConfig);
+
+            LicenseValidator validator = new(appConfig);
+            services.AddSingleton(validator);
+            if (!validator.Validate())
+            {
+                Console.WriteLine("未授权：无效注册码或已过期!");
+                AppInfo.IsRegistrationCodeValid = false;
+            }
+
             //依赖注入
             if (appConfig.AutofacInject)
             {
@@ -865,6 +875,11 @@ public class HostApp
 
         //异常处理
         app.UseMiddleware<ExceptionMiddleware>();
+
+#if !DEBUG
+        //注册码验证
+        app.UseMiddleware<LicenseMiddleware>();
+#endif
 
         IdentityModelEventSource.ShowPII = true;
 
