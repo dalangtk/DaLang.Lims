@@ -25,8 +25,6 @@ namespace DaLang.Lims.Keygen
 
         const string publicKey = "<RSAKeyValue>\r\n     <Modulus>pLXu9yXqemXD/ZOpNI5GuTgkYaGfhlkJknViNbha0yT2ziLt31b4/jsNf4SsSjsk9bKNTuiUz2uEztSfNwqEwtXWkiMiUfQd+1UEsW/dioTHBgWLTQWORYr2lBNdbAEzDJSyVUkbNrk1dGqumoKGhKrIXQ6XZp2dk2VeHPd4ulcuI1Mnmq6TkGVUu+cJ89vkpbZHpzo8vnSaj2DDTkmKBhdxpbgX1KyXi5fdJAdZRwj2rguCENEI4U6AGo/s9n54UlmNtZ+PzwCEOoIly8e6woCEDIeaXACYHOrIMsZn6PKzsuHTKRN5w621I5rnV1rTLmge3Hb607nfyygSqyNHow==</Modulus>\r\n     <Exponent>AQAB</Exponent>\r\n   </RSAKeyValue>";
 
-        bool _isValid;
-        DateTime _expiry;
         public MainWindow()
         {
             InitializeComponent();
@@ -103,26 +101,11 @@ namespace DaLang.Lims.Keygen
                 return (false, null, null);
             }
         }
-
-        (string machineCode, DateTime expiry, string signature)? DecodeLicense(string license)
-        {
-            try
-            {
-                var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(license));
-                var segments = decoded.Split('|');
-                if (segments.Length != 3) return null;
-                var code = segments[0];
-                var expiry = DateTime.ParseExact(segments[1], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                var sig = segments[2];
-                return (code, expiry, sig);
-            }
-            catch { return null; }
-        }
     }
 
     public class LicensePayload
     {
         public string MachineCode { get; set; }
-        public DateTime Expiry { get; set; } // 反序列化时自动识别 ISO 8601
+        public DateTime Expiry { get; set; } 
     }
 }

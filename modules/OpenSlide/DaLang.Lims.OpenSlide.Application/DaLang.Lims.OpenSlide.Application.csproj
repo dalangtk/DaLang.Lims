@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.DynamicApi\DaLang.Lims.Web.DynamicApi.csproj" />
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\..\infrastructure\DaLang.Lims.OpenSlide\DaLang.Lims.OpenSlide.csproj" />
+    <ProjectReference Include="..\..\Pathology\DaLang.Lims.Pathology.Sqlsugar.Mysql\DaLang.Lims.Pathology.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>

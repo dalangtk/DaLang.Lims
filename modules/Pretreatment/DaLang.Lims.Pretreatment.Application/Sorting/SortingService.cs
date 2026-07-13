@@ -386,6 +386,14 @@ public class SortingService : BaseService, ISortingService, IDynamicApi
             }
         }
 
+        //purposeList.ForEach(v =>
+        //{
+        //    if (v.GroupCode == LimsConsts.PathologyGroupCode)
+        //    {
+        //        v.TestExamPlanCode = "01";
+        //    }
+        //});
+
         if (purposeList.Exists(v => string.IsNullOrWhiteSpace(v.TestExamPlanCode)))
             throw ResultOutput.Exception($"{barcode}{purposeList.First(v => string.IsNullOrWhiteSpace(v.TestExamPlanCode)).PurName}未设置检测计划，请先设置！");
 

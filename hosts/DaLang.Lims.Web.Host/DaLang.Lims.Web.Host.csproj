@@ -36,6 +36,7 @@
 		<ProjectReference Include="..\..\framework\DaLang.Lims.Web.Module.Dev\DaLang.Lims.Web.Dev.csproj" />
 		<ProjectReference Include="..\..\modules\BasicData\DaLang.Lims.BaseData.Application\DaLang.Lims.BaseData.Application.csproj" />
 		<ProjectReference Include="..\..\modules\Exam\DaLang.Lims.Exam.Application\DaLang.Lims.Exam.Application.csproj" />
+		<ProjectReference Include="..\..\modules\OpenSlide\DaLang.Lims.OpenSlide.Application\DaLang.Lims.OpenSlide.Application.csproj" />
 		<ProjectReference Include="..\..\modules\Pathology\DaLang.Lims.Pathology.Application\DaLang.Lims.Pathology.Application.csproj" />
 		<ProjectReference Include="..\..\modules\Pretreatment\DaLang.Lims.Pretreatment.Application\DaLang.Lims.Pretreatment.Application.csproj" />
 		<ProjectReference Include="..\..\modules\ReportTemplate\DaLang.Lims.ReportTemplate.Application\DaLang.Lims.ReportTemplate.Application.csproj" />

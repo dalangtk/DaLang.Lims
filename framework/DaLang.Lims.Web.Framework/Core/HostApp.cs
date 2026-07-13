@@ -140,6 +140,9 @@ public class HostApp
             var env = builder.Environment;
             var configuration = builder.Configuration;
 
+            // 注册 IHttpContextAccessor
+            services.AddHttpContextAccessor();
+
             //添加配置
             configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())

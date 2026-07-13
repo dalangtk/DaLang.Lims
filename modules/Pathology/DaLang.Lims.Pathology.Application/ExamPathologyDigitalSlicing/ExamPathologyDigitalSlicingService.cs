@@ -51,6 +51,7 @@ public class ExamPathologyDigitalSlicingService : BaseService, IExamPathologyDig
 
         var list = await _examPathologyDigitalSlicingRep.AsQueryable()
             .WhereIF(input.ExamInfoId != null, a => a.ExamInfoId == input.ExamInfoId)
+            .IgnoreColumns(v => v.SlicingPath)
             .OrderByDescending(a => a.Id)
             .Select<ExamPathologyDigitalSlicingDto>()
             .ToListAsync();
