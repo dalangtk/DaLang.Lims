@@ -13,6 +13,10 @@ namespace DaLang.Lims.Web.Common.Helpers
         {
             return string.IsNullOrWhiteSpace(str);
         }
+        public static bool CheckNull(this long? obj)
+        {
+            return obj is null;
+        }
 
         public static void ThrowNotSupportedException(string message)
         {

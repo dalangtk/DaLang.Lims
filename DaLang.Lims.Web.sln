@@ -119,6 +119,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07OpenSlide", "07OpenSlide"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.OpenSlide.Application", "modules\OpenSlide\DaLang.Lims.OpenSlide.Application\DaLang.Lims.OpenSlide.Application.csproj", "{0A311719-DB49-4D63-80E8-2F740FD4D8F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "98LimsTools", "98LimsTools", "{9600B649-02AC-4204-9E1C-F8199442D6C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLang.Lims.Tools", "limstools\DaLang.Lims.Tools\DaLang.Lims.Tools.csproj", "{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -301,6 +305,10 @@ Global
 		{0A311719-DB49-4D63-80E8-2F740FD4D8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A311719-DB49-4D63-80E8-2F740FD4D8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A311719-DB49-4D63-80E8-2F740FD4D8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -359,6 +367,7 @@ Global
 		{C2508FCB-BBF2-4297-A3F5-4FB388507031} = {14CA63AC-0AD9-4852-AF2B-8394E26B5A92}
 		{8DDE41B7-BA1A-4840-8DA1-C44C02D340A4} = {A7D7F4FA-4286-4727-82D6-2C78E17D16E6}
 		{0A311719-DB49-4D63-80E8-2F740FD4D8F8} = {8DDE41B7-BA1A-4840-8DA1-C44C02D340A4}
+		{A8DB5F00-3878-4E2E-8DB9-4D76B0C8796A} = {9600B649-02AC-4204-9E1C-F8199442D6C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

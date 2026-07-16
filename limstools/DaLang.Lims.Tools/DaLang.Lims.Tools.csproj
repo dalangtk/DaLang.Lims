@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\dalang.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\dalang.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="HandyControl" Version="3.6.0-rc3" />
+    <PackageReference Include="NewLife.Core" Version="11.17.2026.713-beta0601" />
+    <PackageReference Include="WPFMediaKit" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\DaLang.Lims.Web.Common\DaLang.Lims.Web.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Seagull.BarTender.Print">
+      <HintPath>DLL\Seagull.BarTender.Print.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DLL\Seagull.BarTender.Print.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

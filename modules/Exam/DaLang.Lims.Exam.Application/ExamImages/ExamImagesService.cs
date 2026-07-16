@@ -2,7 +2,10 @@
 using DaLang.Lims.Exam.Contracts.ExamImages.Dto;
 using DaLang.Lims.Exam.Core.Consts;
 using DaLang.Lims.Exam.Domain.ExamImages;
+using DaLang.Lims.Shared.Contracts.ExamInfo.Dto;
 using DaLang.Lims.Shared.Domain.ExamInfo;
+using DaLang.Lims.Web.Common.Enums;
+using DaLang.Lims.Web.Common.Extensions;
 using DaLang.Lims.Web.DynamicApi;
 using DaLang.Lims.Web.DynamicApi.Attributes;
 using DaLang.Lims.Web.Framework.Core.Db.SqlSugar;
@@ -154,6 +157,21 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
     /// <returns></returns>
     public async Task<FileEntity> UploadExamImage([Required] IFormFile file, long examInfoId, bool isGrossExamination = false)
     {
+        var examInfo = await _examInfoRep.AsQueryable()
+            .Where(v=>v.Id == examInfoId)
+            .Select(v => new ExamInfoDto
+            {
+                WFCode = v.WFCode,
+                SampleStatus = v.SampleStatus
+            }).FirstAsync();
+
+        if (examInfo.SampleStatus != SampleStatusEnum.Testing.ToInt()
+            && examInfo.SampleStatus != SampleStatusEnum.ReportDelay.ToInt()
+            && examInfo.SampleStatus != SampleStatusEnum.GiantInspection.ToInt())
+        {
+            throw ResultOutput.Exception("当前样本状态不允许上传图片！");
+        }
+
         var fileRet = await _fileService.UploadFileAsync(file, "lims\\exam\\examimage", true, "", false);
         var image = new ExamImagesDto
         {
@@ -164,14 +182,14 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
             IsShow = true
         };
 
-        var antiBody = await GetImageDefaultDict(examInfoId, "AntiBody");
+        var antiBody = await GetImageDefaultDict(examInfo.WFCode, "AntiBody");
         if (antiBody != null)
         {
             image.AntiBodyCode = antiBody.Code;
             image.AntiBodyCode = antiBody.Name;
         }
 
-        var zoom = await GetImageDefaultDict(examInfoId, "Zoom");
+        var zoom = await GetImageDefaultDict(examInfo.WFCode, "Zoom");
         if (zoom != null)
         {
             image.ZoomCode = zoom.Code;
@@ -181,10 +199,8 @@ public class ExamImagesService : BaseService, IExamImagesService, IDynamicApi
         await _examImagesRep.InsertAsync(image.Adapt<ExamImagesEntity>());
         return fileRet;
     }
-    private async Task<DictGetListDto?> GetImageDefaultDict(long examInfoId, string dictCode)
+    private async Task<DictGetListDto?> GetImageDefaultDict(string wfCode, string dictCode)
     {
-        var wfCode = await _examInfoRep.AsQueryable().Select(v => v.WFCode).FirstAsync();
-
         var dicts = await _dictService.GetDictByTypeCodeAsync(dictCode);
         if (dicts.Exists(v => v.Description?.Split(',').Contains(wfCode) == true))
             return dicts.First(v => v.Description?.Split(',').Contains(wfCode) == true);
