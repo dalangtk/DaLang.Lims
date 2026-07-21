@@ -78,6 +78,7 @@ public partial class CameraView : Window
         if (_examInfoId <= 0)
             return;
 
+        var baseUrl = AppSettings.Configuration["LimsServiceUrl"];
         var bmp = new RenderTargetBitmap((int)vce.ActualWidth, (int)vce.ActualHeight, 96, 96, PixelFormats.Default);
         bmp.Render(vce);
         var encoder = new JpegBitmapEncoder();
@@ -85,10 +86,10 @@ public partial class CameraView : Window
         using (MemoryStream ms = new MemoryStream())
         {
             encoder.Save(ms);
-            byte[] captureData = ms.ToArray();
-            File.WriteAllBytes("E:/1.jpg", captureData);
 
-            var ret = await CommonHelper.UploadFile("E:/1.jpg", "http://localhost:8000/api/exam/exam-images/upload-exam-image", _examInfoId, _isGrossExamination, _accessToken);
+            var fileName = $"{_sampleNo}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.jpg";
+
+            var ret = await CommonHelper.UploadFile(ms, fileName, $"{baseUrl}/api/exam/exam-images/upload-exam-image", _examInfoId, _isGrossExamination, _accessToken);
 
             var result = JsonHelper.Deserialize<MessageResult>(ret);
             if (!result.Success)

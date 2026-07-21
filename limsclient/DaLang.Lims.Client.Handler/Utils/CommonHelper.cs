@@ -1,11 +1,8 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.Json;
 
-namespace DaLang.Lims.Tools.Util;
+namespace DaLang.Lims.Client.Handler.Util;
 
 public static class CommonHelper
 {

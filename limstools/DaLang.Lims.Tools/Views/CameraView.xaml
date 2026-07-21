@@ -7,8 +7,9 @@
         xmlns:lc="clr-namespace:DaLang.Lims.Tools.Converters"
         mc:Ignorable="d"
         Icon="/Resources/dalang.ico"
+        WindowStartupLocation="CenterScreen"
         xmlns:wpfmedia="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
-        Title="CameraView" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="CameraView" Height="400" Width="400" Loaded="Window_Loaded">
     <Window.Resources>
         <lc:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Window.Resources>
