@@ -601,7 +601,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             {
                 var password = MD5Encrypt.Encrypt32(input.Password);
                 valid = user.Password == password;
-                valid = true;
+                //valid = true;
             }
         }
 

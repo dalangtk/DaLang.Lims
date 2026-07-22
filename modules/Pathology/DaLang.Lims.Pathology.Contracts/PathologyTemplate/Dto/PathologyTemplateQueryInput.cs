@@ -8,4 +8,5 @@ public class PathologyTemplateQueryInput
     public string? TemplateCode { get; set; }
     public string WFCode { get; set; }
     public int? TemplateType { get; set; }
+    public List<string> SampleTypeCodes { get; set; } = new List<string>();
 }

@@ -19,11 +19,11 @@ public interface IBasePathologyTemplateService
     Task<PageOutput<PathologyTemplateDto>> GetPageAsync(PageInput<PathologyTemplateQueryInput> input);
 
     /// <summary>
-    /// 根据工作流获取所有模板
+    /// 查询模板列表
     /// </summary>
-    /// <param name="wfCode"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    Task<List<PathologyTemplateDto>> GetListByWfCode(string wfCode);
+    Task<List<PathologyTemplateDto>> GetTemplateList(PathologyTemplateQueryInput input);
 
     /// <summary>
     /// 新增

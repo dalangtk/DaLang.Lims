@@ -72,22 +72,51 @@ public class BasePathologyTemplateService : BaseService, IBasePathologyTemplateS
     }
 
     /// <summary>
-    /// 根据工作流获取所有模板
+    /// 查询模板列表
     /// </summary>
-    /// <param name="wfCode"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    [HttpGet]
-    public async Task<List<PathologyTemplateDto>> GetListByWfCode(string wfCode)
+    [HttpPost]
+    public async Task<List<PathologyTemplateDto>> GetTemplateList(PathologyTemplateQueryInput input)
     {
-        if (string.IsNullOrWhiteSpace(wfCode))
+        if (string.IsNullOrWhiteSpace(input.WFCode))
             throw ResultOutput.Exception("invalid wfCode.");
 
-        var list = await _basePathologyTemplateRep
-            .AsQueryable()
-            .IgnoreColumns(v => v.TemplateContent)
-            .Where(v => v.WFCode == wfCode)
-            .OrderBy(v => v.Sort)
-            .ToListAsync();
+        var list = new List<BasePathologyTemplateEntity>();
+        if (input.WFCode.Equals("histology"))
+        {
+            if (input.SampleTypeCodes != null && input.SampleTypeCodes.Any())
+            {
+                var sampleTypes = await _basePathologySampleTypeRep.GetListAsync(v => input.SampleTypeCodes.Contains(v.SampleTypeCode!));
+
+                if (sampleTypes.Any())
+                {
+                    var templateCodes = sampleTypes.FindAll(v => !string.IsNullOrWhiteSpace(v.TemplateCode))
+                        .SelectMany(v => v.TemplateCode!.Split(',')).ToList();
+                    if (templateCodes.Any())
+                    {
+                        list = await _basePathologyTemplateRep
+                            .AsQueryable()
+                            .IgnoreColumns(v => v.TemplateContent)
+                            .Where(v => v.WFCode == input.WFCode)
+                            .Where(v => templateCodes.Contains(v.TemplateCode))
+                            .WhereIF(input.TemplateType != null, v => v.TemplateType == input.TemplateType)
+                            .OrderBy(v => v.Sort)
+                            .ToListAsync();
+                    }
+                }
+            }
+        }
+        else
+        {
+            list = await _basePathologyTemplateRep
+                .AsQueryable()
+                .IgnoreColumns(v => v.TemplateContent)
+                .Where(v => v.WFCode == input.WFCode)
+                .WhereIF(input.TemplateType != null, v => v.TemplateType == input.TemplateType)
+                .OrderBy(v => v.Sort)
+                .ToListAsync();
+        }
 
         return list.Adapt<List<PathologyTemplateDto>>();
     }

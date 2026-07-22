@@ -100,8 +100,14 @@ public class ExamPathologyCandleService : BaseService, IExamPathologyCandleServi
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
+    [AdminTransaction]
     public async Task<bool> DeleteAsync(long id)
     {
+        await _examPathologySectionRep
+            .SetColumnUpdateable(a => a.IsDeleted == true)
+            .Where(a => a.CandleId == id)
+            .ExecuteCommandAsync();
+
         return await _examPathologyCandleRep
             .SetColumnUpdateable(a => a.IsDeleted == true)
             .Where(a => a.Id == id)
