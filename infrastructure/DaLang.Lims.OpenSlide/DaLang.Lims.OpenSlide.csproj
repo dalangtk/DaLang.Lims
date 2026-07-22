@@ -13,6 +13,10 @@
 		<DefineConstants>$(DefineConstants);NO_NULLABLE_REFERENCE</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);LINUX;NO_NULLABLE_REFERENCE;OSX</DefineConstants>
+	</PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="PooledGrowableBufferHelper" Version="1.0.14" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
