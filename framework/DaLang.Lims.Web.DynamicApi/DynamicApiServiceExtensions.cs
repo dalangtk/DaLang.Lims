@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using DaLang.Lims.Web.DynamicApi.Helpers;
+using System.IO;
 
 namespace DaLang.Lims.Web.DynamicApi;
 
@@ -111,8 +112,6 @@ public static class DynamicApiServiceExtensions
         {
             throw new InvalidOperationException("\"AddDynamicApi\" must be after \"AddMvc\".");
         }
-
-        // Add a custom controller checker
         partManager.FeatureProviders.Add(new DynamicApiControllerFeatureProvider(options.SelectController));
 
         services.Configure<MvcOptions>(o =>

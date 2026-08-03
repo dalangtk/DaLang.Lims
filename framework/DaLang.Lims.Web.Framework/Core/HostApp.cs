@@ -1,6 +1,4 @@
-﻿using AspectCore.Configuration;
-using AspectCore.Extensions.DependencyInjection;
-using AspNetCoreRateLimit;
+﻿using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DaLang.Lims.Web.Common.Helpers;
@@ -19,6 +17,7 @@ using DaLang.Lims.Web.Framework.Core.Extensions;
 using DaLang.Lims.Web.Framework.Core.Filters;
 using DaLang.Lims.Web.Framework.Core.Logs;
 using DaLang.Lims.Web.Framework.Core.Middlewares;
+using DaLang.Lims.Web.Framework.Core.QuartzTask.Extensions;
 using DaLang.Lims.Web.Framework.Core.RegisterModules;
 using DaLang.Lims.Web.Framework.Core.Startup;
 using DaLang.Lims.Web.Framework.Core.Validators;
@@ -267,6 +266,12 @@ public class HostApp
             app.Lifetime.ApplicationStarted.Register(() =>
             {
                 AppInfo.IsRun = true;
+                _hostAppOptions?.OnApplicationStarted?.Invoke(new HostAppMiddlewareContext()
+                {
+                    App = app,
+                    Environment = env,
+                    Configuration = configuration
+                });
             });
 
             app.Lifetime.ApplicationStopped.Register(() =>
@@ -796,6 +801,9 @@ public class HostApp
         #endregion Swagger Api文档
 
         services.AddHttpClient();
+        //定时任务
+        services.AddQuartzUI();
+        //services.AddHostedService<QuartzStartupService>();
 
         _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
 

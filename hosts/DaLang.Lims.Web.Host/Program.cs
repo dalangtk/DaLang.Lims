@@ -3,8 +3,8 @@ using DaLang.Lims.Web.ApiUI;
 using DaLang.Lims.Web.Common.Helpers;
 using DaLang.Lims.Web.Framework.Core;
 using DaLang.Lims.Web.Framework.Core.Configs;
+using DaLang.Lims.Web.Framework.Core.QuartzTask.Extensions;
 using DaLang.Lims.Web.Framework.Core.Startup;
-using Microsoft.AspNetCore.DataProtection;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System.Reflection;
 
@@ -116,6 +116,11 @@ new HostApp(new HostAppOptions
     ConfigureSwaggerUI = options =>
     {
         //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
+    },
+    OnApplicationStarted = context =>
+    {
+        var app = context.App;
+        app.UseQuartz();
     }
 }).Run(args, typeof(Program).Assembly);
 

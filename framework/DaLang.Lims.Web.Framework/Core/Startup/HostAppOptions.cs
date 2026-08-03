@@ -64,6 +64,11 @@ public class HostAppOptions
     public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
 
     /// <summary>
+    /// 应用启动后事件
+    /// </summary>
+    public Action<HostAppMiddlewareContext> OnApplicationStarted { get; set; }
+
+    /// <summary>
     /// 配置动态Api
     /// </summary>
     public Action<DynamicApiOptions> ConfigureDynamicApi { get; set; }

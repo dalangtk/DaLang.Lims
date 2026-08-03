@@ -24,6 +24,7 @@ public static class OSSExtensions
             var bucketName = oSSOptions.BucketName;
             var minioClient = new MinioClient()
                 .WithEndpoint(oSSOptions.Endpoint)
+                .WithSSL(oSSOptions.IsEnableHttps)
                 .WithCredentials(oSSOptions.AccessKey, oSSOptions.SecretKey);
 
             if (oSSOptions.Region.NotNull())
