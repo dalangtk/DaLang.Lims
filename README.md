@@ -28,6 +28,8 @@ DaLang LIMS 基于 **.NET 8.0** + **Vue 3** 构建的现代化实验室信息管
 
 **演示地址：http://loveying.com.cn  账号：admin/123456**
 
+![agent]( https://raw.giteeusercontent.com/shabigou/dalang-lims/raw/pathology/images/15agent.png )
+
 ---
 
 ## 🤖 智能助手
