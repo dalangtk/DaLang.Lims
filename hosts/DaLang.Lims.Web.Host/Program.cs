@@ -1,4 +1,5 @@
 ﻿using AgileConfig.Client;
+using DaLang.Lims.Agent.Extension;
 using DaLang.Lims.Web.ApiUI;
 using DaLang.Lims.Web.Common.Helpers;
 using DaLang.Lims.Web.Framework.Core;
@@ -13,7 +14,6 @@ new HostApp(new HostAppOptions
 {
     ConfigurePreServices = context =>
     {
-
     },
     ConfigurePreWebApplicationBuilder = builder =>
     {
@@ -77,6 +77,9 @@ new HostApp(new HostAppOptions
                 dashoptions.PathMatch = "/cap";  //面板地址
             });
         }).AddSubscriberAssembly(assemblies);
+
+        var configuration = context.Configuration;
+        context.Services.AddAgent(configuration);
     },
 
     //配置Autofac容器
@@ -120,6 +123,7 @@ new HostApp(new HostAppOptions
     OnApplicationStarted = context =>
     {
         var app = context.App;
+        app.UseAgent();
         app.UseQuartz();
     }
 }).Run(args, typeof(Program).Assembly);

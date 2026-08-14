@@ -18,8 +18,19 @@
       "DaLang.Lims.Exam.Sqlsugar.Mysql",
       "DaLang.Lims.ReportTemplate.Application",
       "DaLang.Lims.ReportTemplate.Sqlsugar.Mysql",
-      "DaLang.Lims.Statistics.Application"
+      "DaLang.Lims.Statistics.Application",
+      "DaLang.Lims.Pathology.Application",
+      "DaLang.Lims.Pathology.Sqlsugar.Mysql",
+      "DaLang.Lims.OpenSlide.Application",
+      "DaLang.Lims.Agent.Application",
+      "DaLang.Lims.Agent",
+      "DaLang.Lims.Agent.Sqlsugar.Mysql"
     ],
+    "License": {
+      "LicenseKey": "b2Z2RVRxWVZhRUxvaW50NEwwaitJdlRCOWFWRHFYWnRlT0dtQUpHcXVlVXwyMDI3LTA3LTA4|ExUV5UVvjFkaV5OrD4q4/Kx0mDvP5VXpwCAp/rhiRfzh13cbM46mMiTEb5kLT+XeTd613WOEDpEyZ5m1hH4oQHmDwsG/mdX73uNZAx37C1oqGxtg98P1ul7hnMhLOnr1xFeywDPTbo0xiVAyxjZc/R+g9ShTXlNnJyHtLngGRbNNeWFIx9qbvqqMeC8QB/cUUFZnG/JWcN6e+ehaOYTNB5BXCMNpHgt1JurT0wxF4iLJal//jUfYxo714TDoEIShKQn5JgCB+2wYHJ6HbEPimcOpItu3EbqqSkrA+KX18RXpmGM8BoQF5vSipwFeVkygZcGymbUUgxk76V2hAEwjRQ==",
+      "PublicKey": "<RSAKeyValue>\r\n     <Modulus>pLXu9yXqemXD/ZOpNI5GuTgkYaGfhlkJknViNbha0yT2ziLt31b4/jsNf4SsSjsk9bKNTuiUz2uEztSfNwqEwtXWkiMiUfQd+1UEsW/dioTHBgWLTQWORYr2lBNdbAEzDJSyVUkbNrk1dGqumoKGhKrIXQ6XZp2dk2VeHPd4ulcuI1Mnmq6TkGVUu+cJ89vkpbZHpzo8vnSaj2DDTkmKBhdxpbgX1KyXi5fdJAdZRwj2rguCENEI4U6AGo/s9n54UlmNtZ+PzwCEOoIly8e6woCEDIeaXACYHOrIMsZn6PKzsuHTKRN5w621I5rnV1rTLmge3Hb607nfyygSqyNHow==</Modulus>\r\n     <Exponent>AQAB</Exponent>\r\n   </RSAKeyValue>"
+    },
+    "DigitalSelcingDirectory": "C:\\Users\\woshi\\Desktop\\digitalslicing",
     //租户
     "tenant": true,
     //分布式事务唯一标识admin，为空则不生成分布式事务表
@@ -92,6 +103,12 @@
           "description": ""
         },
         {
+          "name": "Pathology",
+          "code": "pathology",
+          "version": "v1.0.0",
+          "description": ""
+        },
+        {
           "name": "Template",
           "code": "template",
           "version": "v1.0.0",
@@ -100,6 +117,18 @@
         {
           "name": "Statistics",
           "code": "statistics",
+          "version": "v1.0.0",
+          "description": ""
+        },
+        {
+          "name": "OpenSlide",
+          "code": "openslide",
+          "version": "v1.0.0",
+          "description": ""
+        },
+        {
+          "name": "agent",
+          "code": "agent",
           "version": "v1.0.0",
           "description": ""
         }

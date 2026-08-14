@@ -266,12 +266,19 @@ public class HostApp
             app.Lifetime.ApplicationStarted.Register(() =>
             {
                 AppInfo.IsRun = true;
-                _hostAppOptions?.OnApplicationStarted?.Invoke(new HostAppMiddlewareContext()
+                try
                 {
-                    App = app,
-                    Environment = env,
-                    Configuration = configuration
-                });
+                    _hostAppOptions?.OnApplicationStarted?.Invoke(new HostAppMiddlewareContext()
+                    {
+                        App = app,
+                        Environment = env,
+                        Configuration = configuration
+                    });
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                }
             });
 
             app.Lifetime.ApplicationStopped.Register(() =>
@@ -858,13 +865,13 @@ public class HostApp
         });
         services.AddScoped<ISlideCaptcha, SlideCaptcha>();
 
-        _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
-
         //添加数据库
         if (!_hostAppOptions.CustomInitDb)
         {
             services.AddSqlSugar();
         }
+
+        _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
 
     /// <summary>

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\DaLang.Lims.Web.Framework\DaLang.Lims.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\..\infrastructure\DaLang.Lims.Agent\DaLang.Lims.Agent.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Agent.Contracts\DaLang.Lims.Agent.Contracts.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Agent.Skills\DaLang.Lims.Agent.Skills.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Agent.Sqlsugar.Mysql\DaLang.Lims.Agent.Sqlsugar.Mysql.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\infrastructure\DaLang.Lims.Agent\DaLang.Lims.Agent.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Contracts\DaLang.Lims.BaseData.Contracts.csproj" />
+    <ProjectReference Include="..\..\BasicData\DaLang.Lims.BaseData.Domain\DaLang.Lims.BaseData.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\DaLang.Lims.Shared.Domain\DaLang.Lims.Shared.Domain.csproj" />
+    <ProjectReference Include="..\DaLang.Lims.Agent.Domain\DaLang.Lims.Agent.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

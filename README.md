@@ -20,11 +20,47 @@
 
 DaLang LIMS 基于 **.NET 8.0** + **Vue 3** 构建的现代化实验室信息管理系统+病理系统，提供完整的实验室业务流程管理解决方案，采用前后端分离架构，支持跨平台运行。系统涵盖系统设置、基础数据管理、标本前处理、检验分析、病理学检测、报告生成等核心功能模块，支持客户端模式运行(包含标签打印，病理拍图等功能)。
 
+系统现已接入 **AI 智能助手**，支持自然语言数据查询、图表生成及 LIMS 系统操作指导，让实验室管理更加高效智能。
+
 **此项目为后台Api接口，前端及配套报告单工具项目地址：**
 - vue3前端: https://gitee.com/shabigou/dalang-lims-ui
 - 报告预览/生成器： https://gitee.com/shabigou/dalang-report-designer
 
 **演示地址：http://loveying.com.cn  账号：admin/123456**
+
+---
+
+## 🤖 智能助手
+
+系统已内置 AI 智能助手，作为你的 **数据查询助手** 和 **系统功能助手**，让数据查询和系统操作更加便捷高效。
+
+### 📊 数据查询
+
+- 查询各类统计数据，比如某个时间段内各客户发放的报告数量
+- 支持按客户、按日期进行分组统计
+- 可以根据需求生成图表（使用 ECharts）
+
+### 🗓️ 时间参数智能识别
+
+- 比如"上个月"、"最近7天"、"本月"等自然语言时间描述，助手会自动转换成对应的起止日期进行查询
+
+### 🔧 系统操作指导
+
+助手拥有 LIMS（实验室信息管理系统）操作指南技能，可以指导你完成：
+
+- 标本分拣与检验流程
+- 病理检测操作
+- 质控管理
+- 样本库管理
+- 财务结算
+- 统计分析等
+
+### ✅ 核心原则
+
+- 所有数据均来自系统真实查询结果，绝不编造数据
+- 每次查询都会调用对应的工具来获取真实数据
+
+> 💡 **使用示例**：试试让助手查询"上个月各客户的报告发放数量"，或者询问某个系统功能的操作流程～
 
 ---
 
@@ -39,6 +75,7 @@ DaLang LIMS 基于 **.NET 8.0** + **Vue 3** 构建的现代化实验室信息管
 | API 文档 | Knife4j/Swagger |
 | 缓存 | Redis + MemoryCache |
 | 权限认证 | JWT + Claim 认证 |
+| 智能助手 | AI 数据查询 + LIMS 操作指导 |
 
 ### 项目结构
 ```
@@ -267,6 +304,7 @@ dotnet run
 ## 效果图
 ![login]( https://gitee.com/shabigou/dalang-lims/raw/master/images/01login.png )
 ![homepage]( https://gitee.com/shabigou/dalang-lims/raw/master/images/02homepage.png )
+![agent]( https://gitee.com/shabigou/dalang-lims/raw/master/images/15agent.png )
 ![user]( https://gitee.com/shabigou/dalang-lims/raw/master/images/03user.png )
 ![role]( https://gitee.com/shabigou/dalang-lims/raw/master/images/04role.png )
 ![dict]( https://gitee.com/shabigou/dalang-lims/raw/master/images/05dict.png )

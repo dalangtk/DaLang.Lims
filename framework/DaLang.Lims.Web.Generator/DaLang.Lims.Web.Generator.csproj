@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <LangVersion>preview</LangVersion>
+	  <Nullable>enable</Nullable>
+	  <EnForceExtendedAnalyzerRules>true</EnForceExtendedAnalyzerRules>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<Description></Description>
+		<PackageTags></PackageTags>
+		<SignAssembly>False</SignAssembly>
+		<Authors />
+		<Version />
+		<Company />
+		<PackageProjectUrl />
+		<PackageIcon />
+		<RepositoryUrl />
+		<RepositoryType />
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+	</PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+  </ItemGroup>
+
+</Project>
