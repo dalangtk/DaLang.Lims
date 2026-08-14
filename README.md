@@ -303,8 +303,8 @@ dotnet run
 
 ## 效果图
 ![login]( https://gitee.com/shabigou/dalang-lims/raw/master/images/01login.png )
-![homepage]( https://gitee.com/shabigou/dalang-lims/raw/master/images/02homepage.png )
-![agent]( https://gitee.com/shabigou/dalang-lims/raw/master/images/15agent.png )
+![homepage]( https://raw.giteeusercontent.com/shabigou/dalang-lims/raw/pathology/images/02homepage.png )
+![agent]( https://raw.giteeusercontent.com/shabigou/dalang-lims/raw/pathology/images/15agent.png )
 ![user]( https://gitee.com/shabigou/dalang-lims/raw/master/images/03user.png )
 ![role]( https://gitee.com/shabigou/dalang-lims/raw/master/images/04role.png )
 ![dict]( https://gitee.com/shabigou/dalang-lims/raw/master/images/05dict.png )
